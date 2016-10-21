@@ -16,7 +16,17 @@ MainWindow::MainWindow(QWidget *parent) :
     pix->load("1");
     scen->addPixmap(*pix);
     ui->graphicsView->setScene(scen);
+
+    ui->tableWidget->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff); // прячу вертикальный скрол бар
+
+   /* this->setStyleSheet( "QTableWidget { gridline-color: green; }" );
+    this->setStyleSheet( "QTableWidget { border-collapse: separate; }" );
+    this->setStyleSheet( "QTableWidget { border-spacing: 7px 11px; }" );
+    ui->tableWidget->setStyleSheet("border-collapse: separate;"
+                                   "border-spacing: 7px 11px;");*/
 }
+
+
 
 MainWindow::~MainWindow()
 {

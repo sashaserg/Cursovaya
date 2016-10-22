@@ -7,15 +7,22 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    dt = QDateTime::currentDateTime(); //dateedit.DateTime выставляется в текущую дату
+    //dateEdit.DateTime выставляется в текущую дату
+    dt = QDateTime::currentDateTime();
     ui->dateEdit->setDateTime(dt);
     ui->dateEdit->setMinimumDateTime(dt); // минимальная дата выставляется по текущей дате
 
+    // устанавливаю картинки
     QGraphicsScene * scen = new QGraphicsScene();
     QPixmap * pix = new QPixmap();
     pix->load("1");
     scen->addPixmap(*pix);
     ui->graphicsView->setScene(scen);
+    pix = new QPixmap();
+    pix->load("scena");
+    scen = new QGraphicsScene();
+    scen->addPixmap(*pix);
+    ui->label_2->setPixmap(*pix);
 
     ui->tableWidget->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff); // прячу вертикальный скрол бар
 
@@ -31,4 +38,10 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::on_informationAbout_triggered()
+{
+    About *window = new About(this);
+    window->show();
 }

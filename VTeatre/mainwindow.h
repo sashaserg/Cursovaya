@@ -5,7 +5,7 @@
 #include <QDate>
 #include <QPixmap>
 #include <QGraphicsScene>
-
+#include "about.h"
 namespace Ui {
 class MainWindow;
 }
@@ -19,6 +19,9 @@ public:
     ~MainWindow();
     QDateTime dt; // переменная для записи текущей даты
     
+private slots:
+    void on_informationAbout_triggered();
+
 private:
     Ui::MainWindow *ui;
 };

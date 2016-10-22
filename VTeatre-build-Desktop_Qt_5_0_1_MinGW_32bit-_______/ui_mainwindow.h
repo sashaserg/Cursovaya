@@ -16,10 +16,12 @@
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QDateEdit>
 #include <QtWidgets/QGraphicsView>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
@@ -32,17 +34,21 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
+    QAction *informationAbout;
     QWidget *centralWidget;
-    QGraphicsView *graphicsView;
-    QComboBox *comboBox;
-    QDateEdit *dateEdit;
+    QGridLayout *gridLayout;
+    QLabel *label;
+    QLabel *label_2;
     QLineEdit *lineEdit;
     QPushButton *pushButton;
-    QLabel *label;
+    QComboBox *comboBox;
+    QTableWidget *tableWidget;
+    QDateEdit *dateEdit;
     QComboBox *comboBox_2;
     QPushButton *pushButton_2;
-    QTableWidget *tableWidget;
+    QGraphicsView *graphicsView;
     QMenuBar *menuBar;
+    QMenu *menu;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -50,42 +56,45 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(982, 754);
+        MainWindow->resize(770, 475);
         MainWindow->setAcceptDrops(false);
+        informationAbout = new QAction(MainWindow);
+        informationAbout->setObjectName(QStringLiteral("informationAbout"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        graphicsView = new QGraphicsView(centralWidget);
-        graphicsView->setObjectName(QStringLiteral("graphicsView"));
-        graphicsView->setGeometry(QRect(10, 360, 351, 161));
-        comboBox = new QComboBox(centralWidget);
-        comboBox->setObjectName(QStringLiteral("comboBox"));
-        comboBox->setGeometry(QRect(10, 120, 191, 31));
-        QFont font;
-        font.setPointSize(12);
-        comboBox->setFont(font);
-        dateEdit = new QDateEdit(centralWidget);
-        dateEdit->setObjectName(QStringLiteral("dateEdit"));
-        dateEdit->setGeometry(QRect(10, 160, 191, 31));
-        dateEdit->setFont(font);
-        dateEdit->setDateTime(QDateTime(QDate(2016, 1, 1), QTime(0, 0, 0)));
-        dateEdit->setCalendarPopup(true);
-        lineEdit = new QLineEdit(centralWidget);
-        lineEdit->setObjectName(QStringLiteral("lineEdit"));
-        lineEdit->setGeometry(QRect(10, 79, 151, 31));
-        lineEdit->setFont(font);
-        pushButton = new QPushButton(centralWidget);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(160, 80, 41, 31));
+        gridLayout = new QGridLayout(centralWidget);
+        gridLayout->setSpacing(6);
+        gridLayout->setContentsMargins(11, 11, 11, 11);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
         label = new QLabel(centralWidget);
         label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(10, 40, 61, 31));
-        comboBox_2 = new QComboBox(centralWidget);
-        comboBox_2->setObjectName(QStringLiteral("comboBox_2"));
-        comboBox_2->setGeometry(QRect(10, 200, 191, 31));
-        comboBox_2->setFont(font);
-        pushButton_2 = new QPushButton(centralWidget);
-        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-        pushButton_2->setGeometry(QRect(10, 240, 191, 51));
+
+        gridLayout->addWidget(label, 0, 0, 1, 1);
+
+        label_2 = new QLabel(centralWidget);
+        label_2->setObjectName(QStringLiteral("label_2"));
+
+        gridLayout->addWidget(label_2, 0, 2, 2, 1);
+
+        lineEdit = new QLineEdit(centralWidget);
+        lineEdit->setObjectName(QStringLiteral("lineEdit"));
+        QFont font;
+        font.setPointSize(12);
+        lineEdit->setFont(font);
+
+        gridLayout->addWidget(lineEdit, 1, 0, 1, 1);
+
+        pushButton = new QPushButton(centralWidget);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+
+        gridLayout->addWidget(pushButton, 1, 1, 1, 1);
+
+        comboBox = new QComboBox(centralWidget);
+        comboBox->setObjectName(QStringLiteral("comboBox"));
+        comboBox->setFont(font);
+
+        gridLayout->addWidget(comboBox, 2, 0, 1, 2);
+
         tableWidget = new QTableWidget(centralWidget);
         if (tableWidget->columnCount() < 9)
             tableWidget->setColumnCount(9);
@@ -179,17 +188,45 @@ public:
         QTableWidgetItem *__qtablewidgetitem33 = new QTableWidgetItem();
         tableWidget->setItem(1, 7, __qtablewidgetitem33);
         tableWidget->setObjectName(QStringLiteral("tableWidget"));
-        tableWidget->setGeometry(QRect(210, 80, 551, 271));
         tableWidget->horizontalHeader()->setVisible(false);
         tableWidget->horizontalHeader()->setDefaultSectionSize(61);
         tableWidget->verticalHeader()->setVisible(false);
         tableWidget->verticalHeader()->setCascadingSectionResizes(false);
         tableWidget->verticalHeader()->setDefaultSectionSize(27);
         tableWidget->verticalHeader()->setMinimumSectionSize(21);
+
+        gridLayout->addWidget(tableWidget, 2, 2, 4, 1);
+
+        dateEdit = new QDateEdit(centralWidget);
+        dateEdit->setObjectName(QStringLiteral("dateEdit"));
+        dateEdit->setFont(font);
+        dateEdit->setDateTime(QDateTime(QDate(2016, 1, 1), QTime(0, 0, 0)));
+        dateEdit->setCalendarPopup(true);
+
+        gridLayout->addWidget(dateEdit, 3, 0, 1, 2);
+
+        comboBox_2 = new QComboBox(centralWidget);
+        comboBox_2->setObjectName(QStringLiteral("comboBox_2"));
+        comboBox_2->setFont(font);
+
+        gridLayout->addWidget(comboBox_2, 4, 0, 1, 2);
+
+        pushButton_2 = new QPushButton(centralWidget);
+        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
+
+        gridLayout->addWidget(pushButton_2, 5, 0, 1, 2);
+
+        graphicsView = new QGraphicsView(centralWidget);
+        graphicsView->setObjectName(QStringLiteral("graphicsView"));
+
+        gridLayout->addWidget(graphicsView, 6, 0, 1, 3);
+
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 982, 21));
+        menuBar->setGeometry(QRect(0, 0, 770, 21));
+        menu = new QMenu(menuBar);
+        menu->setObjectName(QStringLiteral("menu"));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -197,6 +234,9 @@ public:
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         MainWindow->setStatusBar(statusBar);
+
+        menuBar->addAction(menu->menuAction());
+        menu->addAction(informationAbout);
 
         retranslateUi(MainWindow);
 
@@ -206,20 +246,16 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
+        informationAbout->setText(QApplication::translate("MainWindow", "\320\230\320\275\321\204\320\276\321\200\320\274\320\260\321\206\320\270\321\217", 0));
+        label->setText(QApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">\320\237\320\276\320\270\321\201\320\272:</span></p></body></html>", 0));
+        label_2->setText(QApplication::translate("MainWindow", "\320\241\321\206\320\265\320\275\320\260", 0));
+        pushButton->setText(QString());
         comboBox->clear();
         comboBox->insertItems(0, QStringList()
          << QApplication::translate("MainWindow", "\320\242\320\265\320\260\321\202\321\2001", 0)
          << QApplication::translate("MainWindow", "\320\242\320\265\320\260\321\202\321\2002", 0)
          << QApplication::translate("MainWindow", "\320\242\320\265\320\260\321\202\321\2003", 0)
         );
-        pushButton->setText(QString());
-        label->setText(QApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">\320\237\320\276\320\270\321\201\320\272:</span></p></body></html>", 0));
-        comboBox_2->clear();
-        comboBox_2->insertItems(0, QStringList()
-         << QApplication::translate("MainWindow", "\320\241\320\277\320\265\320\272\321\202\320\260\320\272\320\273\321\2141", 0)
-         << QApplication::translate("MainWindow", "\320\241\320\277\320\265\320\272\321\202\320\260\320\272\320\273\321\2142", 0)
-        );
-        pushButton_2->setText(QApplication::translate("MainWindow", "\320\236\321\202\320\272\321\200\321\213\321\202\321\214", 0));
         QTableWidgetItem *___qtablewidgetitem = tableWidget->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QApplication::translate("MainWindow", "\320\235\320\276\320\262\321\213\320\271 \321\201\321\202\320\276\320\273\320\261\320\265\321\206", 0));
         QTableWidgetItem *___qtablewidgetitem1 = tableWidget->horizontalHeaderItem(1);
@@ -287,6 +323,13 @@ public:
         ___qtablewidgetitem30->setText(QApplication::translate("MainWindow", "12", 0));
         tableWidget->setSortingEnabled(__sortingEnabled);
 
+        comboBox_2->clear();
+        comboBox_2->insertItems(0, QStringList()
+         << QApplication::translate("MainWindow", "\320\241\320\277\320\265\320\272\321\202\320\260\320\272\320\273\321\2141", 0)
+         << QApplication::translate("MainWindow", "\320\241\320\277\320\265\320\272\321\202\320\260\320\272\320\273\321\2142", 0)
+        );
+        pushButton_2->setText(QApplication::translate("MainWindow", "\320\236\321\202\320\272\321\200\321\213\321\202\321\214", 0));
+        menu->setTitle(QApplication::translate("MainWindow", "&\320\236 \320\277\321\200\320\276\320\264\321\203\320\272\321\202\320\265", 0));
     } // retranslateUi
 
 };

@@ -14,14 +14,17 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    about.cpp
+    about.cpp \
+    windowbuyer.cpp
 
 HEADERS  += mainwindow.h \
-    about.h
+    about.h \
+    windowbuyer.h
 
 FORMS    += mainwindow.ui \
     about.ui \
-    variant2.ui
+    variant2.ui \
+    windowbuyer.ui
 
 RESOURCES += \
     Resurs1.qrc

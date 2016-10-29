@@ -6,6 +6,8 @@
 #include <QPixmap>
 #include <QGraphicsScene>
 #include "about.h"
+#include "windowbuyer.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -21,6 +23,8 @@ public:
     
 private slots:
     void on_informationAbout_triggered();
+
+    void on_action_triggered();
 
 private:
     Ui::MainWindow *ui;

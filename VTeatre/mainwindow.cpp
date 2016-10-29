@@ -1,5 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <string>
+#include <QFileDialog>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -15,22 +17,33 @@ MainWindow::MainWindow(QWidget *parent) :
     // устанавливаю картинки
     QGraphicsScene * scen = new QGraphicsScene();
     QPixmap * pix = new QPixmap();
-    pix->load("1");
-    scen->addPixmap(*pix);
-    ui->graphicsView->setScene(scen);
     pix = new QPixmap();
     pix->load("scena");
     scen = new QGraphicsScene();
     scen->addPixmap(*pix);
     ui->label_2->setPixmap(*pix);
 
-    ui->tableWidget->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff); // прячу вертикальный скрол бар
+    QString fileName = "1";
+    QPixmap pix1;
+            if( pix1.load( fileName ) ) {
+                pix1.scaled(QSize(200,200));
+                QTableWidgetItem* item = new QTableWidgetItem( QFileInfo( fileName ).baseName() );
 
-   /* this->setStyleSheet( "QTableWidget { gridline-color: green; }" );
-    this->setStyleSheet( "QTableWidget { border-collapse: separate; }" );
-    this->setStyleSheet( "QTableWidget { border-spacing: 7px 11px; }" );
-    ui->tableWidget->setStyleSheet("border-collapse: separate;"
-                                   "border-spacing: 7px 11px;");*/
+                item->setData( Qt::DecorationRole, pix1 );
+                item->setFlags( item->flags() ^ Qt::ItemIsEditable );
+              /*  ui->tableWidget->setItem( 0, 1, item );
+                ui->tableWidget->setRowHeight( 0, 200 );
+                ui->tableWidget->setColumnWidth(1, 200);*/
+
+
+               /* QTableWidgetItem *ptw = new QTableWidgetItem;
+                ptw->setBackground( QBrush( QPixmap( "1" ) ) );
+                ui->tableWidget->setItem(0,0,ptw);*/
+            }
+   // ui->tableWidget->item(0,0)->setIcon(QIcon("1.jpg"));
+
+
+
 }
 
 
@@ -44,4 +57,9 @@ void MainWindow::on_informationAbout_triggered()
 {
     About *window = new About(this);
     window->show();
+}
+
+void MainWindow::on_action_triggered()
+{
+  // открытие окна покупателя, класс WindowBuyer
 }

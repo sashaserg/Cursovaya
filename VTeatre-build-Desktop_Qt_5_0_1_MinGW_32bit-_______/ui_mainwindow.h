@@ -116,23 +116,15 @@ public:
         tableWidget->setVerticalHeaderItem(11, __qtablewidgetitem20);
         QTableWidgetItem *__qtablewidgetitem21 = new QTableWidgetItem();
         tableWidget->setVerticalHeaderItem(12, __qtablewidgetitem21);
-        QBrush brush(QColor(170, 170, 255, 255));
-        brush.setStyle(Qt::SolidPattern);
         QTableWidgetItem *__qtablewidgetitem22 = new QTableWidgetItem();
-        __qtablewidgetitem22->setBackground(brush);
         tableWidget->setItem(0, 0, __qtablewidgetitem22);
         QTableWidgetItem *__qtablewidgetitem23 = new QTableWidgetItem();
-        __qtablewidgetitem23->setBackground(brush);
         tableWidget->setItem(0, 1, __qtablewidgetitem23);
-        QBrush brush1(QColor(0, 255, 0, 255));
-        brush1.setStyle(Qt::SolidPattern);
         QTableWidgetItem *__qtablewidgetitem24 = new QTableWidgetItem();
         __qtablewidgetitem24->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter|Qt::AlignCenter);
-        __qtablewidgetitem24->setBackground(brush1);
         tableWidget->setItem(0, 2, __qtablewidgetitem24);
         QTableWidgetItem *__qtablewidgetitem25 = new QTableWidgetItem();
         __qtablewidgetitem25->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter|Qt::AlignCenter);
-        __qtablewidgetitem25->setBackground(brush1);
         tableWidget->setItem(0, 3, __qtablewidgetitem25);
         QTableWidgetItem *__qtablewidgetitem26 = new QTableWidgetItem();
         tableWidget->setItem(0, 4, __qtablewidgetitem26);
@@ -140,22 +132,19 @@ public:
         tableWidget->setItem(0, 5, __qtablewidgetitem27);
         QTableWidgetItem *__qtablewidgetitem28 = new QTableWidgetItem();
         tableWidget->setItem(0, 6, __qtablewidgetitem28);
+        QBrush brush(QColor(170, 170, 255, 255));
+        brush.setStyle(Qt::SolidPattern);
         QTableWidgetItem *__qtablewidgetitem29 = new QTableWidgetItem();
         __qtablewidgetitem29->setBackground(brush);
         tableWidget->setItem(1, 0, __qtablewidgetitem29);
         QTableWidgetItem *__qtablewidgetitem30 = new QTableWidgetItem();
         __qtablewidgetitem30->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter|Qt::AlignCenter);
-        __qtablewidgetitem30->setBackground(brush1);
         tableWidget->setItem(1, 1, __qtablewidgetitem30);
-        QBrush brush2(QColor(255, 0, 0, 255));
-        brush2.setStyle(Qt::SolidPattern);
         QTableWidgetItem *__qtablewidgetitem31 = new QTableWidgetItem();
         __qtablewidgetitem31->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter|Qt::AlignCenter);
-        __qtablewidgetitem31->setBackground(brush2);
         tableWidget->setItem(1, 2, __qtablewidgetitem31);
         QTableWidgetItem *__qtablewidgetitem32 = new QTableWidgetItem();
         __qtablewidgetitem32->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter|Qt::AlignCenter);
-        __qtablewidgetitem32->setBackground(brush2);
         tableWidget->setItem(1, 3, __qtablewidgetitem32);
         QTableWidgetItem *__qtablewidgetitem33 = new QTableWidgetItem();
         tableWidget->setItem(1, 4, __qtablewidgetitem33);
@@ -167,6 +156,15 @@ public:
         tableWidget->setItem(1, 7, __qtablewidgetitem36);
         tableWidget->setObjectName(QStringLiteral("tableWidget"));
         tableWidget->setGeometry(QRect(10, 120, 551, 341));
+        tableWidget->setStyleSheet(QLatin1String("QTableWidget::item\n"
+"                {\n"
+"                border-style: outset;\n"
+"                border-width: 2px;\n"
+"                border-radius: 10px;\n"
+"                border-color: beige;\n"
+"                }\n"
+"\n"
+"					"));
         tableWidget->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         tableWidget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         tableWidget->setShowGrid(false);
@@ -362,7 +360,7 @@ public:
 
         label->setText(QApplication::translate("MainWindow", "\320\236\321\202\320\274\320\265\321\207\320\265\320\275\320\276:", 0));
         label_3->setText(QApplication::translate("MainWindow", "\320\232 \320\276\320\277\320\273\320\260\321\202\320\265:", 0));
-        pushButton->setText(QApplication::translate("MainWindow", "\320\236\320\277\320\273\320\260\321\202\320\270\321\202\321\214", 0));
+        pushButton->setText(QString());
         menu->setTitle(QApplication::translate("MainWindow", "&\320\236 \320\277\321\200\320\276\320\264\321\203\320\272\321\202\320\265", 0));
         menu_2->setTitle(QApplication::translate("MainWindow", "\320\237\321\200\320\276\320\263\321\200\320\260\320\274\320\274\320\260", 0));
     } // retranslateUi

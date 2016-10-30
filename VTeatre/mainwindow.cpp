@@ -17,33 +17,28 @@ MainWindow::MainWindow(QWidget *parent) :
     // устанавливаю картинки
     QGraphicsScene * scen = new QGraphicsScene();
     QPixmap * pix = new QPixmap();
-    pix = new QPixmap();
     pix->load("scena");
     scen = new QGraphicsScene();
     scen->addPixmap(*pix);
     ui->label_2->setPixmap(*pix);
 
-    QString fileName = "1";
-    QPixmap pix1;
-            if( pix1.load( fileName ) ) {
-                pix1.scaled(QSize(200,200));
-                QTableWidgetItem* item = new QTableWidgetItem( QFileInfo( fileName ).baseName() );
+    /* for(int i = 0; i < ui->tableWidget->rowCount(); i++)
+        for(int j = 0; j < ui->tableWidget->columnCount(); j++)
+            ui->tableWidget->item(i,j)->setTextAlignment(Qt::AlignCenter);*/ // Нужно поставить текст ячейки по центру.
 
-                item->setData( Qt::DecorationRole, pix1 );
+    ui->tableWidget->setStyleSheet(""); // перезаписываю стиль
+// вставляю картинку и текст в ячейку------------------
+    pix = new QPixmap();
+    pix->load("1");
+    QTableWidgetItem *item = new QTableWidgetItem;
+    item->setBackground(QBrush(*pix));
+    item->setText("12");
+    ui->tableWidget->setItem( 0, 1, item );
+// -----------------------------------------------
+
+               /* item->setData( Qt::DecorationRole, *pix );
                 item->setFlags( item->flags() ^ Qt::ItemIsEditable );
-              /*  ui->tableWidget->setItem( 0, 1, item );
-                ui->tableWidget->setRowHeight( 0, 200 );
-                ui->tableWidget->setColumnWidth(1, 200);*/
-
-
-               /* QTableWidgetItem *ptw = new QTableWidgetItem;
-                ptw->setBackground( QBrush( QPixmap( "1" ) ) );
-                ui->tableWidget->setItem(0,0,ptw);*/
-            }
-   // ui->tableWidget->item(0,0)->setIcon(QIcon("1.jpg"));
-
-
-
+                ui->tableWidget->setItem( 0, 1, item );*/
 }
 
 

@@ -8,9 +8,5 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
 
-    string str;
-    getline(cin, str);
-    cout << "Size of str: " << str;
-
    return a.exec();
 }

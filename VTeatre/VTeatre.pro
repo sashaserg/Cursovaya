@@ -23,7 +23,6 @@ HEADERS  += mainwindow.h \
 
 FORMS    += mainwindow.ui \
     about.ui \
-    variant2.ui \
     windowbuyer.ui
 
 RESOURCES += \

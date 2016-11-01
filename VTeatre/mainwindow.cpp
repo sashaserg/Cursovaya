@@ -26,7 +26,6 @@ MainWindow::MainWindow(QWidget *parent) :
         for(int j = 0; j < ui->tableWidget->columnCount(); j++)
             ui->tableWidget->item(i,j)->setTextAlignment(Qt::AlignCenter);*/ // Нужно поставить текст ячейки по центру.
 
-    ui->tableWidget->setStyleSheet(""); // перезаписываю стиль
 // вставляю картинку и текст в ячейку------------------
     pix = new QPixmap();
     pix->load("1");

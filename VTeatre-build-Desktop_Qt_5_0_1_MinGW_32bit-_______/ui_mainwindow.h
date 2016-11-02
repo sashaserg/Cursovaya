@@ -40,14 +40,15 @@ public:
     QTableWidget *tableWidget_3;
     QPushButton *pushButton;
     QComboBox *comboBox;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QVBoxLayout *verticalLayout;
     QDateEdit *dateEdit;
     QTableWidget *tableWidget_2;
-    QWidget *widget1;
+    QWidget *layoutWidget1;
     QVBoxLayout *verticalLayout_2;
     QLabel *label;
     QLabel *label_3;
+    QLabel *label_4;
     QMenuBar *menuBar;
     QMenu *menu;
     QMenu *menu_2;
@@ -58,7 +59,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(891, 625);
+        MainWindow->resize(894, 585);
         MainWindow->setAcceptDrops(false);
         MainWindow->setStyleSheet(QLatin1String("background-color: #f1f2f8;\n"
 ""));
@@ -133,10 +134,7 @@ public:
         tableWidget->setItem(0, 5, __qtablewidgetitem27);
         QTableWidgetItem *__qtablewidgetitem28 = new QTableWidgetItem();
         tableWidget->setItem(0, 6, __qtablewidgetitem28);
-        QBrush brush(QColor(170, 170, 255, 255));
-        brush.setStyle(Qt::SolidPattern);
         QTableWidgetItem *__qtablewidgetitem29 = new QTableWidgetItem();
-        __qtablewidgetitem29->setBackground(brush);
         tableWidget->setItem(1, 0, __qtablewidgetitem29);
         QTableWidgetItem *__qtablewidgetitem30 = new QTableWidgetItem();
         __qtablewidgetitem30->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter|Qt::AlignCenter);
@@ -156,7 +154,7 @@ public:
         QTableWidgetItem *__qtablewidgetitem36 = new QTableWidgetItem();
         tableWidget->setItem(1, 7, __qtablewidgetitem36);
         tableWidget->setObjectName(QStringLiteral("tableWidget"));
-        tableWidget->setGeometry(QRect(10, 120, 611, 391));
+        tableWidget->setGeometry(QRect(10, 90, 611, 391));
         tableWidget->setStyleSheet(QLatin1String("border-style: solid;\n"
 "border-width: 5px;\n"
 "border-radius: 10px;		\n"
@@ -175,7 +173,7 @@ public:
         tableWidget->verticalHeader()->setMinimumSectionSize(21);
         label_2 = new QLabel(centralWidget);
         label_2->setObjectName(QStringLiteral("label_2"));
-        label_2->setGeometry(QRect(10, 90, 611, 21));
+        label_2->setGeometry(QRect(10, 60, 611, 21));
         tableWidget_3 = new QTableWidget(centralWidget);
         if (tableWidget_3->columnCount() < 2)
             tableWidget_3->setColumnCount(2);
@@ -198,7 +196,7 @@ public:
         QTableWidgetItem *__qtablewidgetitem44 = new QTableWidgetItem();
         tableWidget_3->setItem(1, 1, __qtablewidgetitem44);
         tableWidget_3->setObjectName(QStringLiteral("tableWidget_3"));
-        tableWidget_3->setGeometry(QRect(430, 40, 191, 41));
+        tableWidget_3->setGeometry(QRect(430, 10, 191, 41));
         QFont font;
         font.setPointSize(8);
         tableWidget_3->setFont(font);
@@ -211,7 +209,7 @@ public:
         tableWidget_3->verticalHeader()->setDefaultSectionSize(20);
         pushButton = new QPushButton(centralWidget);
         pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(500, 520, 121, 41));
+        pushButton->setGeometry(QRect(500, 490, 121, 41));
         QFont font1;
         font1.setFamily(QStringLiteral("Palatino Linotype"));
         font1.setPointSize(10);
@@ -224,21 +222,21 @@ public:
 ""));
         comboBox = new QComboBox(centralWidget);
         comboBox->setObjectName(QStringLiteral("comboBox"));
-        comboBox->setGeometry(QRect(10, 50, 151, 31));
+        comboBox->setGeometry(QRect(10, 10, 111, 41));
         comboBox->setFont(font1);
         comboBox->setStyleSheet(QLatin1String("background-color: #d3bb9c;\n"
 "border-style: outset;\n"
 "	"));
         comboBox->setFrame(true);
-        widget = new QWidget(centralWidget);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(630, 10, 258, 551));
-        verticalLayout = new QVBoxLayout(widget);
+        layoutWidget = new QWidget(centralWidget);
+        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
+        layoutWidget->setGeometry(QRect(630, 10, 258, 521));
+        verticalLayout = new QVBoxLayout(layoutWidget);
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
-        dateEdit = new QDateEdit(widget);
+        dateEdit = new QDateEdit(layoutWidget);
         dateEdit->setObjectName(QStringLiteral("dateEdit"));
         dateEdit->setMinimumSize(QSize(256, 30));
         QFont font2;
@@ -249,7 +247,7 @@ public:
 
         verticalLayout->addWidget(dateEdit);
 
-        tableWidget_2 = new QTableWidget(widget);
+        tableWidget_2 = new QTableWidget(layoutWidget);
         if (tableWidget_2->columnCount() < 2)
             tableWidget_2->setColumnCount(2);
         QTableWidgetItem *__qtablewidgetitem45 = new QTableWidgetItem();
@@ -262,15 +260,15 @@ public:
 
         verticalLayout->addWidget(tableWidget_2);
 
-        widget1 = new QWidget(centralWidget);
-        widget1->setObjectName(QStringLiteral("widget1"));
-        widget1->setGeometry(QRect(10, 510, 131, 51));
-        verticalLayout_2 = new QVBoxLayout(widget1);
+        layoutWidget1 = new QWidget(centralWidget);
+        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(10, 480, 131, 51));
+        verticalLayout_2 = new QVBoxLayout(layoutWidget1);
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         verticalLayout_2->setContentsMargins(0, 0, 0, 0);
-        label = new QLabel(widget1);
+        label = new QLabel(layoutWidget1);
         label->setObjectName(QStringLiteral("label"));
         QFont font3;
         font3.setFamily(QStringLiteral("MS Serif"));
@@ -279,16 +277,20 @@ public:
 
         verticalLayout_2->addWidget(label);
 
-        label_3 = new QLabel(widget1);
+        label_3 = new QLabel(layoutWidget1);
         label_3->setObjectName(QStringLiteral("label_3"));
         label_3->setFont(font3);
 
         verticalLayout_2->addWidget(label_3);
 
+        label_4 = new QLabel(centralWidget);
+        label_4->setObjectName(QStringLiteral("label_4"));
+        label_4->setGeometry(QRect(135, 10, 281, 41));
+        label_4->setAlignment(Qt::AlignCenter);
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 891, 21));
+        menuBar->setGeometry(QRect(0, 0, 894, 21));
         menu = new QMenu(menuBar);
         menu->setObjectName(QStringLiteral("menu"));
         menu_2 = new QMenu(menuBar);
@@ -424,6 +426,7 @@ public:
         ___qtablewidgetitem43->setText(QApplication::translate("MainWindow", "\320\235\320\260\320\267\320\262\320\260\320\275\320\270\320\265", 0));
         label->setText(QApplication::translate("MainWindow", "\320\236\321\202\320\274\320\265\321\207\320\265\320\275\320\276:", 0));
         label_3->setText(QApplication::translate("MainWindow", "\320\232 \320\276\320\277\320\273\320\260\321\202\320\265:", 0));
+        label_4->setText(QApplication::translate("MainWindow", "\321\202\321\203\321\202 \320\273\320\265\320\263\320\265\320\275\320\264\320\260", 0));
         menu->setTitle(QApplication::translate("MainWindow", "&\320\236 \320\277\321\200\320\276\320\264\321\203\320\272\321\202\320\265", 0));
         menu_2->setTitle(QApplication::translate("MainWindow", "\320\237\321\200\320\276\320\263\321\200\320\260\320\274\320\274\320\260", 0));
     } // retranslateUi

@@ -27,12 +27,22 @@ MainWindow::MainWindow(QWidget *parent) :
             ui->tableWidget->item(i,j)->setTextAlignment(Qt::AlignCenter);*/ // Нужно поставить текст ячейки по центру.
 
 // вставляю картинку и текст в ячейку------------------
-    pix = new QPixmap();
-    pix->load("1");
+    QPixmap pix1;
+    pix1.load(":/image/image.png");
+    pix1 = pix1.scaled(ui->tableWidget->columnWidth(0), ui->tableWidget->rowHeight(0));
     QTableWidgetItem *item = new QTableWidgetItem;
-    item->setBackground(QBrush(*pix));
-    item->setText("12");
-    ui->tableWidget->setItem( 0, 1, item );
+    item->setBackground(QBrush(pix1));
+    for(int i = 0; i < ui->tableWidget->rowCount();i++)
+        for(int j = 0; j < ui->tableWidget->columnCount(); j++)
+        {
+            item = new QTableWidgetItem;
+            item->setBackground(QBrush(pix1));
+            item->setText(QString::number(i*ui->tableWidget->columnCount() + j + 1));
+            item->setTextAlignment(Qt::AlignCenter);
+            ui->tableWidget->setItem( i, j, item );
+
+        }
+
 // -----------------------------------------------
 
                /* item->setData( Qt::DecorationRole, *pix );

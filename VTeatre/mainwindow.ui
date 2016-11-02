@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>891</width>
-    <height>625</height>
+    <width>894</width>
+    <height>585</height>
    </rect>
   </property>
   <property name="acceptDrops">
@@ -25,7 +25,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>120</y>
+      <y>90</y>
       <width>611</width>
       <height>391</height>
      </rect>
@@ -221,15 +221,6 @@ border-color: #d3bb9c;
      <property name="text">
       <string/>
      </property>
-     <property name="background">
-      <brush brushstyle="SolidPattern">
-       <color alpha="255">
-        <red>170</red>
-        <green>170</green>
-        <blue>255</blue>
-       </color>
-      </brush>
-     </property>
     </item>
     <item row="1" column="1">
      <property name="text">
@@ -280,7 +271,7 @@ border-color: #d3bb9c;
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>90</y>
+      <y>60</y>
       <width>611</width>
       <height>21</height>
      </rect>
@@ -293,7 +284,7 @@ border-color: #d3bb9c;
     <property name="geometry">
      <rect>
       <x>430</x>
-      <y>40</y>
+      <y>10</y>
       <width>191</width>
       <height>41</height>
      </rect>
@@ -369,7 +360,7 @@ border-color: #d3bb9c;
     <property name="geometry">
      <rect>
       <x>500</x>
-      <y>520</y>
+      <y>490</y>
       <width>121</width>
       <height>41</height>
      </rect>
@@ -396,9 +387,9 @@ border-radius: 10px;
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>50</y>
-      <width>151</width>
-      <height>31</height>
+      <y>10</y>
+      <width>111</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="font">
@@ -433,13 +424,13 @@ border-style: outset;
      </property>
     </item>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>630</x>
       <y>10</y>
       <width>258</width>
-      <height>551</height>
+      <height>521</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -496,11 +487,11 @@ border-style: outset;
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>510</y>
+      <y>480</y>
       <width>131</width>
       <height>51</height>
      </rect>
@@ -534,13 +525,29 @@ border-style: outset;
      </item>
     </layout>
    </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>135</x>
+      <y>10</y>
+      <width>281</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>тут легенда</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>891</width>
+     <width>894</width>
      <height>21</height>
     </rect>
    </property>

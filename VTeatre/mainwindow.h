@@ -7,6 +7,8 @@
 #include <QGraphicsScene>
 #include "about.h"
 #include "windowbuyer.h"
+#include "vector"
+#include "string"
 
 namespace Ui {
 class MainWindow;
@@ -20,11 +22,17 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     QDateTime dt; // переменная для записи текущей даты
-    
+
 private slots:
     void on_informationAbout_triggered();
 
     void on_action_triggered();
+
+    void on_tableWidget_cellClicked(int row, int column);
+
+    void on_comboBox_currentIndexChanged(int index);
+
+    void on_tableSeans_cellClicked(int row, int column);
 
 private:
     Ui::MainWindow *ui;

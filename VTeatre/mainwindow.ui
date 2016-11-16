@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>894</width>
-    <height>585</height>
+    <width>929</width>
+    <height>608</height>
    </rect>
   </property>
   <property name="acceptDrops">
@@ -25,9 +25,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>90</y>
+      <y>100</y>
       <width>611</width>
-      <height>391</height>
+      <height>401</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -188,7 +188,7 @@ border-color: #d3bb9c;
     </item>
     <item row="0" column="2">
      <property name="text">
-      <string>1</string>
+      <string/>
      </property>
      <property name="textAlignment">
       <set>AlignHCenter|AlignVCenter|AlignCenter</set>
@@ -196,7 +196,7 @@ border-color: #d3bb9c;
     </item>
     <item row="0" column="3">
      <property name="text">
-      <string>2</string>
+      <string/>
      </property>
      <property name="textAlignment">
       <set>AlignHCenter|AlignVCenter|AlignCenter</set>
@@ -204,68 +204,39 @@ border-color: #d3bb9c;
     </item>
     <item row="0" column="4">
      <property name="text">
-      <string>3</string>
+      <string/>
      </property>
     </item>
     <item row="0" column="5">
      <property name="text">
-      <string>4</string>
+      <string/>
      </property>
     </item>
-    <item row="0" column="6">
-     <property name="text">
-      <string>5</string>
-     </property>
-    </item>
+    <item row="0" column="6"/>
     <item row="1" column="0">
      <property name="text">
       <string/>
      </property>
     </item>
     <item row="1" column="1">
-     <property name="text">
-      <string>6</string>
-     </property>
      <property name="textAlignment">
       <set>AlignHCenter|AlignVCenter|AlignCenter</set>
      </property>
     </item>
     <item row="1" column="2">
-     <property name="text">
-      <string>7</string>
-     </property>
      <property name="textAlignment">
       <set>AlignHCenter|AlignVCenter|AlignCenter</set>
      </property>
     </item>
     <item row="1" column="3">
-     <property name="text">
-      <string>8</string>
-     </property>
      <property name="textAlignment">
       <set>AlignHCenter|AlignVCenter|AlignCenter</set>
      </property>
     </item>
-    <item row="1" column="4">
-     <property name="text">
-      <string>9</string>
-     </property>
-    </item>
-    <item row="1" column="5">
-     <property name="text">
-      <string>10</string>
-     </property>
-    </item>
-    <item row="1" column="6">
-     <property name="text">
-      <string>11</string>
-     </property>
-    </item>
-    <item row="1" column="7">
-     <property name="text">
-      <string>12</string>
-     </property>
-    </item>
+    <item row="1" column="4"/>
+    <item row="1" column="5"/>
+    <item row="1" column="6"/>
+    <item row="1" column="7"/>
    </widget>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
@@ -273,14 +244,14 @@ border-color: #d3bb9c;
       <x>10</x>
       <y>60</y>
       <width>611</width>
-      <height>21</height>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
      <string>Сцена</string>
     </property>
    </widget>
-   <widget class="QTableWidget" name="tableWidget_3">
+   <widget class="QTableWidget" name="tableInfo">
     <property name="geometry">
      <rect>
       <x>430</x>
@@ -360,7 +331,7 @@ border-color: #d3bb9c;
     <property name="geometry">
      <rect>
       <x>500</x>
-      <y>490</y>
+      <y>510</y>
       <width>121</width>
       <height>41</height>
      </rect>
@@ -429,8 +400,8 @@ border-style: outset;
      <rect>
       <x>630</x>
       <y>10</y>
-      <width>258</width>
-      <height>521</height>
+      <width>291</width>
+      <height>541</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -463,7 +434,7 @@ border-style: outset;
       </widget>
      </item>
      <item>
-      <widget class="QTableWidget" name="tableWidget_2">
+      <widget class="QTableWidget" name="tableSeans">
        <property name="minimumSize">
         <size>
          <width>256</width>
@@ -491,9 +462,9 @@ border-style: outset;
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>480</y>
+      <y>510</y>
       <width>131</width>
-      <height>51</height>
+      <height>41</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -531,7 +502,7 @@ border-style: outset;
       <x>135</x>
       <y>10</y>
       <width>281</width>
-      <height>41</height>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
@@ -547,7 +518,7 @@ border-style: outset;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>894</width>
+     <width>929</width>
      <height>21</height>
     </rect>
    </property>

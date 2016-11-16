@@ -16,11 +16,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // устанавливаю картинки
     QGraphicsScene * scen = new QGraphicsScene();
-    QPixmap * pix = new QPixmap();
-    pix->load("scena");
+    QPixmap  pix;
+    pix.load("scena.png");
+   // pix = pix.scaled(ui->label_2->size(), Qt::KeepAspectRatio);
     scen = new QGraphicsScene();
-    scen->addPixmap(*pix);
-    ui->label_2->setPixmap(*pix);
+    scen->addPixmap(pix);
+    ui->label_2->setPixmap(pix);
 
     /* for(int i = 0; i < ui->tableWidget->rowCount(); i++)
         for(int j = 0; j < ui->tableWidget->columnCount(); j++)
@@ -44,10 +45,29 @@ MainWindow::MainWindow(QWidget *parent) :
         }
 
 // -----------------------------------------------
+// работа с таблицей сеансов-------------------------------
 
-               /* item->setData( Qt::DecorationRole, *pix );
-                item->setFlags( item->flags() ^ Qt::ItemIsEditable );
-                ui->tableWidget->setItem( 0, 1, item );*/
+    ui->tableSeans->setRowCount(10); // указываем количество строк, вместо 10 нужно подставлять количество спектаклей на какое-то число
+    for(int row = 0; row < ui->tableSeans->rowCount(); row++)
+      for(int column = 0; column < ui->tableSeans->columnCount(); column++)
+      {
+          QTableWidgetItem *item = new QTableWidgetItem(); // выделяем память под ячейку
+          item->setText(QString::number(row + column)); // вставляем текст
+          ui->tableSeans->setItem(row, column, item); // вставляем ячейку
+      }
+    ui->tableSeans->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents); // Ширина столбца с датой по размеру контента
+    ui->tableSeans->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch); // Ширина столбца с названиями всё остальное пространство
+
+// ---------------------------------------------------
+// Работа с таблицей информации о местах------------------
+
+    QString buff = ui->tableInfo->item(0,0)->text(); // Всего мест
+    buff += " " + QString::number(ui->tableWidget->rowCount()*ui->tableWidget->columnCount());
+    ui->tableInfo->item(0,0)->setText(buff);
+
+
+//----------------------------------------------------
+
 }
 
 
@@ -66,4 +86,36 @@ void MainWindow::on_informationAbout_triggered()
 void MainWindow::on_action_triggered()
 {
   // открытие окна покупателя, класс WindowBuyer
+}
+
+void MainWindow::on_tableWidget_cellClicked(int row, int column) // по нажатию на ячейку она меняет цвет
+{
+    QPixmap pix2;
+    pix2.load(":/image/image_checking.png");
+    pix2 = pix2.scaled(ui->tableWidget->columnWidth(0), ui->tableWidget->rowHeight(0));
+    ui->tableWidget->item(row, column)->setBackground(QBrush(pix2));
+}
+
+void MainWindow::on_comboBox_currentIndexChanged(int index) // по изменению пункта в combobox менять таблицу
+{
+    switch(index)
+    {
+    case 0:
+        break;
+
+    case 1:
+        break;
+
+    case 2:
+        break;
+    }
+}
+
+void MainWindow::on_tableSeans_cellClicked(int row, int column) // по нажатию на название изменить таблицу с местами
+{
+    if(column == 1)
+    {
+
+
+    }
 }

@@ -1,7 +1,7 @@
 <RCC>
     <qresource prefix="/image">
-        <file>cells</file>
-        <file>cells.png</file>
+        <file>image_checking.png</file>
+        <file>scena.png</file>
         <file>image.png</file>
     </qresource>
     <qresource prefix="/new/prefix1"/>

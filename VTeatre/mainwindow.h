@@ -1,6 +1,7 @@
-#ifndef MAINWINDOW_H
+﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QtSql>
 #include <QMainWindow>
 #include <QDate>
 #include <QPixmap>
@@ -9,6 +10,10 @@
 #include "windowbuyer.h"
 #include "vector"
 #include "string"
+#include <QtDebug>
+#include <QFileInfo>
+#include <QTableView>
+
 
 namespace Ui {
 class MainWindow;
@@ -34,8 +39,11 @@ private slots:
 
     void on_tableSeans_cellClicked(int row, int column);
 
+    void on_dateEdit_dateChanged(const QDate &date);
+
 private:
     Ui::MainWindow *ui;
+    QSqlDatabase mydb;
 };
 
 #endif // MAINWINDOW_H

@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <string>
 #include <QFileDialog>
@@ -8,6 +8,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    mydb= QSqlDatabase::addDatabase("QSQLITE");
+    mydb.setDatabaseName("D:/Cursovaya/VTeatre.sqlite");
+
+    if(!mydb.open())
+        qDebug()<<mydb.lastError().text();
+    else
+        qDebug()<<"Connected Compled";
 
     //dateEdit.DateTime выставляется в текущую дату
     dt = QDateTime::currentDateTime();
@@ -45,20 +52,6 @@ MainWindow::MainWindow(QWidget *parent) :
         }
 
 // -----------------------------------------------
-// работа с таблицей сеансов-------------------------------
-
-    ui->tableSeans->setRowCount(10); // указываем количество строк, вместо 10 нужно подставлять количество спектаклей на какое-то число
-    for(int row = 0; row < ui->tableSeans->rowCount(); row++)
-      for(int column = 0; column < ui->tableSeans->columnCount(); column++)
-      {
-          QTableWidgetItem *item = new QTableWidgetItem(); // выделяем память под ячейку
-          item->setText(QString::number(row + column)); // вставляем текст
-          ui->tableSeans->setItem(row, column, item); // вставляем ячейку
-      }
-    ui->tableSeans->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents); // Ширина столбца с датой по размеру контента
-    ui->tableSeans->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch); // Ширина столбца с названиями всё остальное пространство
-
-// ---------------------------------------------------
 // Работа с таблицей информации о местах------------------
 
     QString buff = ui->tableInfo->item(0,0)->text(); // Всего мест
@@ -119,3 +112,52 @@ void MainWindow::on_tableSeans_cellClicked(int row, int column) // по нажа
 
     }
 }
+
+void MainWindow::on_dateEdit_dateChanged(const QDate &date)//Выводит сеансы по дате
+{
+        QString a=ui->dateEdit->text();
+        int b=2;
+        QString query = "select * from Postanovka where date_seansa='"+a+"'";
+        QSqlQuery qry1;
+        qry1.exec(query);
+        QString date_seansa;
+        QString Name_seansa;
+        QString Time_seansa;
+        int i = 0;
+        QString Postanovka[10][2];
+        while(qry1.next())
+        {
+                for(int j=0; j<2;++j)
+                {
+                    Postanovka[i][j]=qry1.value(j+1).toString();
+                }
+
+                ++i;
+         }
+
+        // работа с таблицей сеансов-------------------------------
+
+            ui->tableSeans->setRowCount(i); // указываем количество строк, вместо 10 нужно подставлять количество спектаклей на какое-то число
+            for(int row = 0; row < ui->tableSeans->rowCount(); row++)
+              for(int column = 0; column < ui->tableSeans->columnCount(); column++)
+              {
+                  QTableWidgetItem *item = new QTableWidgetItem(); // выделяем память под ячейку
+                  //item->setText(QString::number(row + column)); // вставляем текст
+                  ui->tableSeans->setItem(row, column, item); // вставляем ячейку
+              }
+            ui->tableSeans->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents); // Ширина столбца с датой по размеру контента
+            ui->tableSeans->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch); // Ширина столбца с названиями всё остальное пространство
+
+        // ---------------------------------------------------
+            for(int k=0;k<i;++k)
+            {
+                for(int j =0;j<2;++j)
+                {
+                    ui->tableSeans->item(k,j)->setText(Postanovka[k][j]);
+                }
+            }
+        i=0;
+}
+
+
+

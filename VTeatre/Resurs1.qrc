@@ -3,6 +3,9 @@
         <file>image_checking.png</file>
         <file>scena.png</file>
         <file>image.png</file>
+        <file>image_close.png</file>
+        <file>image_reserv.png</file>
+        <file>Legend.png</file>
     </qresource>
     <qresource prefix="/new/prefix1"/>
 </RCC>

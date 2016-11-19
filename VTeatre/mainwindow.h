@@ -41,6 +41,10 @@ private slots:
 
     void on_dateEdit_dateChanged(const QDate &date);
 
+    void on_pushButton_clicked();
+
+    void on_pushButton_2_clicked();
+
 private:
     Ui::MainWindow *ui;
     QSqlDatabase mydb;

@@ -22,13 +22,17 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->dateEdit->setMinimumDateTime(dt); // минимальная дата выставляется по текущей дате
 
     // устанавливаю картинки
-    QGraphicsScene * scen = new QGraphicsScene();
+   // QGraphicsScene * scen = new QGraphicsScene();
     QPixmap  pix;
-    pix.load("scena.png");
-   // pix = pix.scaled(ui->label_2->size(), Qt::KeepAspectRatio);
-    scen = new QGraphicsScene();
-    scen->addPixmap(pix);
+    pix.load(":/image/scena.png");
+    pix = pix.scaled(ui->label_2->size());
     ui->label_2->setPixmap(pix);
+
+    QPixmap pix_Legend(":/image/Legend.png");
+    pix_Legend = pix_Legend.scaled(ui->label_4->size(), Qt::KeepAspectRatio);
+    ui->label_4->setPixmap(pix_Legend);
+
+
 
     /* for(int i = 0; i < ui->tableWidget->rowCount(); i++)
         for(int j = 0; j < ui->tableWidget->columnCount(); j++)
@@ -47,8 +51,9 @@ MainWindow::MainWindow(QWidget *parent) :
             item->setBackground(QBrush(pix1));
             item->setText(QString::number(i*ui->tableWidget->columnCount() + j + 1));
             item->setTextAlignment(Qt::AlignCenter);
-            ui->tableWidget->setItem( i, j, item );
+            item->setFlags(item->flags() & (~Qt::ItemIsSelectable)); // устанавливаю флаг в false
 
+            ui->tableWidget->setItem( i, j, item );
         }
 
 // -----------------------------------------------
@@ -161,3 +166,13 @@ void MainWindow::on_dateEdit_dateChanged(const QDate &date)//Выводит се
 
 
 
+
+void MainWindow::on_pushButton_clicked() // купить
+{
+
+}
+
+void MainWindow::on_pushButton_2_clicked() // забронировать
+{
+
+}

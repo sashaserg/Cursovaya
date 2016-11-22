@@ -49,6 +49,8 @@ public:
     QLabel *label;
     QLabel *label_3;
     QLabel *label_4;
+    QPushButton *pushButton_2;
+    QPushButton *pushButton_3;
     QMenuBar *menuBar;
     QMenu *menu;
     QMenu *menu_2;
@@ -252,7 +254,7 @@ public:
 
         layoutWidget1 = new QWidget(centralWidget);
         layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(10, 510, 131, 41));
+        layoutWidget1->setGeometry(QRect(10, 510, 171, 41));
         verticalLayout_2 = new QVBoxLayout(layoutWidget1);
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -275,8 +277,19 @@ public:
 
         label_4 = new QLabel(centralWidget);
         label_4->setObjectName(QStringLiteral("label_4"));
-        label_4->setGeometry(QRect(135, 10, 281, 31));
+        label_4->setGeometry(QRect(130, 20, 291, 31));
         label_4->setAlignment(Qt::AlignCenter);
+        pushButton_2 = new QPushButton(centralWidget);
+        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
+        pushButton_2->setGeometry(QRect(370, 510, 121, 41));
+        pushButton_2->setFont(font1);
+        pushButton_2->setStyleSheet(QLatin1String("background-color: #d3bb9c;\n"
+"border-style: outset;\n"
+"border-radius: 10px;	\n"
+""));
+        pushButton_3 = new QPushButton(centralWidget);
+        pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
+        pushButton_3->setGeometry(QRect(280, 520, 75, 23));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -393,6 +406,8 @@ public:
         label->setText(QApplication::translate("MainWindow", "\320\236\321\202\320\274\320\265\321\207\320\265\320\275\320\276:", 0));
         label_3->setText(QApplication::translate("MainWindow", "\320\232 \320\276\320\277\320\273\320\260\321\202\320\265:", 0));
         label_4->setText(QApplication::translate("MainWindow", "\321\202\321\203\321\202 \320\273\320\265\320\263\320\265\320\275\320\264\320\260", 0));
+        pushButton_2->setText(QApplication::translate("MainWindow", "\320\227\320\260\320\261\321\200\320\276\320\275\320\270\321\200\320\276\320\262\320\260\321\202\321\214", 0));
+        pushButton_3->setText(QApplication::translate("MainWindow", "PushButton", 0));
         menu->setTitle(QApplication::translate("MainWindow", "&\320\236 \320\277\321\200\320\276\320\264\321\203\320\272\321\202\320\265", 0));
         menu_2->setTitle(QApplication::translate("MainWindow", "\320\237\321\200\320\276\320\263\321\200\320\260\320\274\320\274\320\260", 0));
     } // retranslateUi

@@ -86,12 +86,20 @@ void MainWindow::on_action_triggered()
   // открытие окна покупателя, класс WindowBuyer
 }
 
+int mesto[117][2];//запоминаю столбик и строчку
+int index_mesta=0;//индекс количества выбраных мест
+
 void MainWindow::on_tableWidget_cellClicked(int row, int column) // по нажатию на ячейку она меняет цвет
 {
     QPixmap pix2;
     pix2.load(":/image/image_checking.png");
     pix2 = pix2.scaled(ui->tableWidget->columnWidth(0), ui->tableWidget->rowHeight(0));
+
+    mesto[index_mesta][0]=row;//записываю строку
+    mesto[index_mesta][1]=column;//записываю столбик
+    index_mesta++;//записываю индекс количества выбраных мест
     ui->tableWidget->item(row, column)->setBackground(QBrush(pix2));
+
 }
 
 void MainWindow::on_comboBox_currentIndexChanged(int index) // по изменению пункта в combobox менять таблицу
@@ -129,12 +137,12 @@ void MainWindow::on_dateEdit_dateChanged(const QDate &date)//Выводит се
         QString Name_seansa;
         QString Time_seansa;
         int i = 0;
-        QString Postanovka[10][2];
+        QString Postanovka[255][2];
         while(qry1.next())
         {
                 for(int j=0; j<2;++j)
                 {
-                    Postanovka[i][j]=qry1.value(j+1).toString();
+                    Postanovka[i][j]=qry1.value(2-j).toString();//записывает данные спектакля в массив
                 }
 
                 ++i;
@@ -169,10 +177,46 @@ void MainWindow::on_dateEdit_dateChanged(const QDate &date)//Выводит се
 
 void MainWindow::on_pushButton_clicked() // купить
 {
+    QString type_place = ui->comboBox->currentText(),
+            date_seansa = ui->dateEdit->text(),
+            time_seansa = ui->tableSeans->item(0,1)->text(),
+            name_seansa = ui->tableSeans->item(0,0)->text();
+
+    for(int i=0; i<index_mesta; i++)
+    {
+        QSqlQuery qry1("insert into Employed_place(place, type_place, date_seansa, time_seansa, name_seansa) values ("+
+                       ui->tableWidget->item(mesto[i][0],mesto[i][1])->text()+
+                ", '"+
+                type_place+
+                "', '"+
+                date_seansa+
+                "', '"+
+                time_seansa+
+                "', '"+
+                name_seansa+
+                "')");
+    }
+    QPixmap pix_close;
+    pix_close.load(":/image/image_close.png");
+    pix_close = pix_close.scaled(ui->tableWidget->columnWidth(0), ui->tableWidget->rowHeight(0));
+    for(int i=0; i<index_mesta;i++)
+    {
+        ui->tableWidget->item(mesto[i][0], mesto[i][1])->setBackground(QBrush(pix_close));
+    }
+    index_mesta=0;
+
+
 
 }
 
 void MainWindow::on_pushButton_2_clicked() // забронировать
 {
-
+    QPixmap pix_reserv;
+    pix_reserv.load(":/image/image_reserv.png");
+    pix_reserv = pix_reserv.scaled(ui->tableWidget->columnWidth(0), ui->tableWidget->rowHeight(0));
+    for(int i=0; i<index_mesta;i++)
+    {
+        ui->tableWidget->item(mesto[i][0], mesto[i][1])->setBackground(QBrush(pix_reserv));
+    }
+    index_mesta=0;
 }

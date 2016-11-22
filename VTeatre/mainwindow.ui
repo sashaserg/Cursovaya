@@ -191,7 +191,7 @@ border-color: #d3bb9c;
       <string/>
      </property>
      <property name="textAlignment">
-      <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+      <set>AlignCenter</set>
      </property>
     </item>
     <item row="0" column="3">
@@ -199,7 +199,7 @@ border-color: #d3bb9c;
       <string/>
      </property>
      <property name="textAlignment">
-      <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+      <set>AlignCenter</set>
      </property>
     </item>
     <item row="0" column="4">
@@ -220,17 +220,17 @@ border-color: #d3bb9c;
     </item>
     <item row="1" column="1">
      <property name="textAlignment">
-      <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+      <set>AlignCenter</set>
      </property>
     </item>
     <item row="1" column="2">
      <property name="textAlignment">
-      <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+      <set>AlignCenter</set>
      </property>
     </item>
     <item row="1" column="3">
      <property name="textAlignment">
-      <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+      <set>AlignCenter</set>
      </property>
     </item>
     <item row="1" column="4"/>
@@ -537,6 +537,19 @@ border-radius: 10px;
     </property>
     <property name="text">
      <string>Забронировать</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_3">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>520</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>PushButton</string>
     </property>
    </widget>
   </widget>

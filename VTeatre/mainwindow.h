@@ -27,6 +27,8 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     QDateTime dt; // переменная для записи текущей даты
+    int row_height; // высота строки
+    int column_width; // ширина столбца
 
 private slots:
     void on_informationAbout_triggered();

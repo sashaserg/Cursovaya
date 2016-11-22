@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>929</width>
-    <height>608</height>
+    <height>620</height>
    </rect>
   </property>
   <property name="acceptDrops">
@@ -191,7 +191,7 @@ border-color: #d3bb9c;
       <string/>
      </property>
      <property name="textAlignment">
-      <set>AlignCenter</set>
+      <set>AlignHCenter|AlignVCenter|AlignCenter</set>
      </property>
     </item>
     <item row="0" column="3">
@@ -199,7 +199,7 @@ border-color: #d3bb9c;
       <string/>
      </property>
      <property name="textAlignment">
-      <set>AlignCenter</set>
+      <set>AlignHCenter|AlignVCenter|AlignCenter</set>
      </property>
     </item>
     <item row="0" column="4">
@@ -220,17 +220,17 @@ border-color: #d3bb9c;
     </item>
     <item row="1" column="1">
      <property name="textAlignment">
-      <set>AlignCenter</set>
+      <set>AlignHCenter|AlignVCenter|AlignCenter</set>
      </property>
     </item>
     <item row="1" column="2">
      <property name="textAlignment">
-      <set>AlignCenter</set>
+      <set>AlignHCenter|AlignVCenter|AlignCenter</set>
      </property>
     </item>
     <item row="1" column="3">
      <property name="textAlignment">
-      <set>AlignCenter</set>
+      <set>AlignHCenter|AlignVCenter|AlignCenter</set>
      </property>
     </item>
     <item row="1" column="4"/>
@@ -333,7 +333,7 @@ border-color: #d3bb9c;
       <x>500</x>
       <y>510</y>
       <width>121</width>
-      <height>41</height>
+      <height>51</height>
      </rect>
     </property>
     <property name="font">
@@ -345,7 +345,7 @@ border-color: #d3bb9c;
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: #d3bb9c;
+     <string notr="true">background-color: #b31e2c;
 border-style: outset;
 border-radius: 10px;	
 </string>
@@ -401,7 +401,7 @@ border-style: outset;
       <x>630</x>
       <y>10</y>
       <width>291</width>
-      <height>541</height>
+      <height>551</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -435,6 +435,9 @@ border-style: outset;
      </item>
      <item>
       <widget class="QTableWidget" name="tableSeans">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="minimumSize">
         <size>
          <width>256</width>
@@ -464,7 +467,7 @@ border-style: outset;
       <x>10</x>
       <y>510</y>
       <width>171</width>
-      <height>41</height>
+      <height>51</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -500,9 +503,9 @@ border-style: outset;
     <property name="geometry">
      <rect>
       <x>130</x>
-      <y>20</y>
+      <y>10</y>
       <width>291</width>
-      <height>31</height>
+      <height>41</height>
      </rect>
     </property>
     <property name="text">
@@ -515,10 +518,10 @@ border-style: outset;
    <widget class="QPushButton" name="pushButton_2">
     <property name="geometry">
      <rect>
-      <x>370</x>
+      <x>410</x>
       <y>510</y>
-      <width>121</width>
-      <height>41</height>
+      <width>81</width>
+      <height>21</height>
      </rect>
     </property>
     <property name="font">
@@ -530,26 +533,40 @@ border-style: outset;
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: #d3bb9c;
+     <string notr="true">background-color:#fada26;
 border-style: outset;
 border-radius: 10px;	
 </string>
     </property>
     <property name="text">
-     <string>Забронировать</string>
+     <string>Бронь</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_3">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>520</y>
-      <width>75</width>
-      <height>23</height>
+      <x>410</x>
+      <y>540</y>
+      <width>81</width>
+      <height>21</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Palatino Linotype</family>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #236c1b;
+border-style: outset;
+border-radius: 10px;	
+</string>
+    </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>Вернуть</string>
     </property>
    </widget>
   </widget>

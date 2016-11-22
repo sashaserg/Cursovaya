@@ -41,21 +41,30 @@ MainWindow::MainWindow(QWidget *parent) :
 // вставляю картинку и текст в ячейку------------------
     QPixmap pix1;
     pix1.load(":/image/image.png");
-    pix1 = pix1.scaled(ui->tableWidget->columnWidth(0), ui->tableWidget->rowHeight(0));
+
     QTableWidgetItem *item = new QTableWidgetItem;
     item->setBackground(QBrush(pix1));
+
+    row_height = ui->tableWidget->height() / ui->tableWidget->rowCount();
+    column_width = ui->tableWidget->width() / ui->tableWidget->columnCount();
+    pix1 = pix1.scaled(column_width, row_height);
+
     for(int i = 0; i < ui->tableWidget->rowCount();i++)
+    {
+        ui->tableWidget->setRowHeight(i, row_height); // высота строк
         for(int j = 0; j < ui->tableWidget->columnCount(); j++)
         {
+            if(i == 0)
+                ui->tableWidget->setColumnWidth(j, column_width); // ширина столбцов
             item = new QTableWidgetItem;
             item->setBackground(QBrush(pix1));
             item->setText(QString::number(i*ui->tableWidget->columnCount() + j + 1));
             item->setTextAlignment(Qt::AlignCenter);
-            item->setFlags(item->flags() & (~Qt::ItemIsSelectable)); // устанавливаю флаг в false
+            item->setFlags(item->flags() & (~Qt::ItemIsSelectable)); // устанавливаю флаг ItemIsSelectable в false
 
             ui->tableWidget->setItem( i, j, item );
         }
-
+    }
 // -----------------------------------------------
 // Работа с таблицей информации о местах------------------
 

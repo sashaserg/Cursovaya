@@ -7,5 +7,5 @@
         <file>image_reserv.png</file>
         <file>Legend.png</file>
     </qresource>
-    <qresource prefix="/new/prefix1"/>
+    <qresource prefix="/database"/>
 </RCC>

@@ -16,11 +16,6 @@ MainWindow::MainWindow(QWidget *parent) :
     else
         qDebug()<<"Connected Compled";
 
-    //dateEdit.DateTime выставляется в текущую дату
-    dt = QDateTime::currentDateTime();
-    ui->dateEdit->setDateTime(dt);
-    ui->dateEdit->setMinimumDateTime(dt); // минимальная дата выставляется по текущей дате
-
     // устанавливаю картинки
    // QGraphicsScene * scen = new QGraphicsScene();
     QPixmap  pix;
@@ -65,6 +60,9 @@ MainWindow::MainWindow(QWidget *parent) :
             ui->tableWidget->setItem( i, j, item );
         }
     }
+    places_fill();
+
+
 // -----------------------------------------------
 // Работа с таблицей информации о местах------------------
 
@@ -74,11 +72,49 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
 //----------------------------------------------------
-
+    //dateEdit.DateTime выставляется в текущую дату
+    dt = QDateTime::currentDateTime();
+    ui->dateEdit->setDateTime(dt);
+    ui->dateEdit->setMinimumDateTime(dt); // минимальная дата выставляется по текущей дате
+}
+void MainWindow::cleasing_places()//очистка мест
+{
+    for(int i=0;i<13;i++)
+    {
+        for(int j=0;j<9;j++)
+        {
+            QPixmap pix;
+            pix.load(":/image/image.png");
+            pix = pix.scaled(ui->tableWidget->columnWidth(0), ui->tableWidget->rowHeight(0));
+            ui->tableWidget->item(i, j)->setBackground(QBrush(pix));
+        }
+    }
 }
 
-
-
+void MainWindow::places_fill()//заполнение мест
+{
+    QSqlQuery qry("select * from Employed_place");
+        while(qry.next())
+        {
+            for(int i=0;i<13;i++)
+            {
+                for(int j=0;j<9;j++)
+                {
+                    if(qry.value(0)==ui->tableWidget->item(i,j)->text() &&
+                       qry.value(1)==ui->comboBox->currentText() &&
+                       qry.value(2) == ui->dateEdit->text() &&
+                       qry.value(3)== ui->tableSeans->item(quantity_prodactions,0)->text()&&
+                       qry.value(4)== ui->tableSeans->item(quantity_prodactions,1)->text())
+                    {
+                        QPixmap pix_close;
+                        pix_close.load(":/image/image_close.png");
+                        pix_close = pix_close.scaled(ui->tableWidget->columnWidth(0), ui->tableWidget->rowHeight(0));
+                        ui->tableWidget->item(i, j)->setBackground(QBrush(pix_close));
+                    }
+                }
+            }
+        }
+}
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -94,9 +130,6 @@ void MainWindow::on_action_triggered()
 {
   // открытие окна покупателя, класс WindowBuyer
 }
-
-int mesto[117][2];//запоминаю столбик и строчку
-int index_mesta=0;//индекс количества выбраных мест
 
 void MainWindow::on_tableWidget_cellClicked(int row, int column) // по нажатию на ячейку она меняет цвет
 {
@@ -126,25 +159,25 @@ void MainWindow::on_comboBox_currentIndexChanged(int index) // по измене
     }
 }
 
+
 void MainWindow::on_tableSeans_cellClicked(int row, int column) // по нажатию на название изменить таблицу с местами
 {
+
     if(column == 1)
     {
-
-
+     quantity_prodactions=row;
+     cleasing_places();
+     places_fill();
     }
 }
 
 void MainWindow::on_dateEdit_dateChanged(const QDate &date)//Выводит сеансы по дате
 {
-        QString a=ui->dateEdit->text();
-        int b=2;
-        QString query = "select * from Postanovka where date_seansa='"+a+"'";
+        cleasing_places();
+        QString date_seansa=ui->dateEdit->text();
+        QString query = "select * from Postanovka where date_seansa='"+date_seansa+"'";
         QSqlQuery qry1;
         qry1.exec(query);
-        QString date_seansa;
-        QString Name_seansa;
-        QString Time_seansa;
         int i = 0;
         QString Postanovka[255][2];
         while(qry1.next())
@@ -169,8 +202,6 @@ void MainWindow::on_dateEdit_dateChanged(const QDate &date)//Выводит се
               }
             ui->tableSeans->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents); // Ширина столбца с датой по размеру контента
             ui->tableSeans->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch); // Ширина столбца с названиями всё остальное пространство
-
-        // ---------------------------------------------------
             for(int k=0;k<i;++k)
             {
                 for(int j =0;j<2;++j)
@@ -188,8 +219,8 @@ void MainWindow::on_pushButton_clicked() // купить
 {
     QString type_place = ui->comboBox->currentText(),
             date_seansa = ui->dateEdit->text(),
-            time_seansa = ui->tableSeans->item(0,1)->text(),
-            name_seansa = ui->tableSeans->item(0,0)->text();
+            time_seansa = ui->tableSeans->item(quantity_prodactions,0)->text(),
+            name_seansa = ui->tableSeans->item(quantity_prodactions,1)->text();
 
     for(int i=0; i<index_mesta; i++)
     {
@@ -216,6 +247,7 @@ void MainWindow::on_pushButton_clicked() // купить
 
 
 
+
 }
 
 void MainWindow::on_pushButton_2_clicked() // забронировать
@@ -228,4 +260,10 @@ void MainWindow::on_pushButton_2_clicked() // забронировать
         ui->tableWidget->item(mesto[i][0], mesto[i][1])->setBackground(QBrush(pix_reserv));
     }
     index_mesta=0;
+}
+
+void MainWindow::on_comboBox_currentTextChanged(const QString &arg1)
+{
+cleasing_places();
+places_fill();
 }

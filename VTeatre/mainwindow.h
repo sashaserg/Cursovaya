@@ -29,6 +29,9 @@ public:
     QDateTime dt; // переменная для записи текущей даты
     int row_height; // высота строки
     int column_width; // ширина столбца
+    int quantity_prodactions=0;//запоминает выбраную строку
+    int mesto[117][2];//запоминаю столбик и строчку
+    int index_mesta=0;//индекс количества выбраных мест
 
 private slots:
     void on_informationAbout_triggered();
@@ -47,9 +50,14 @@ private slots:
 
     void on_pushButton_2_clicked();
 
+    void on_comboBox_currentTextChanged(const QString &arg1);
+
 private:
     Ui::MainWindow *ui;
     QSqlDatabase mydb;
+    void places_fill();
+    void cleasing_places();
+
 };
 
 #endif // MAINWINDOW_H

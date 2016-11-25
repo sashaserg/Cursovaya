@@ -7,5 +7,7 @@
         <file>image_reserv.png</file>
         <file>Legend.png</file>
     </qresource>
-    <qresource prefix="/database"/>
+    <qresource prefix="/database">
+        <file>VTeatre.sqlite</file>
+    </qresource>
 </RCC>

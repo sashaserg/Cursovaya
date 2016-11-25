@@ -52,6 +52,8 @@ private slots:
 
     void on_comboBox_currentTextChanged(const QString &arg1);
 
+    void on_action_exit_triggered();
+
 private:
     Ui::MainWindow *ui;
     QSqlDatabase mydb;

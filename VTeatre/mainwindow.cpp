@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     mydb= QSqlDatabase::addDatabase("QSQLITE");
-    mydb.setDatabaseName("D:/Cursovaya/VTeatre.sqlite");
+    mydb.setDatabaseName("I:/Soft/Curs/Cursovaya/VTeatre.sqlite");
 
     if(!mydb.open())
         qDebug()<<mydb.lastError().text();
@@ -76,6 +76,22 @@ MainWindow::MainWindow(QWidget *parent) :
     dt = QDateTime::currentDateTime();
     ui->dateEdit->setDateTime(dt);
     ui->dateEdit->setMinimumDateTime(dt); // минимальная дата выставляется по текущей дате
+
+    ui->tableSeans->setEditTriggers(QAbstractItemView::NoEditTriggers); //запрет редактирования всех ячеек в таблице tableSeans
+    ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers); //запрет редактирования всех ячеек в таблице tableWidget
+
+  //  ui->tableSeans->setMaximumSize(ui->tableSeans->size());
+    ui->tableWidget->setMinimumSize(ui->tableWidget->size());
+    ui->tableInfo->setMinimumSize(ui->tableInfo->size());
+    ui->pushButton->setMinimumSize(ui->pushButton->size());
+    ui->pushButton_2->setMinimumSize(ui->pushButton_2->size());
+    ui->pushButton_3->setMinimumSize(ui->pushButton_3->size());
+    ui->label->setMinimumSize(ui->label->size());
+    ui->label_2->setMinimumSize(ui->label_2->size());
+    ui->label_3->setMinimumSize(ui->label_3->size());
+    ui->label_4->setMinimumSize(ui->label_4->size());
+    ui->comboBox->setMinimumSize(ui->comboBox->size());
+
 }
 void MainWindow::cleasing_places()//очистка мест
 {
@@ -165,9 +181,9 @@ void MainWindow::on_tableSeans_cellClicked(int row, int column) // по нажа
 
     if(column == 1)
     {
-     quantity_prodactions=row;
-     cleasing_places();
-     places_fill();
+         quantity_prodactions=row;
+         cleasing_places();
+         places_fill();
     }
 }
 
@@ -264,6 +280,10 @@ void MainWindow::on_pushButton_2_clicked() // забронировать
 
 void MainWindow::on_comboBox_currentTextChanged(const QString &arg1)
 {
-cleasing_places();
-places_fill();
+    cleasing_places();
+    places_fill();
+}
+
+void MainWindow::on_action_exit_triggered() // пункт Выход
+{
 }

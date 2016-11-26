@@ -32,6 +32,9 @@ public:
     int quantity_prodactions=0;//запоминает выбраную строку
     int mesto[117][2];//запоминаю столбик и строчку
     int index_mesta=0;//индекс количества выбраных мест
+    unsigned int count_place_purchased = 0;//счетчик купленых мест
+    int count_places_all =0;//всего мест
+    int count_place_free = 0;//счетчик свободных мест
 
 private slots:
     void on_informationAbout_triggered();
@@ -55,6 +58,8 @@ private slots:
     void on_action_exit_triggered();
 
     void on_action_statistic_sale_triggered();
+
+    void on_pushButton_3_clicked();
 
 private:
     Ui::MainWindow *ui;

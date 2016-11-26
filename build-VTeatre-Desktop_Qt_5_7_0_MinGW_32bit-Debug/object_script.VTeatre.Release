@@ -1,0 +1,12 @@
+INPUT(
+./release\main.o
+./release\mainwindow.o
+./release\about.o
+./release\windowbuyer.o
+./release\statistic.o
+./release\qrc_Resurs1.o
+./release\moc_mainwindow.o
+./release\moc_about.o
+./release\moc_windowbuyer.o
+./release\moc_statistic.o
+);

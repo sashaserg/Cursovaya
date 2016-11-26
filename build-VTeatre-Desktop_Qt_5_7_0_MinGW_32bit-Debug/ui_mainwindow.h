@@ -34,6 +34,8 @@ class Ui_MainWindow
 public:
     QAction *informationAbout;
     QAction *action;
+    QAction *action_exit;
+    QAction *action_statistic_sale;
     QWidget *centralWidget;
     QTableWidget *tableWidget;
     QLabel *label_2;
@@ -51,9 +53,11 @@ public:
     QLabel *label_4;
     QPushButton *pushButton_2;
     QPushButton *pushButton_3;
+    QLabel *label_5;
     QMenuBar *menuBar;
     QMenu *menu;
     QMenu *menu_2;
+    QMenu *menu_3;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -69,6 +73,10 @@ public:
         informationAbout->setObjectName(QStringLiteral("informationAbout"));
         action = new QAction(MainWindow);
         action->setObjectName(QStringLiteral("action"));
+        action_exit = new QAction(MainWindow);
+        action_exit->setObjectName(QStringLiteral("action_exit"));
+        action_statistic_sale = new QAction(MainWindow);
+        action_statistic_sale->setObjectName(QStringLiteral("action_statistic_sale"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         tableWidget = new QTableWidget(centralWidget);
@@ -125,10 +133,10 @@ public:
         QTableWidgetItem *__qtablewidgetitem23 = new QTableWidgetItem();
         tableWidget->setItem(0, 1, __qtablewidgetitem23);
         QTableWidgetItem *__qtablewidgetitem24 = new QTableWidgetItem();
-        __qtablewidgetitem24->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter|Qt::AlignCenter);
+        __qtablewidgetitem24->setTextAlignment(Qt::AlignCenter);
         tableWidget->setItem(0, 2, __qtablewidgetitem24);
         QTableWidgetItem *__qtablewidgetitem25 = new QTableWidgetItem();
-        __qtablewidgetitem25->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter|Qt::AlignCenter);
+        __qtablewidgetitem25->setTextAlignment(Qt::AlignCenter);
         tableWidget->setItem(0, 3, __qtablewidgetitem25);
         QTableWidgetItem *__qtablewidgetitem26 = new QTableWidgetItem();
         tableWidget->setItem(0, 4, __qtablewidgetitem26);
@@ -137,13 +145,13 @@ public:
         QTableWidgetItem *__qtablewidgetitem28 = new QTableWidgetItem();
         tableWidget->setItem(1, 0, __qtablewidgetitem28);
         QTableWidgetItem *__qtablewidgetitem29 = new QTableWidgetItem();
-        __qtablewidgetitem29->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter|Qt::AlignCenter);
+        __qtablewidgetitem29->setTextAlignment(Qt::AlignCenter);
         tableWidget->setItem(1, 1, __qtablewidgetitem29);
         QTableWidgetItem *__qtablewidgetitem30 = new QTableWidgetItem();
-        __qtablewidgetitem30->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter|Qt::AlignCenter);
+        __qtablewidgetitem30->setTextAlignment(Qt::AlignCenter);
         tableWidget->setItem(1, 2, __qtablewidgetitem30);
         QTableWidgetItem *__qtablewidgetitem31 = new QTableWidgetItem();
-        __qtablewidgetitem31->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter|Qt::AlignCenter);
+        __qtablewidgetitem31->setTextAlignment(Qt::AlignCenter);
         tableWidget->setItem(1, 3, __qtablewidgetitem31);
         tableWidget->setObjectName(QStringLiteral("tableWidget"));
         tableWidget->setGeometry(QRect(10, 100, 611, 401));
@@ -296,6 +304,9 @@ public:
 "border-style: outset;\n"
 "border-radius: 10px;	\n"
 ""));
+        label_5 = new QLabel(centralWidget);
+        label_5->setObjectName(QStringLiteral("label_5"));
+        label_5->setGeometry(QRect(190, 541, 141, 20));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -304,6 +315,8 @@ public:
         menu->setObjectName(QStringLiteral("menu"));
         menu_2 = new QMenu(menuBar);
         menu_2->setObjectName(QStringLiteral("menu_2"));
+        menu_3 = new QMenu(menuBar);
+        menu_3->setObjectName(QStringLiteral("menu_3"));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -313,9 +326,13 @@ public:
         MainWindow->setStatusBar(statusBar);
 
         menuBar->addAction(menu_2->menuAction());
+        menuBar->addAction(menu_3->menuAction());
         menuBar->addAction(menu->menuAction());
         menu->addAction(informationAbout);
         menu_2->addAction(action);
+        menu_2->addSeparator();
+        menu_2->addAction(action_exit);
+        menu_3->addAction(action_statistic_sale);
 
         retranslateUi(MainWindow);
 
@@ -324,9 +341,11 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "VTeatre", 0));
         informationAbout->setText(QApplication::translate("MainWindow", "\320\230\320\275\321\204\320\276\321\200\320\274\320\260\321\206\320\270\321\217", 0));
         action->setText(QApplication::translate("MainWindow", "\320\236\320\272\320\275\320\276 \320\277\320\276\320\272\321\203\320\277\320\260\321\202\320\265\320\273\321\217", 0));
+        action_exit->setText(QApplication::translate("MainWindow", "&\320\222\321\213\321\205\320\276\320\264", 0));
+        action_statistic_sale->setText(QApplication::translate("MainWindow", "\320\237\321\200\320\276\320\264\320\260\320\266\320\260", 0));
         QTableWidgetItem *___qtablewidgetitem = tableWidget->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QApplication::translate("MainWindow", "\320\235\320\276\320\262\321\213\320\271 \321\201\321\202\320\276\320\273\320\261\320\265\321\206", 0));
         QTableWidgetItem *___qtablewidgetitem1 = tableWidget->horizontalHeaderItem(1);
@@ -414,8 +433,10 @@ public:
         label_4->setText(QApplication::translate("MainWindow", "\321\202\321\203\321\202 \320\273\320\265\320\263\320\265\320\275\320\264\320\260", 0));
         pushButton_2->setText(QApplication::translate("MainWindow", "\320\221\321\200\320\276\320\275\321\214", 0));
         pushButton_3->setText(QApplication::translate("MainWindow", "\320\222\320\265\321\200\320\275\321\203\321\202\321\214", 0));
+        label_5->setText(QString());
         menu->setTitle(QApplication::translate("MainWindow", "&\320\236 \320\277\321\200\320\276\320\264\321\203\320\272\321\202\320\265", 0));
         menu_2->setTitle(QApplication::translate("MainWindow", "\320\237\321\200\320\276\320\263\321\200\320\260\320\274\320\274\320\260", 0));
+        menu_3->setTitle(QApplication::translate("MainWindow", "\320\241\321\202\320\260\321\202\320\270\321\201\321\202\320\270\320\272\320\260", 0));
     } // retranslateUi
 
 };

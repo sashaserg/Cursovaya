@@ -287,3 +287,9 @@ void MainWindow::on_comboBox_currentTextChanged(const QString &arg1)
 void MainWindow::on_action_exit_triggered() // пункт Выход
 {
 }
+
+void MainWindow::on_action_statistic_sale_triggered() // окно статистики
+{
+    Statistic *wind = new Statistic(this);
+    wind->show();
+}

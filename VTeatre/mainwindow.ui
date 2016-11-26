@@ -14,7 +14,7 @@
    <bool>false</bool>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>VTeatre</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: #f1f2f8;
@@ -597,7 +597,7 @@ border-radius: 10px;
     <property name="title">
      <string>Статистика</string>
     </property>
-    <addaction name="action_2"/>
+    <addaction name="action_statistic_sale"/>
    </widget>
    <addaction name="menu_2"/>
    <addaction name="menu_3"/>
@@ -627,7 +627,7 @@ border-radius: 10px;
     <string>&amp;Выход</string>
    </property>
   </action>
-  <action name="action_2">
+  <action name="action_statistic_sale">
    <property name="text">
     <string>Продажа</string>
    </property>

@@ -13,7 +13,7 @@
 #include <QtDebug>
 #include <QFileInfo>
 #include <QTableView>
-
+#include "statistic.h"
 
 namespace Ui {
 class MainWindow;
@@ -53,6 +53,8 @@ private slots:
     void on_comboBox_currentTextChanged(const QString &arg1);
 
     void on_action_exit_triggered();
+
+    void on_action_statistic_sale_triggered();
 
 private:
     Ui::MainWindow *ui;

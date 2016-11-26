@@ -15,15 +15,18 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     about.cpp \
-    windowbuyer.cpp
+    windowbuyer.cpp \
+    statistic.cpp
 
 HEADERS  += mainwindow.h \
     about.h \
-    windowbuyer.h
+    windowbuyer.h \
+    statistic.h
 
 FORMS    += mainwindow.ui \
     about.ui \
-    windowbuyer.ui
+    windowbuyer.ui \
+    statistic.ui
 
 RESOURCES += \
     Resurs1.qrc

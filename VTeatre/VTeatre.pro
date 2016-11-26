@@ -16,17 +16,20 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     about.cpp \
     windowbuyer.cpp \
-    statistic.cpp
+    statistic.cpp \
+    optionsforhall.cpp
 
 HEADERS  += mainwindow.h \
     about.h \
     windowbuyer.h \
-    statistic.h
+    statistic.h \
+    optionsforhall.h
 
 FORMS    += mainwindow.ui \
     about.ui \
     windowbuyer.ui \
-    statistic.ui
+    statistic.ui \
+    optionsforhall.ui
 
 RESOURCES += \
     Resurs1.qrc

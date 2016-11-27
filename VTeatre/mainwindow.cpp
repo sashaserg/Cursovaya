@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
         qDebug()<<"Connected Compled";
 
     // устанавливаю картинки
-   // QGraphicsScene * scen = new QGraphicsScene();
+    // QGraphicsScene * scen = new QGraphicsScene();
     QPixmap  pix;
     pix.load(":/image/scena.png");
     pix = pix.scaled(ui->label_2->size());
@@ -33,36 +33,6 @@ MainWindow::MainWindow(QWidget *parent) :
         for(int j = 0; j < ui->tableWidget->columnCount(); j++)
             ui->tableWidget->item(i,j)->setTextAlignment(Qt::AlignCenter);*/ // Нужно поставить текст ячейки по центру.
 
-// вставляю картинку и текст в ячейку------------------
-    QPixmap pix1;
-    pix1.load(":/image/image.png");
-
-    QTableWidgetItem *item = new QTableWidgetItem;
-    item->setBackground(QBrush(pix1));
-
-    row_height = ui->tableWidget->height() / ui->tableWidget->rowCount();
-    column_width = ui->tableWidget->width() / ui->tableWidget->columnCount();
-    pix1 = pix1.scaled(column_width, row_height);
-
-    for(int i = 0; i < ui->tableWidget->rowCount();i++)
-    {
-        ui->tableWidget->setRowHeight(i, row_height); // высота строк
-        for(int j = 0; j < ui->tableWidget->columnCount(); j++)
-        {
-            if(i == 0)
-                ui->tableWidget->setColumnWidth(j, column_width); // ширина столбцов
-            item = new QTableWidgetItem;
-            item->setBackground(QBrush(pix1));
-            item->setText(QString::number(i*ui->tableWidget->columnCount() + j + 1));
-            item->setTextAlignment(Qt::AlignCenter);
-            item->setFlags(item->flags() & (~Qt::ItemIsSelectable)); // устанавливаю флаг ItemIsSelectable в false
-
-            ui->tableWidget->setItem( i, j, item );
-        }
-    }
-    places_fill();
-
-
 // -----------------------------------------------
 // Работа с таблицей информации о местах------------------
 
@@ -77,7 +47,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->tableSeans->setEditTriggers(QAbstractItemView::NoEditTriggers); //запрет редактирования всех ячеек в таблице tableSeans
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers); //запрет редактирования всех ячеек в таблице tableWidget
 
-  //  ui->tableSeans->setMaximumSize(ui->tableSeans->size());
     ui->tableWidget->setMinimumSize(ui->tableWidget->size());
     ui->tableInfo->setMinimumSize(ui->tableInfo->size());
     ui->pushButton->setMinimumSize(ui->pushButton->size());
@@ -89,10 +58,43 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->label_4->setMinimumSize(ui->label_4->size());
     ui->comboBox->setMinimumSize(ui->comboBox->size());
 
+
+
+
+
+
+    /*QSqlQuery qry("select * from Employed_place");
+    while(qry.next())
+    {
+        for(int i=0;i<13;i++)
+        {
+            for(int j=0;j<9;j++)
+            {
+                if(qry.value(0)==ui->tableWidget->item(i,j)->text() &&
+                    qry.value(1)==ui->comboBox->currentText() &&
+                    qry.value(2)==ui->dateEdit->text() &&
+                    qry.value(3)== ui->tableSeans->item(quantity_prodactions,0)->text()&&
+                    qry.value(4)== ui->tableSeans->item(quantity_prodactions,1)->text())
+                {
+                    kol_sovpadeniy++;
+                }
+            }
+        }
+    }
+
+    for(int i= 0 ; i<kol_sovpadeniy;i++){
+        mesto[i][0] = chislo_s_BD/13;
+        mesto[i][1] = chislo_s_BD%13;
+    }
+    qDebug()<<kol_sovpadeniy;*/
+
+
+
 }
 void MainWindow::cleasing_places()//очистка мест
 {
-    for(int i=0;i<13;i++)
+
+    /*for(int i=0;i<13;i++)
     {
         for(int j=0;j<9;j++)
         {
@@ -101,7 +103,7 @@ void MainWindow::cleasing_places()//очистка мест
             pix = pix.scaled(ui->tableWidget->columnWidth(0), ui->tableWidget->rowHeight(0));
             ui->tableWidget->item(i, j)->setBackground(QBrush(pix));
         }
-    }
+    }*/
 }
 
 void MainWindow::places_fill()//заполнение мест
@@ -122,15 +124,17 @@ void MainWindow::places_fill()//заполнение мест
                     {
                         count_place_purchased++;
                         //ui->tableInfo->item(0,1)->setText("Продано: "+QString::number(count_place_purchased));
-
+qDebug()<<"нашел совпадение";
                         QPixmap pix_close;
                         pix_close.load(":/image/image_close.png");
                         pix_close = pix_close.scaled(ui->tableWidget->columnWidth(0), ui->tableWidget->rowHeight(0));
                         ui->tableWidget->item(i, j)->setBackground(QBrush(pix_close));
+qDebug()<<"установил красный цвет ячейке";
                     }
                 }
             }
         }
+qDebug()<<"вышел из цикла";
         ui->tableInfo->item(0,1)->setText("Продано: "+QString::number(count_place_purchased));//продано мест
         ui->tableInfo->item(1,0)->setText("Свободно: "+QString::number(count_places_all-count_place_purchased));//свободно мест
 
@@ -156,12 +160,19 @@ void MainWindow::on_tableWidget_cellClicked(int row, int column) // по наж�
     QPixmap pix2;
     pix2.load(":/image/image_checking.png");
     pix2 = pix2.scaled(ui->tableWidget->columnWidth(0), ui->tableWidget->rowHeight(0));
-
-    mesto[index_mesta][0]=row;//записываю строку
-    mesto[index_mesta][1]=column;//записываю столбик
-    index_mesta++;//записываю индекс количества выбраных мест
-    ui->tableWidget->item(row, column)->setBackground(QBrush(pix2));
-
+    bool stat = false;
+    for(int i=0;i<117;i++){
+        if(mesto[i][0] == row && mesto[i][1] == column){
+            stat = true;
+        }
+    }
+    if(!stat){
+        mesto[index_mesta][0]=row;//записываю строку
+        mesto[index_mesta][1]=column;//записываю столбик
+        index_mesta++;//записываю индекс количества выбраных мест
+        ui->tableWidget->item(row, column)->setBackground(QBrush(pix2));
+    }
+    stat = false;
 }
 
 void MainWindow::on_comboBox_currentIndexChanged(int index) // по изменению пункта в combobox менять таблицу
@@ -182,7 +193,8 @@ void MainWindow::on_comboBox_currentIndexChanged(int index) // по измене
 
 void MainWindow::on_tableSeans_cellClicked(int row, int column) // по нажатию на название изменить таблицу с местами
 {
-
+create_a_MainTable();
+qDebug()<<"196";
     if(column == 1)
     {
          quantity_prodactions=row;
@@ -244,7 +256,7 @@ void MainWindow::on_pushButton_clicked() // купить
 
     for(int i=0; i<index_mesta; i++)
     {
-        QSqlQuery qry1("insert into Employed_place(place, type_place, date_seansa, time_seansa, name_seansa) values ("+
+        QSqlQuery qry1("insert into Employed_place(place, type_place, date_seansa, time_seansa, name_seansa, row, column, state) values ("+
                        ui->tableWidget->item(mesto[i][0],mesto[i][1])->text()+
                 ", '"+
                 type_place+
@@ -317,4 +329,47 @@ void MainWindow::on_pushButton_3_clicked()//вернуть
     ui->tableInfo->item(1,0)->setText("Свободно: "+QString::number(count_place_free+index_mesta));
     index_mesta=0;
 
+}
+
+void MainWindow::create_a_MainTable(){//создаю таблицу с местами
+    ui->tableWidget->setRowCount(13);
+    ui->tableWidget->setColumnCount(9);
+
+    for(int i=0; i < ui->tableWidget->rowCount(); i++){
+        for(int j=0; j < ui->tableWidget->colorCount(); j++){
+            ui->tableWidget->setItem(i, j, new QTableWidgetItem);
+        }
+    }
+
+    QPixmap pix1;
+    pix1.load(":/image/image.png");
+
+    QTableWidgetItem *item;
+
+    row_height = ui->tableWidget->height() / ui->tableWidget->rowCount();
+    column_width = ui->tableWidget->width() / ui->tableWidget->columnCount();
+
+    pix1 = pix1.scaled(column_width, row_height);
+    for(int i = 0; i < ui->tableWidget->rowCount();i++)
+    {
+        ui->tableWidget->setRowHeight(i, row_height); // высота строк
+        for(int j = 0; j < ui->tableWidget->columnCount(); j++)
+        {
+            if(i == 0)
+                ui->tableWidget->setColumnWidth(j, column_width); // ширина столбцов
+            item = new QTableWidgetItem;
+            item->setBackground(QBrush(pix1));
+            item->setText(QString::number(i*ui->tableWidget->columnCount() + j + 1));
+            item->setTextAlignment(Qt::AlignCenter);
+            item->setFlags(item->flags() & (~Qt::ItemIsSelectable)); // устанавливаю флаг ItemIsSelectable в false
+            ui->tableWidget->setItem( i, j, item );
+        }
+    }
+    //places_fill();
+}
+
+void MainWindow::on_options_room_triggered()
+{
+    OptionsForHall *wind = new OptionsForHall(this);
+    wind->show();
 }

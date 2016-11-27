@@ -14,6 +14,7 @@
 #include <QFileInfo>
 #include <QTableView>
 #include "statistic.h"
+#include "optionsforhall.h"
 
 namespace Ui {
 class MainWindow;
@@ -61,11 +62,14 @@ private slots:
 
     void on_pushButton_3_clicked();
 
+    void on_options_room_triggered();
+
 private:
     Ui::MainWindow *ui;
     QSqlDatabase mydb;
     void places_fill();
     void cleasing_places();
+    void create_a_MainTable();
 
 };
 

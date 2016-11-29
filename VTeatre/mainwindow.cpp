@@ -94,7 +94,7 @@ MainWindow::MainWindow(QWidget *parent) :
 void MainWindow::cleasing_places()//очистка мест
 {
 
-    /*for(int i=0;i<13;i++)
+   /* for(int i=0;i<13;i++)
     {
         for(int j=0;j<9;j++)
         {
@@ -123,7 +123,7 @@ void MainWindow::places_fill()//заполнение мест
                        qry.value(4)== ui->tableSeans->item(quantity_prodactions,1)->text())
                     {
                         count_place_purchased++;
-                        //ui->tableInfo->item(0,1)->setText("Продано: "+QString::number(count_place_purchased));
+                        ui->tableInfo->item(0,1)->setText("Продано: "+QString::number(count_place_purchased));
 qDebug()<<"нашел совпадение";
                         QPixmap pix_close;
                         pix_close.load(":/image/image_close.png");
@@ -194,7 +194,7 @@ void MainWindow::on_comboBox_currentIndexChanged(int index) // по измене
 void MainWindow::on_tableSeans_cellClicked(int row, int column) // по нажатию на название изменить таблицу с местами
 {
 create_a_MainTable();
-qDebug()<<"196";
+
     if(column == 1)
     {
          quantity_prodactions=row;
@@ -256,7 +256,7 @@ void MainWindow::on_pushButton_clicked() // купить
 
     for(int i=0; i<index_mesta; i++)
     {
-        QSqlQuery qry1("insert into Employed_place(place, type_place, date_seansa, time_seansa, name_seansa, row, column, state) values ("+
+        QSqlQuery qry1("insert into Employed_place(place, type_place, date_seansa, time_seansa, name_seansa) values ("+
                        ui->tableWidget->item(mesto[i][0],mesto[i][1])->text()+
                 ", '"+
                 type_place+

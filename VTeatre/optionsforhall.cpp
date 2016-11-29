@@ -1,4 +1,4 @@
-#include "optionsforhall.h"
+﻿#include "optionsforhall.h"
 #include "ui_optionsforhall.h"
 
 OptionsForHall::OptionsForHall(QWidget *parent) :
@@ -6,6 +6,20 @@ OptionsForHall::OptionsForHall(QWidget *parent) :
     ui(new Ui::OptionsForHall)
 {
     ui->setupUi(this);
+    mydb= QSqlDatabase::addDatabase("QSQLITE");
+    mydb.setDatabaseName("D:/Cursovaya/VTeatre.sqlite");
+
+    if(!mydb.open())
+        qDebug()<<mydb.lastError().text();
+    else
+        qDebug()<<"Connected Compled";
+    QSqlQuery qry("select * from Options");
+        while(qry.next())
+        {
+            qDebug()<<qry.value(1).toString();//row
+            qDebug()<<qry.value(2).toString();//column
+            qDebug()<<qry.value(3).toString();//type_place
+        }
     CountColumn = 1;//количество колонок и строк в таблице
     CountRow = 1;
     //загрузить значения из БД

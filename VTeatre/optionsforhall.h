@@ -1,8 +1,11 @@
-#ifndef OPTIONSFORHALL_H
+﻿#ifndef OPTIONSFORHALL_H
 #define OPTIONSFORHALL_H
 
 #include <QDialog>
+#include <QtSql>
 #include <QtDebug>
+#include <QFileInfo>
+#include <QTableView>
 namespace Ui {
 class OptionsForHall;
 }
@@ -25,6 +28,7 @@ private slots:
 
 private:
     Ui::OptionsForHall *ui;
+    QSqlDatabase mydb;
     void DrawTable();
 };
 

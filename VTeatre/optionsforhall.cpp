@@ -6,25 +6,36 @@ OptionsForHall::OptionsForHall(QWidget *parent) :
     ui(new Ui::OptionsForHall)
 {
     ui->setupUi(this);
-    mydb= QSqlDatabase::addDatabase("QSQLITE");
-    mydb.setDatabaseName("D:/Cursovaya/VTeatre.sqlite");
+
+    TypeOfPlace = 1;
+    for(int i = 0; i < 3; i++)
+        Array[i][0] = Array[i][1] = -1;
+
+    mydb= QSqlDatabase::addDatabase("QSQLITE");         //ПОдключаю БД
+    mydb.setDatabaseName("D:/Kyrs/VTeatre.sqlite");
 
     if(!mydb.open())
         qDebug()<<mydb.lastError().text();
     else
         qDebug()<<"Connected Compled";
+
     QSqlQuery qry("select * from Options");
-        while(qry.next())
-        {
-            qDebug()<<qry.value(1).toString();//row
-            qDebug()<<qry.value(2).toString();//column
-            qDebug()<<qry.value(3).toString();//type_place
-        }
-    CountColumn = 1;//количество колонок и строк в таблице
-    CountRow = 1;
-    //загрузить значения из БД
-    //изменить чекбоксы
-    //переисовать таблицу
+
+    for(int i = 0; qry.next(); i++)        //загрузить значения из БД
+    {
+        Array[i][0] = qry.value(1).toInt();//row
+        Array[i][1] = qry.value(2).toInt();//column
+    }
+
+    for(int i = 0; i<3; i++)
+        qDebug()<<Array[i][0]<<"\t"<<Array[i][1];
+
+    CountColumn = Array[0][1];//количество колонок и строк в таблице
+    CountRow = Array[0][0];
+
+    ui->spinBox_Column->setValue(CountColumn);//изменить чекбоксы
+    ui->spinBox_Row->setValue(CountRow);
+
 }
 
 OptionsForHall::~OptionsForHall()
@@ -36,14 +47,18 @@ void OptionsForHall::on_spinBox_Row_valueChanged(int arg1)//при измене�
 {
     CountRow = arg1;
     DrawTable();    //перерисовываю таблицу
-    //после перерисовки таблицы необходимо сохранить значения в БД
+    //после перерисовки таблицы необходимо сохранить значения в массив
+    Array[TypeOfPlace][0] = CountRow;
+    Array[TypeOfPlace][1] = CountColumn;
 }
 
 void OptionsForHall::on_spinBox_Column_valueChanged(int arg1)//при изменении количества мест в ряду
 {
     CountColumn = arg1;
     DrawTable();    //перерисовываю таблицу
-    //после перерисовки таблицы необходимо сохранить значения в БД
+    //после перерисовки таблицы необходимо сохранить значения в массив
+    Array[TypeOfPlace][0] = CountRow;
+    Array[TypeOfPlace][1] = CountColumn;
 }
 
 void OptionsForHall::DrawTable()
@@ -90,7 +105,13 @@ void OptionsForHall::DrawTable()
 
 void OptionsForHall::on_ComboBoxType_currentIndexChanged(int index)
 {
-    //изначально должен подгрузить из БД те значения которые там лежат
+    TypeOfPlace = index;
+
+    CountColumn = Array[TypeOfPlace][1];//количество колонок и строк в таблице
+    CountRow = Array[TypeOfPlace][0];
+
+    ui->spinBox_Column->setValue(CountColumn);//изменить чекбоксы
+    ui->spinBox_Row->setValue(CountRow);
     //затем присвоить
     //перерисовать таблицу
     //изменить значения комбобокса
@@ -98,5 +119,13 @@ void OptionsForHall::on_ComboBoxType_currentIndexChanged(int index)
 
 void OptionsForHall::on_pushButtonOK_clicked()
 {
-    QSqlQuery qry1("update options set kol_rows=11, kol_column=11 where type_place = 'Партер'");
+    if(Array[0][0] != -1)
+        QSqlQuery qry1("update options set kol_rows=" + QString::number(Array[0][0]) + ", kol_column=" + QString::number(Array[0][1]) + " where type_place = 'Партер'");
+    if(Array[1][0] != -1)
+        QSqlQuery qry1("update options set kol_rows=" + QString::number(Array[1][0]) + ", kol_column=" + QString::number(Array[1][1]) + " where type_place = 'Бенуар'");
+    if(Array[2][0] != -1)
+        QSqlQuery qry1("update options set kol_rows=" + QString::number(Array[2][0]) + ", kol_column=" + QString::number(Array[2][1]) + " where type_place = 'Бельэтаж'");
+for(int i = 0; i<3; i++)
+    qDebug()<<Array[i][0]<<"\t"<<Array[i][1];
+
 }

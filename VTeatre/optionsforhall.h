@@ -26,6 +26,8 @@ private slots:
 
     void on_ComboBoxType_currentIndexChanged(int index);
 
+    void on_pushButtonOK_clicked();
+
 private:
     Ui::OptionsForHall *ui;
     QSqlDatabase mydb;

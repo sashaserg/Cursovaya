@@ -95,3 +95,8 @@ void OptionsForHall::on_ComboBoxType_currentIndexChanged(int index)
     //перерисовать таблицу
     //изменить значения комбобокса
 }
+
+void OptionsForHall::on_pushButtonOK_clicked()
+{
+    QSqlQuery qry1("update options set kol_rows=11, kol_column=11 where type_place = 'Партер'");
+}

@@ -94,7 +94,7 @@ MainWindow::MainWindow(QWidget *parent) :
 void MainWindow::cleasing_places()//очистка мест
 {
 
-   /* for(int i=0;i<13;i++)
+    for(int i=0;i<13;i++)
     {
         for(int j=0;j<9;j++)
         {
@@ -103,7 +103,7 @@ void MainWindow::cleasing_places()//очистка мест
             pix = pix.scaled(ui->tableWidget->columnWidth(0), ui->tableWidget->rowHeight(0));
             ui->tableWidget->item(i, j)->setBackground(QBrush(pix));
         }
-    }*/
+    }
 }
 
 void MainWindow::places_fill()//заполнение мест
@@ -112,31 +112,62 @@ void MainWindow::places_fill()//заполнение мест
     QSqlQuery qry("select * from Employed_place");
         while(qry.next())
         {
-            for(int i=0;i<13;i++)
+            for(int i=0; i < 13; i++)
             {
-                for(int j=0;j<9;j++)
+                for(int j=0; j < 9; j++)
                 {
-                    if(qry.value(0)==ui->tableWidget->item(i,j)->text() &&
-                       qry.value(1)==ui->comboBox->currentText() &&
+                    if(qry.value(0) == ui->tableWidget->item(i,j)->text() &&
+                       qry.value(1) == ui->comboBox->currentText() &&
                        qry.value(2) == ui->dateEdit->text() &&
-                       qry.value(3)== ui->tableSeans->item(quantity_prodactions,0)->text()&&
-                       qry.value(4)== ui->tableSeans->item(quantity_prodactions,1)->text())
+                       qry.value(3) == ui->tableSeans->item(quantity_prodactions,0)->text()&&
+                       qry.value(4) == ui->tableSeans->item(quantity_prodactions,1)->text()&&
+                       qry.value(7) == "Куплено" )
                     {
-                        count_place_purchased++;
-                        ui->tableInfo->item(0,1)->setText("Продано: "+QString::number(count_place_purchased));
-qDebug()<<"нашел совпадение";
-                        QPixmap pix_close;
-                        pix_close.load(":/image/image_close.png");
-                        pix_close = pix_close.scaled(ui->tableWidget->columnWidth(0), ui->tableWidget->rowHeight(0));
-                        ui->tableWidget->item(i, j)->setBackground(QBrush(pix_close));
-qDebug()<<"установил красный цвет ячейке";
+                            count_place_purchased++;
+                            QPixmap pix_close;
+                            pix_close.load(":/image/image_close.png");
+                            pix_close = pix_close.scaled(ui->tableWidget->columnWidth(0), ui->tableWidget->rowHeight(0));
+                            ui->tableWidget->item(i, j)->setBackground(QBrush(pix_close));
+                    }
+                    if(qry.value(0) == ui->tableWidget->item(i,j)->text() &&
+                       qry.value(1) == ui->comboBox->currentText() &&
+                       qry.value(2) == ui->dateEdit->text() &&
+                       qry.value(3) == ui->tableSeans->item(quantity_prodactions,0)->text()&&
+                       qry.value(4) == ui->tableSeans->item(quantity_prodactions,1)->text()&&
+                       qry.value(7) == "Забронировано" )
+                    {
+                            count_place_purchased++;
+                            QPixmap pix_reserv;
+                            pix_reserv.load(":/image/image_reserv.png");
+                            pix_reserv = pix_reserv.scaled(ui->tableWidget->columnWidth(0), ui->tableWidget->rowHeight(0));
+                            ui->tableWidget->item(i, j)->setBackground(QBrush(pix_reserv));
                     }
                 }
             }
         }
-qDebug()<<"вышел из цикла";
-        ui->tableInfo->item(0,1)->setText("Продано: "+QString::number(count_place_purchased));//продано мест
-        ui->tableInfo->item(1,0)->setText("Свободно: "+QString::number(count_places_all-count_place_purchased));//свободно мест
+
+        //ui->tableInfo->item(0,1)->setText("Продано: "+QString::number(count_place_purchased));//продано мест
+        //ui->tableInfo->item(1,0)->setText("Свободно: "+QString::number(count_places_all-count_place_purchased));//свободно мест
+}
+
+void MainWindow::places_overwrite(int i)
+{
+    QSqlQuery qry("select * from Employed_place");
+    while(qry.next())
+{
+        if(qry.value(0) == ui->tableWidget->item(mesto[i][0],mesto[i][1])->text() &&
+           qry.value(1) == ui->comboBox->currentText() &&
+           qry.value(2) == ui->dateEdit->text() &&
+           qry.value(3) == ui->tableSeans->item(quantity_prodactions,0)->text()&&
+           qry.value(4) == ui->tableSeans->item(quantity_prodactions,1)->text()&&
+           qry.value(7) == "Куплено"||
+           qry.value(7) == "Забронировано"&&
+           qry.value(5) == mesto[i][0]&&
+           qry.value(6) == mesto[i][1])
+        {
+            QSqlQuery qry2("delete from Employed_place where place="+ui->tableWidget->item(mesto[i][0],mesto[i][1])->text());
+        }
+}
 
 }
 MainWindow::~MainWindow()
@@ -160,19 +191,20 @@ void MainWindow::on_tableWidget_cellClicked(int row, int column) // по наж�
     QPixmap pix2;
     pix2.load(":/image/image_checking.png");
     pix2 = pix2.scaled(ui->tableWidget->columnWidth(0), ui->tableWidget->rowHeight(0));
-    bool stat = false;
-    for(int i=0;i<117;i++){
-        if(mesto[i][0] == row && mesto[i][1] == column){
-            stat = true;
-        }
+
+    for(int i=0; i < 117; i++)
+        if(mesto[i][0]==row && mesto[i][1]==column)
+        is_Already = true;
+
+    if(!is_Already)
+    {
+        mesto[count_places][0]=row;//записываю строку
+        mesto[count_places][1]=column;//записываю столбик
+        count_places++;//записываю количество выбраных мест
     }
-    if(!stat){
-        mesto[index_mesta][0]=row;//записываю строку
-        mesto[index_mesta][1]=column;//записываю столбик
-        index_mesta++;//записываю индекс количества выбраных мест
-        ui->tableWidget->item(row, column)->setBackground(QBrush(pix2));
-    }
-    stat = false;
+
+    is_Already=false;
+    ui->tableWidget->item(row, column)->setBackground(QBrush(pix2));
 }
 
 void MainWindow::on_comboBox_currentIndexChanged(int index) // по изменению пункта в combobox менять таблицу
@@ -205,7 +237,7 @@ create_a_MainTable();
 
 void MainWindow::on_dateEdit_dateChanged(const QDate &date)//Выводит сеансы по дате
 {
-        cleasing_places();
+        //cleasing_places();
         QString date_seansa=ui->dateEdit->text();
         QString query = "select * from Postanovka where date_seansa='"+date_seansa+"'";
         QSqlQuery qry1;
@@ -254,9 +286,10 @@ void MainWindow::on_pushButton_clicked() // купить
             time_seansa = ui->tableSeans->item(quantity_prodactions,0)->text(),
             name_seansa = ui->tableSeans->item(quantity_prodactions,1)->text();
 
-    for(int i=0; i<index_mesta; i++)
+    for(int i=0; i<count_places; ++i)
     {
-        QSqlQuery qry1("insert into Employed_place(place, type_place, date_seansa, time_seansa, name_seansa) values ("+
+        places_overwrite(i);
+        QSqlQuery qry1("insert into Employed_place(place, type_place, date_seansa, time_seansa, name_seansa, row, column, state) values ("+
                        ui->tableWidget->item(mesto[i][0],mesto[i][1])->text()+
                 ", '"+
                 type_place+
@@ -266,30 +299,75 @@ void MainWindow::on_pushButton_clicked() // купить
                 time_seansa+
                 "', '"+
                 name_seansa+
-                "')");
+                "', "+
+                QString::number(mesto[i][0])+
+                ", "+
+                QString::number(mesto[i][1])+
+                ", 'Куплено')");
     }
     QPixmap pix_close;
     pix_close.load(":/image/image_close.png");
     pix_close = pix_close.scaled(ui->tableWidget->columnWidth(0), ui->tableWidget->rowHeight(0));
-    for(int i=0; i<index_mesta;i++)
+    for(int i=0; i<count_places; ++i)
     {
         ui->tableWidget->item(mesto[i][0], mesto[i][1])->setBackground(QBrush(pix_close));
     }
-    ui->tableInfo->item(0,1)->setText("Продано: "+QString::number(count_place_purchased+=index_mesta));//продано мест
+    ui->tableInfo->item(0,1)->setText("Продано: "+QString::number(count_place_purchased+=count_places));//продано мест
     ui->tableInfo->item(1,0)->setText("Свободно: "+QString::number(count_place_free=count_places_all-count_place_purchased));//свободно мест
-    index_mesta=0;
+    count_places=0;
+
+    for(int i=0; i<117; ++i)//очистка массива mesto
+    {
+        mesto[i][0]=-1;
+        mesto[i][1]=-1;
+    }
+
 
 }
 
 void MainWindow::on_pushButton_2_clicked() // забронировать
 {
+    QString type_place = ui->comboBox->currentText(),
+            date_seansa = ui->dateEdit->text(),
+            time_seansa = ui->tableSeans->item(quantity_prodactions,0)->text(),
+            name_seansa = ui->tableSeans->item(quantity_prodactions,1)->text();
+
+    for(int i=0; i<count_places; ++i)
+    {
+        places_overwrite(i);
+        QSqlQuery qry1("insert into Employed_place(place, type_place, date_seansa, time_seansa, name_seansa, row, column, state) values ("+
+                       ui->tableWidget->item(mesto[i][0],mesto[i][1])->text()+
+                ", '"+
+                type_place+
+                "', '"+
+                date_seansa+
+                "', '"+
+                time_seansa+
+                "', '"+
+                name_seansa+
+                "', "+
+                QString::number(mesto[i][0])+
+                ", "+
+                QString::number(mesto[i][1])+
+                ", 'Забронировано')");
+    }
     QPixmap pix_reserv;
     pix_reserv.load(":/image/image_reserv.png");
     pix_reserv = pix_reserv.scaled(ui->tableWidget->columnWidth(0), ui->tableWidget->rowHeight(0));
-    for(int i=0; i<index_mesta;i++)
+    for(int i=0; i<count_places; ++i)
     {
         ui->tableWidget->item(mesto[i][0], mesto[i][1])->setBackground(QBrush(pix_reserv));
     }
+    ui->tableInfo->item(0,1)->setText("Продано: "+QString::number(count_place_purchased+=count_places));//продано мест
+    ui->tableInfo->item(1,0)->setText("Свободно: "+QString::number(count_place_free=count_places_all-count_place_purchased));//свободно мест
+    count_places=0;
+
+    for(int i=0; i<117; ++i)//очистка массива mesto
+    {
+        mesto[i][0]=-1;
+        mesto[i][1]=-1;
+    }
+
 
 }
 
@@ -317,7 +395,7 @@ void MainWindow::on_pushButton_3_clicked()//вернуть
     pix.load(":/image/image.png");
     pix = pix.scaled(ui->tableWidget->columnWidth(0), ui->tableWidget->rowHeight(0));
     QSqlQuery qry1("select * from Employed_place");
-    for(int k=0;k<index_mesta;k++)
+    for(int k=0;k<count_places;k++)
     {
         place=ui->tableWidget->item(mesto[k][0], mesto[k][1])->text().toInt();
         qry.exec("delete from Employed_place where place="+QString::number(place));
@@ -325,9 +403,15 @@ void MainWindow::on_pushButton_3_clicked()//вернуть
     }
 
 
-    ui->tableInfo->item(0,1)->setText("Продано: "+QString::number(count_place_purchased-=index_mesta));
-    ui->tableInfo->item(1,0)->setText("Свободно: "+QString::number(count_place_free+index_mesta));
-    index_mesta=0;
+    ui->tableInfo->item(0,1)->setText("Продано: "+QString::number(count_place_purchased-=count_places));
+    ui->tableInfo->item(1,0)->setText("Свободно: "+QString::number(count_place_free+count_places));
+    count_places=0;
+
+    for(int i=0; i<117; ++i)//очистка массива mesto
+    {
+        mesto[i][0]=-1;
+        mesto[i][1]=-1;
+    }
 
 }
 

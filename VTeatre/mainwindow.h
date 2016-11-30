@@ -32,10 +32,11 @@ public:
     int column_width; // ширина столбца
     int quantity_prodactions=0;//запоминает выбраную строку
     int mesto[117][2];//запоминаю столбик и строчку
-    int index_mesta=0;//индекс количества выбраных мест
+    int count_places=0;//индекс количества выбраных мест
     unsigned int count_place_purchased = 0;//счетчик купленых мест
     int count_places_all =0;//всего мест
-    int count_place_free = 0;//счетчик свободных мест
+    int count_place_free = 0;//счетчик свободных
+    bool is_Already = false;//переменная для проверки наличия выбраного места в массиве mesto[][]
 
 private slots:
     void on_informationAbout_triggered();
@@ -70,7 +71,7 @@ private:
     void places_fill();
     void cleasing_places();
     void create_a_MainTable();
-
+    void places_overwrite(int i);//если место которое раньше бронировали или покупали попробуют купить опять то эта фция перезапишет старую запись
 };
 
 #endif // MAINWINDOW_H

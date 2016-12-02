@@ -19,6 +19,8 @@ public:
     ~OptionsForHall();
     int CountRow;
     int CountColumn;
+    int TypeOfPlace; // 1 - Партер 2 - Бенуар 3 - Бельэтаж
+    int Array[3][2];
 private slots:
     void on_spinBox_Row_valueChanged(int arg1);
 

@@ -415,7 +415,15 @@ void MainWindow::on_pushButton_3_clicked()//вернуть
 
 }
 
-void MainWindow::create_a_MainTable(){//создаю таблицу с местами
+void MainWindow::create_a_MainTable()
+{//создаю таблицу с местами
+    QSqlQuery qry("select * from Options");
+    while(qry.next())
+    {
+       qDebug()<<qry.value(1).toString();//row
+       qDebug()<<qry.value(2).toString();//column
+       qDebug()<<qry.value(3).toString();//тип места
+    }
     ui->tableWidget->setRowCount(13);
     ui->tableWidget->setColumnCount(9);
 

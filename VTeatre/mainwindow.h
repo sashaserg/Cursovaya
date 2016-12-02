@@ -31,13 +31,19 @@ public:
     int row_height; // высота строки
     int column_width; // ширина столбца
     int quantity_prodactions=0;//запоминает выбраную строку
-    int mesto[117][2];//запоминаю столбик и строчку
+    int **mesto;//запоминаю столбик и строчку
     int count_places=0;//индекс количества выбраных мест
     unsigned int count_place_purchased = 0;//счетчик купленых мест
     int count_places_all =0;//всего мест
     int count_place_free = 0;//счетчик свободных
     bool is_Already = false;//переменная для проверки наличия выбраного места в массиве mesto[][]
 
+    //***ПЕРЕМЕННЫЕ ОТ САНИ***
+    int CountRow;
+    int CountColumn;
+    int TypeOfPlace; // 1 - Партер 2 - Бенуар 3 - Бельэтаж
+    int Array[3][2];
+    //***ВОТ НА ЭТОМ МОИ ПЕРЕМЕННЫЕ ВСЬО***
 private slots:
     void on_informationAbout_triggered();
 

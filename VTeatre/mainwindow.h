@@ -15,6 +15,8 @@
 #include <QTableView>
 #include "statistic.h"
 #include "optionsforhall.h"
+#include "addscene.h"
+
 
 namespace Ui {
 class MainWindow;
@@ -68,6 +70,8 @@ private slots:
     void on_pushButton_3_clicked();
 
     void on_options_room_triggered();
+
+    void on_action_addScene_triggered();
 
 private:
     Ui::MainWindow *ui;

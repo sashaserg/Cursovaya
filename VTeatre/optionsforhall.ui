@@ -165,7 +165,7 @@ border-color: #d3bb9c;
   <widget class="QPushButton" name="pushButtonOK">
    <property name="geometry">
     <rect>
-     <x>520</x>
+     <x>540</x>
      <y>30</y>
      <width>81</width>
      <height>31</height>
@@ -178,7 +178,7 @@ border-color: #d3bb9c;
   <widget class="QPushButton" name="pushButtonCancel">
    <property name="geometry">
     <rect>
-     <x>520</x>
+     <x>540</x>
      <y>70</y>
      <width>81</width>
      <height>31</height>

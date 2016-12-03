@@ -12,7 +12,7 @@ class Statistic : public QDialog
     Q_OBJECT
     
 public:
-    explicit Statistic(QWidget *parent = 0);
+    explicit Statistic(QDateTime datenow, QWidget *parent = 0);
     ~Statistic();
     
 private:

@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     mydb= QSqlDatabase::addDatabase("QSQLITE");
-    mydb.setDatabaseName("D:/Cursovaya/VTeatre.sqlite");
+    mydb.setDatabaseName("I:/Soft/Curs/Cursovaya/VTeatre.sqlite");
 
     if(!mydb.open())
         qDebug()<<mydb.lastError().text();
@@ -45,7 +45,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->label_4->setPixmap(pix_Legend);
 
 
-
     /* for(int i = 0; i < ui->tableWidget->rowCount(); i++)
         for(int j = 0; j < ui->tableWidget->columnCount(); j++)
             ui->tableWidget->item(i,j)->setTextAlignment(Qt::AlignCenter);*/ // Нужно поставить текст ячейки по центру.
@@ -63,7 +62,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->tableSeans->setEditTriggers(QAbstractItemView::NoEditTriggers); //запрет редактирования всех ячеек в таблице tableSeans
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers); //запрет редактирования всех ячеек в таблице tableWidget
-
+/*
     ui->tableWidget->setMinimumSize(ui->tableWidget->size());
     ui->tableInfo->setMinimumSize(ui->tableInfo->size());
     ui->pushButton->setMinimumSize(ui->pushButton->size());
@@ -74,7 +73,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->label_3->setMinimumSize(ui->label_3->size());
     ui->label_4->setMinimumSize(ui->label_4->size());
     ui->comboBox->setMinimumSize(ui->comboBox->size());
-
+*/
     coordinates_of_places = new bool*[CountRow];
     for(int i = 0; i < CountRow; i++)
         coordinates_of_places[i] = new bool [CountColumn];
@@ -426,7 +425,7 @@ void MainWindow::on_action_exit_triggered() // пункт Выход
 
 void MainWindow::on_action_statistic_sale_triggered() // окно статистики
 {
-    Statistic *wind = new Statistic(this);
+    Statistic *wind = new Statistic(dt, this);
     wind->show();
 }
 
@@ -501,4 +500,10 @@ void MainWindow::on_options_room_triggered()
 {
     OptionsForHall *wind = new OptionsForHall(this);
     wind->show();
+}
+
+void MainWindow::on_action_addScene_triggered()                 // нажатие на "Добавить постановку"
+{
+    AddScene *window = new AddScene(this);
+    window->show();
 }

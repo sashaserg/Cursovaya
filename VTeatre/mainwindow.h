@@ -31,13 +31,17 @@ public:
     int row_height; // высота строки
     int column_width; // ширина столбца
     int quantity_prodactions=0;//запоминает выбраную строку
-    int mesto[117][2];//запоминаю столбик и строчку
-    int count_places=0;//индекс количества выбраных мест
+    bool **coordinates_of_places;//запоминаю координаты столбика и строчки
     unsigned int count_place_purchased = 0;//счетчик купленых мест
     int count_places_all =0;//всего мест
     int count_place_free = 0;//счетчик свободных
-    bool is_Already = false;//переменная для проверки наличия выбраного места в массиве mesto[][]
-
+    void coordinates_of_places_cleaning();
+    //***ПЕРЕМЕННЫЕ ОТ САНИ***
+    int CountRow;
+    int CountColumn;
+    int TypeOfPlace; // 1 - Партер 2 - Бенуар 3 - Бельэтаж
+    int Array[3][2];
+    //***ВОТ НА ЭТОМ МОИ ПЕРЕМЕННЫЕ ВСЬО***
 private slots:
     void on_informationAbout_triggered();
 
@@ -68,10 +72,14 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QSqlDatabase mydb;
-    void places_fill();
-    void cleasing_places();
+    void places_fill();//заполняет места
+    void cleasing_places();//очищает места
     void create_a_MainTable();
-    void places_overwrite(int i);//если место которое раньше бронировали или покупали попробуют купить опять то эта фция перезапишет старую запись
+    void places_overwrite(int row, int column);//удаляет дубликаты в базе
+    void pix_close(int row, int column);//красит в красный
+    void pix_checking(int row, int column);//красит в синий
+    void pix_reserv(int row, int column);//красит в желтый
+    void pix_standart(int row, int column);//красит в зелёный
 };
 
 #endif // MAINWINDOW_H

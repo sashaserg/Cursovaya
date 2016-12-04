@@ -87,10 +87,10 @@ public:
         ComboBoxType->setGeometry(QRect(10, 20, 131, 41));
         pushButtonOK = new QPushButton(OptionsForHall);
         pushButtonOK->setObjectName(QStringLiteral("pushButtonOK"));
-        pushButtonOK->setGeometry(QRect(520, 30, 81, 31));
+        pushButtonOK->setGeometry(QRect(540, 30, 81, 31));
         pushButtonCancel = new QPushButton(OptionsForHall);
         pushButtonCancel->setObjectName(QStringLiteral("pushButtonCancel"));
-        pushButtonCancel->setGeometry(QRect(520, 70, 81, 31));
+        pushButtonCancel->setGeometry(QRect(540, 70, 81, 31));
 
         retranslateUi(OptionsForHall);
 

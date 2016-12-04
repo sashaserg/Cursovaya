@@ -5,10 +5,12 @@ INPUT(
 ./debug\windowbuyer.o
 ./debug\statistic.o
 ./debug\optionsforhall.o
+./debug\addscene.o
 ./debug\qrc_Resurs1.o
 ./debug\moc_mainwindow.o
 ./debug\moc_about.o
 ./debug\moc_windowbuyer.o
 ./debug\moc_statistic.o
 ./debug\moc_optionsforhall.o
+./debug\moc_addscene.o
 );

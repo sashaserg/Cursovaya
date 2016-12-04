@@ -16,7 +16,6 @@ MainWindow::MainWindow(QWidget *parent) :
     else
         qDebug()<<"Connected Compled";
 
-
     QSqlQuery qry("select * from Options where type_place = '" + ui->comboBox->currentText() + "'");
     qry.next();
     CountRow = qry.value(1).toInt();
@@ -524,4 +523,9 @@ void MainWindow::customizeTableInf()
     ui->tableInfo->item(0,1)->setText("Продано: " + QString::number(CountPurchased));
     ui->tableInfo->item(1,1)->setText("Бронь: " + QString::number(CountBooked));
     ui->tableInfo->item(1,0)->setText("Свободно: " + QString::number(CountOfPlaces - CountPurchased - CountBooked));
+}
+
+void MainWindow::on_action_hovered()
+{
+
 }

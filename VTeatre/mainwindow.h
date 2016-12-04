@@ -73,6 +73,8 @@ private slots:
 
     void on_action_addScene_triggered();
 
+    void on_action_hovered();
+
 private:
     Ui::MainWindow *ui;
     QSqlDatabase mydb;

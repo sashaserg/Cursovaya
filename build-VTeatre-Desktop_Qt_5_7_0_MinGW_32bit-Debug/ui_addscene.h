@@ -20,8 +20,8 @@
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QTextEdit>
 #include <QtWidgets/QTimeEdit>
 
 QT_BEGIN_NAMESPACE
@@ -30,7 +30,6 @@ class Ui_AddScene
 {
 public:
     QPushButton *ButtonAdd;
-    QTextEdit *textEditName;
     QLabel *labeName;
     QLabel *labelDateTime;
     QDateEdit *dateEdit;
@@ -42,6 +41,7 @@ public:
     QLabel *label;
     QLabel *label_2;
     QLabel *label_3;
+    QLineEdit *NameLineEdit;
 
     void setupUi(QDialog *AddScene)
     {
@@ -54,10 +54,6 @@ public:
         QFont font;
         font.setPointSize(10);
         ButtonAdd->setFont(font);
-        textEditName = new QTextEdit(AddScene);
-        textEditName->setObjectName(QStringLiteral("textEditName"));
-        textEditName->setGeometry(QRect(10, 30, 251, 31));
-        textEditName->setFont(font);
         labeName = new QLabel(AddScene);
         labeName->setObjectName(QStringLiteral("labeName"));
         labeName->setGeometry(QRect(10, 10, 61, 16));
@@ -99,6 +95,9 @@ public:
         label_3 = new QLabel(groupBoxPrice);
         label_3->setObjectName(QStringLiteral("label_3"));
         label_3->setGeometry(QRect(250, 30, 101, 16));
+        NameLineEdit = new QLineEdit(AddScene);
+        NameLineEdit->setObjectName(QStringLiteral("NameLineEdit"));
+        NameLineEdit->setGeometry(QRect(10, 30, 251, 31));
 
         retranslateUi(AddScene);
 
@@ -111,7 +110,7 @@ public:
         ButtonAdd->setText(QApplication::translate("AddScene", "\320\224\320\276\320\261\320\260\320\262\320\270\321\202\321\214", 0));
         labeName->setText(QApplication::translate("AddScene", "\320\235\320\260\320\267\320\262\320\260\320\275\320\270\320\265", 0));
         labelDateTime->setText(QApplication::translate("AddScene", "\320\224\320\260\321\202\320\260 \320\270 \320\262\321\200\320\265\320\274\321\217", 0));
-        dateEdit->setDisplayFormat(QApplication::translate("AddScene", "dd.MM.yy", 0));
+        dateEdit->setDisplayFormat(QApplication::translate("AddScene", "dd.MM.yyyy", 0));
         timeEdit->setDisplayFormat(QApplication::translate("AddScene", "HH:mm", 0));
         groupBoxPrice->setTitle(QApplication::translate("AddScene", "\320\246\320\265\320\275\320\260, \320\263\321\200\320\275", 0));
         label->setText(QApplication::translate("AddScene", "\320\237\320\260\321\200\321\202\320\265\321\200", 0));

@@ -1,4 +1,4 @@
-#include "addscene.h"
+﻿#include "addscene.h"
 #include "ui_addscene.h"
 
 AddScene::AddScene(QWidget *parent) :
@@ -7,7 +7,7 @@ AddScene::AddScene(QWidget *parent) :
 {
     ui->setupUi(this);
     mydb= QSqlDatabase::addDatabase("QSQLITE");                     // Подключение базы данных
-    mydb.setDatabaseName("I:/Soft/Curs/Cursovaya/VTeatre.sqlite");
+    mydb.setDatabaseName("D:/Cursovaya/VTeatre.sqlite");
 
     if(!mydb.open())
         qDebug()<<mydb.lastError().text();
@@ -22,5 +22,10 @@ AddScene::~AddScene()
 
 void AddScene::on_ButtonAdd_clicked()                               // Нажатие на кнопку "Добавить"
 {
-
+    QSqlQuery qry_insert("insert into Postanovka(name, time_seansa, date_seansa, cost_parter, cost_benuar, cost_beletaj) values('"+ui->NameLineEdit->text()+
+                         "', '"+ui->timeEdit->text()+
+                         "', '"+ui->dateEdit->text()+
+                         "', "+QString::number(ui->ParterPrice->value())+
+                         ", "+QString::number(ui->BenuarPrice->value())+
+                         ", "+QString::number(ui->BeletazPrice->value())+")");
 }

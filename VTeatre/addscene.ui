@@ -31,21 +31,6 @@
     <string>Добавить</string>
    </property>
   </widget>
-  <widget class="QTextEdit" name="textEditName">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>30</y>
-     <width>251</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
-  </widget>
   <widget class="QLabel" name="labeName">
    <property name="geometry">
     <rect>
@@ -82,7 +67,7 @@
     </rect>
    </property>
    <property name="displayFormat">
-    <string>dd.MM.yy</string>
+    <string>dd.MM.yyyy</string>
    </property>
    <property name="calendarPopup">
     <bool>true</bool>
@@ -213,6 +198,16 @@
      <string>Бельэтаж</string>
     </property>
    </widget>
+  </widget>
+  <widget class="QLineEdit" name="NameLineEdit">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>30</y>
+     <width>251</width>
+     <height>31</height>
+    </rect>
+   </property>
   </widget>
  </widget>
  <resources/>

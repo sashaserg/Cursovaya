@@ -39,10 +39,10 @@ public:
     int count_place_free = 0;//счетчик свободных
     void coordinates_of_places_cleaning();
     //***ПЕРЕМЕННЫЕ ОТ САНИ***
-    int CountRow;
-    int CountColumn;
-    int TypeOfPlace; // 1 - Партер 2 - Бенуар 3 - Бельэтаж
-    int Array[3][2];
+    int CountRow;               //Количество строк
+    int CountColumn;            //Количество столбцов
+    int CountPurchased;         //количество купленных
+    int CountBooked;            //количество забронированных
     //***ВОТ НА ЭТОМ МОИ ПЕРЕМЕННЫЕ ВСЬО***
 private slots:
     void on_informationAbout_triggered();
@@ -73,6 +73,8 @@ private slots:
 
     void on_action_addScene_triggered();
 
+    void on_action_hovered();
+
 private:
     Ui::MainWindow *ui;
     QSqlDatabase mydb;
@@ -84,6 +86,8 @@ private:
     void pix_checking(int row, int column);//красит в синий
     void pix_reserv(int row, int column);//красит в желтый
     void pix_standart(int row, int column);//красит в зелёный
+    void customizeTableInf();
+
 };
 
 #endif // MAINWINDOW_H

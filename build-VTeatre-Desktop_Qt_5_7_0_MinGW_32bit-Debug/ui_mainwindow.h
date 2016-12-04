@@ -81,16 +81,20 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(888, 620);
+        MainWindow->resize(899, 620);
         MainWindow->setAcceptDrops(false);
         MainWindow->setStyleSheet(QLatin1String("background-color: #f1f2f8;\n"
 ""));
         informationAbout = new QAction(MainWindow);
         informationAbout->setObjectName(QStringLiteral("informationAbout"));
+        informationAbout->setMenuRole(QAction::TextHeuristicRole);
         action = new QAction(MainWindow);
         action->setObjectName(QStringLiteral("action"));
         action_exit = new QAction(MainWindow);
         action_exit->setObjectName(QStringLiteral("action_exit"));
+        action_exit->setCheckable(false);
+        action_exit->setChecked(false);
+        action_exit->setMenuRole(QAction::QuitRole);
         action_statistic_sale = new QAction(MainWindow);
         action_statistic_sale->setObjectName(QStringLiteral("action_statistic_sale"));
         options_room = new QAction(MainWindow);
@@ -359,7 +363,11 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 888, 21));
+        menuBar->setGeometry(QRect(0, 0, 899, 21));
+        menuBar->setStyleSheet(QLatin1String("QMenuBar:hover\n"
+"{\n"
+"\n"
+"}"));
         menu = new QMenu(menuBar);
         menu->setObjectName(QStringLiteral("menu"));
         menu_2 = new QMenu(menuBar);

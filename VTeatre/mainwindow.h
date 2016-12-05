@@ -16,7 +16,7 @@
 #include "statistic.h"
 #include "optionsforhall.h"
 #include "addscene.h"
-
+#include "scene.h"
 
 namespace Ui {
 class MainWindow;
@@ -29,6 +29,9 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
+    Scene *CurScene;
+
     QDateTime dt; // переменная для записи текущей даты
     int row_height; // высота строки
     int column_width; // ширина столбца

@@ -14,7 +14,7 @@ OptionsForHall::OptionsForHall(QWidget *parent) :
         Array[i][0] = Array[i][1] = -1;
 
     mydb= QSqlDatabase::addDatabase("QSQLITE");         //Подключаю БД
-    mydb.setDatabaseName("D:/Cursovaya/VTeatre.sqlite");
+    mydb.setDatabaseName("D:/Kyrs/VTeatre.sqlite");
 
 
     if(!mydb.open())                                    //Проверяю подключение БД

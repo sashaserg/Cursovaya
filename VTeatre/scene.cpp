@@ -4,6 +4,7 @@ Scene::Scene()
 {
     name = date = time = "";
     cost_parter = cost_benuar = cost_beletaj = 0;
+
 }
 
 void Scene::set_name(QString arg){
@@ -22,4 +23,95 @@ void Scene::set_cost(double parter, double benuar, double beletaj){
 
 void Scene::set_date(QString arg){
     date = arg;
+}
+
+void Scene::SetArrayCountPlaces(){
+    QSqlQuery qry("select * from Options");
+
+    for(int i = 0; i < 3; i++){
+        qry.next();
+        ArrayCountPlaces[i][0] = qry.value(1).toInt();
+        ArrayCountPlaces[i][1] = qry.value(2).toInt();
+    }
+}
+
+void Scene::SetDataToTables(){
+    TableParter = new int * [ArrayCountPlaces[0][0]];
+    TableBenuar = new int * [ArrayCountPlaces[1][0]];
+    TableBelietaj = new int * [ArrayCountPlaces[2][0]];
+
+    for(int i = 0; i < ArrayCountPlaces[0][0]; i++){
+        TableParter[i] = new int [ArrayCountPlaces[0][1]];
+    }
+    for(int i = 0; i < ArrayCountPlaces[1][0]; i++){
+        TableBenuar[i] = new int [ArrayCountPlaces[1][1]];
+    }
+    for(int i = 0; i < ArrayCountPlaces[2][0]; i++){
+        TableBelietaj[i] = new int [ArrayCountPlaces[2][1]];
+    }
+
+    QSqlQuery qryPar("select * from Employed_place where type_place='Партер' and time_seansa='" + time +"' and date_seansa='" + date + "' and name_seansa='" + name +"'" );
+    for(int i = 0; i < ArrayCountPlaces[0][0]; i++){
+        for(int j = 0; j < ArrayCountPlaces[0][1]; j++){
+            TableParter[i][j] = 0;
+        }
+    }
+    while(qryPar.next()){
+        if(qryPar.value(7).toString() == "Куплено"){
+            TableParter[qryPar.value(5).toInt()][qryPar.value(6).toInt()] = 1;
+        }
+
+        if(qryPar.value(7).toString() == "Забронировано"){
+            TableParter[qryPar.value(5).toInt()][qryPar.value(6).toInt()] = 2;
+        }
+    }
+
+    QSqlQuery qryBen("select * from Employed_place where type_place='Бенуар' and time_seansa='" + time +"' and date_seansa='" + date + "' and name_seansa='" + name +"'" );
+    for(int i = 0; i < ArrayCountPlaces[1][0]; i++){
+        for(int j = 0; j < ArrayCountPlaces[1][1]; j++){
+            TableBenuar[i][j] = 0;
+        }
+    }
+    while(qryBen.next()){
+        if(qryBen.value(7).toString() == "Куплено"){
+            TableBenuar[qryBen.value(5).toInt()][qryBen.value(6).toInt()] = 1;
+        }
+
+        if(qryBen.value(7).toString() == "Забронировано"){
+            TableBenuar[qryBen.value(5).toInt()][qryBen.value(6).toInt()] = 2;
+        }
+    }
+
+    QSqlQuery qryBel("select * from Employed_place where type_place='Бельэтаж' and time_seansa='" + time +"' and date_seansa='" + date + "' and name_seansa='" + name +"'" );
+    for(int i = 0; i < ArrayCountPlaces[2][0]; i++){
+        for(int j = 0; j < ArrayCountPlaces[2][1]; j++){
+            TableBelietaj[i][j] = 0;
+        }
+    }
+    while(qryBel.next()){
+        if(qryBel.value(7).toString() == "Куплено"){
+            TableBelietaj[qryBel.value(5).toInt()][qryBel.value(6).toInt()] = 1;
+        }
+
+        if(qryBel.value(7).toString() == "Забронировано"){
+            TableBelietaj[qryBel.value(5).toInt()][qryBel.value(6).toInt()] = 2;
+        }
+    }
+}
+
+void Scene::DeleteTables(){
+    for(int i = 0; i < ArrayCountPlaces[0][0]; i++){
+        delete []TableParter[i];
+    }
+    delete []TableParter;
+
+    for(int i = 0; i < ArrayCountPlaces[1][0]; i++){
+        delete []TableBenuar[i];
+    }
+    delete []TableBenuar;
+
+    for(int i = 0; i < ArrayCountPlaces[2][0]; i++){
+        delete []TableBelietaj[i];
+    }
+    delete []TableBelietaj;
 }

@@ -75,6 +75,8 @@ private slots:
 
     void on_action_hovered();
 
+    void on_comboBox_currentIndexChanged(const QString &arg1);
+
 private:
     Ui::MainWindow *ui;
     QSqlDatabase mydb;

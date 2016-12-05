@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     mydb= QSqlDatabase::addDatabase("QSQLITE");
-    mydb.setDatabaseName("D:/Cursovaya/VTeatre.sqlite");
+    mydb.setDatabaseName("D:/Kyrs/VTeatre.sqlite");
 
     if(!mydb.open())
         qDebug()<<mydb.lastError().text();
@@ -84,6 +84,7 @@ MainWindow::MainWindow(QWidget *parent) :
            coordinates_of_places[i][j]=false;
       }
 
+    ui->comboBox->setEnabled(false);
 }
 void MainWindow::pix_close(int row, int column)
 {
@@ -150,8 +151,6 @@ void MainWindow::coordinates_of_places_cleaning()
 void MainWindow::places_fill()//заполнение мест
 {
     count_place_purchased=0;
-    CountBooked = 0;
-    CountPurchased = 0;
     QSqlQuery qry("select * from Employed_place");
         while(qry.next())
         {
@@ -166,7 +165,6 @@ void MainWindow::places_fill()//заполнение мест
                        qry.value(4) == ui->tableSeans->item(quantity_prodactions,1)->text()&&
                        qry.value(7) == "Куплено" )
                     {
-                            CountPurchased++;
                             count_place_purchased++;
                             pix_close(i, j);
                     }
@@ -177,7 +175,6 @@ void MainWindow::places_fill()//заполнение мест
                        qry.value(4) == ui->tableSeans->item(quantity_prodactions,1)->text()&&
                        qry.value(7) == "Забронировано" )
                     {
-                            CountBooked++;
                             count_place_purchased++;
                             QPixmap pix_reserv;
                             pix_reserv.load(":/image/image_reserv.png");
@@ -224,9 +221,6 @@ void MainWindow::on_action_triggered()
 
 void MainWindow::on_tableWidget_cellClicked(int row, int column) // по нажатию на ячейку она меняет цвет
 {
-
-
-
     if(coordinates_of_places[row][column])//проверяет активно ли нажатое место
     {
         QString place=ui->tableWidget->item(row,column)->text(),
@@ -269,6 +263,7 @@ void MainWindow::on_tableWidget_cellClicked(int row, int column) // по наж�
         pix_checking(row,column);
 
     }
+
 }
 
 void MainWindow::on_comboBox_currentIndexChanged(int index) // по изменению пункта в combobox менять таблицу
@@ -279,14 +274,22 @@ void MainWindow::on_comboBox_currentIndexChanged(int index) // по измене
 
 void MainWindow::on_tableSeans_cellClicked(int row, int column) // по нажатию на название изменить таблицу с местами
 {
-create_a_MainTable();
-
     if(column == 1)
     {
-         quantity_prodactions=row;
-         cleasing_places();
-         places_fill();
-         customizeTableInf();
+        ui->comboBox->setEnabled(true);
+        quantity_prodactions=row;
+
+        QSqlQuery qry("select * from Options where type_place = '" + ui->comboBox->currentText() + "'");
+
+        qry.first();
+        CountRow = qry.value(1).toInt();
+        CountColumn = qry.value(2).toInt();
+
+        coordinates_of_places_cleaning();
+        create_a_MainTable();
+        cleasing_places();
+        places_fill();
+        customizeTableInf();
     }
 }
 
@@ -410,17 +413,16 @@ void MainWindow::on_pushButton_2_clicked() // забронировать
 
 void MainWindow::on_comboBox_currentTextChanged(const QString &arg1)
 {
-    QSqlQuery qry("select * from Options where type_place = '" + ui->comboBox->currentText() + "'");
+        QSqlQuery qry("select * from Options where type_place = '" + ui->comboBox->currentText() + "'");
 
-    qry.first();
-    CountRow = qry.value(1).toInt();
-    CountColumn = qry.value(2).toInt();
-
-    coordinates_of_places_cleaning();
-    create_a_MainTable();
-    cleasing_places();
-    places_fill();
-    customizeTableInf();
+        qry.first();
+        CountRow = qry.value(1).toInt();
+        CountColumn = qry.value(2).toInt();
+        coordinates_of_places_cleaning();
+        create_a_MainTable();
+        cleasing_places();
+        places_fill();
+        customizeTableInf();
 }
 
 void MainWindow::on_action_exit_triggered() // пункт Выход
@@ -504,7 +506,18 @@ void MainWindow::create_a_MainTable()
 void MainWindow::on_options_room_triggered()
 {
     OptionsForHall *wind = new OptionsForHall(this);
-    wind->show();
+    wind->exec();
+
+    QSqlQuery qry("select * from Options where type_place = '" + ui->comboBox->currentText() + "'");
+
+    qry.first();
+    CountRow = qry.value(1).toInt();
+    CountColumn = qry.value(2).toInt();
+
+    create_a_MainTable();
+    cleasing_places();
+    places_fill();
+    customizeTableInf();
 }
 
 void MainWindow::on_action_addScene_triggered()                 // нажатие на "Добавить постановку"
@@ -515,6 +528,30 @@ void MainWindow::on_action_addScene_triggered()                 // нажати�
 
 void MainWindow::customizeTableInf()
 {
+    CountPurchased = 0;
+    CountBooked = 0;
+
+    QSqlQuery qry("select * from Employed_place");
+    while(qry.next())
+    {
+        for(int i=0; i < CountRow; i++)
+        {
+            for(int j=0; j < CountColumn; j++)
+            {
+                if(qry.value(0) == ui->tableWidget->item(i,j)->text() &&
+                   qry.value(1) == ui->comboBox->currentText() &&
+                   qry.value(2) == ui->dateEdit->text() &&
+                   qry.value(3) == ui->tableSeans->item(quantity_prodactions,0)->text()&&
+                   qry.value(4) == ui->tableSeans->item(quantity_prodactions,1)->text())
+                {
+                    if(qry.value(7) == "Куплено")
+                        CountPurchased++;
+                    if(qry.value(7) == "Забронировано")
+                        CountBooked++;
+                }
+            }
+        }
+    }
     int CountOfPlaces = CountColumn * CountRow;
     ui->tableInfo->item(0,0)->setText("Всего мест: " + QString::number(CountOfPlaces));
     ui->tableInfo->item(0,1)->setText("Продано: " + QString::number(CountPurchased));
@@ -523,6 +560,11 @@ void MainWindow::customizeTableInf()
 }
 
 void MainWindow::on_action_hovered()
+{
+
+}
+
+void MainWindow::on_comboBox_currentIndexChanged(const QString &arg1)
 {
 
 }

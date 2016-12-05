@@ -25,6 +25,16 @@
    <property name="title">
     <string>График</string>
    </property>
+   <widget class="QCustomPlot" name="widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>481</width>
+      <height>331</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
   <widget class="QDateEdit" name="dateEdit">
    <property name="geometry">
@@ -113,6 +123,17 @@
    </property>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header>qcustomplot.h</header>
+   <container>1</container>
+   <slots>
+    <slot>PrintGraph()</slot>
+   </slots>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

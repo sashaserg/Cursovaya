@@ -6,7 +6,7 @@
 
 QT       += core gui sql
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
 TARGET = VTeatre
 TEMPLATE = app
@@ -18,14 +18,16 @@ SOURCES += main.cpp\
     windowbuyer.cpp \
     statistic.cpp \
     optionsforhall.cpp \
-    addscene.cpp
+    addscene.cpp \
+    qcustomplot.cpp
 
 HEADERS  += mainwindow.h \
     about.h \
     windowbuyer.h \
     statistic.h \
     optionsforhall.h \
-    addscene.h
+    addscene.h \
+    qcustomplot.h
 
 FORMS    += mainwindow.ui \
     about.ui \

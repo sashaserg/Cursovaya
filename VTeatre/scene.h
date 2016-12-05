@@ -19,6 +19,7 @@ public:
     void SetArrayCountPlaces();
     void SetDataToTables();
     void DeleteTables();
+    void InsertTablesToDataBase(); // Обновляем базу данных
 
     int ArrayCountPlaces[3][2]; // Хранит количество мест для каждого типа зала
     int **TableParter,
@@ -30,6 +31,7 @@ public:
     double  cost_parter,
             cost_benuar,
             cost_beletaj;
+    QSqlDatabase mydb;
 };
 
 #endif // SCENE_H

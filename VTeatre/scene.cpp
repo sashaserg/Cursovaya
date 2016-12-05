@@ -4,7 +4,12 @@ Scene::Scene()
 {
     name = date = time = "";
     cost_parter = cost_benuar = cost_beletaj = 0;
-
+    QSqlDatabase mydb = QSqlDatabase::addDatabase("QSQLITE");
+    mydb.setDatabaseName("D:/Cursovaya/Cursovaya/VTeatre.sqlite");
+    if(!mydb.open())
+        qDebug()<<mydb.lastError().text();
+    else
+        qDebug()<<"Connected Compled";
 }
 
 void Scene::set_name(QString arg){
@@ -114,4 +119,47 @@ void Scene::DeleteTables(){
         delete []TableBelietaj[i];
     }
     delete []TableBelietaj;
+}
+void Scene::InsertTablesToDataBase(){
+    /*QString type_place = ui->comboBox->currentText(),
+            date_seansa = ui->dateEdit->text(),
+            time_seansa = ui->tableSeans->item(quantity_prodactions,0)->text(),
+            name_seansa = ui->tableSeans->item(quantity_prodactions,1)->text();
+    int row=0, column=0;
+    row=i;
+    column=j;
+    places_overwrite(row,column);
+    QSqlQuery qry_insert("insert into Employed_place(place, type_place, date_seansa, time_seansa, name_seansa, row, column, state) values ("+
+                   ui->tableWidget->item(row,column)->text()+
+            ", '"+
+            type_place+
+            "', '"+
+            date_seansa+
+            "', '"+
+            time_seansa+
+            "', '"+
+            name_seansa+
+            "', "+
+            QString::number(row)+
+            ", "+
+            QString::number(column)+
+            ", 'Куплено')");
+            pix_close(row, column);*/
+
+
+    QSqlQuery qry("delete from Employed_place where name_seanca='" + name + "' and time_seansa='" + time + "' and date_seansa='" + date +"'");
+        qDebug()<<"qwerty";
+    for(int i = 0; i < ArrayCountPlaces[0][0]; i++){
+        for(int j = 0; j < ArrayCountPlaces[0][1]; j++){
+            if(TableParter[i][j] == 1){
+                QSqlQuery qry_insert("insert into Employed_place(place, type_place, date_seansa, time_seansa, name_seansa, row, column, state) values (" +
+                QString::number(ArrayCountPlaces[0][1]*i+j+1) + ", 'Партер', '" + date + "', '" + time + "', '" + name + "', " + QString::number(i) + ", " + QString::number(j) + ", 'Куплено'");
+            }
+            if(TableParter[i][j] == 2){
+                QSqlQuery qry_insert("insert into Employed_place(place, type_place, date_seansa, time_seansa, name_seansa, row, column, state) values (" +
+                QString::number(ArrayCountPlaces[0][1]*i+j+1) + ", 'Партер', '" + date + "', '" + time + "', '" + name + "', " + QString::number(i) + ", " + QString::number(j) + ", 'Забронировано'");
+            }
+        }
+    }
+
 }

@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     mydb= QSqlDatabase::addDatabase("QSQLITE");
-    mydb.setDatabaseName("D:/Kyrs/VTeatre.sqlite");
+    mydb.setDatabaseName("D:/Cursovaya/VTeatre.sqlite");
 
     if(!mydb.open())
         qDebug()<<mydb.lastError().text();
@@ -513,7 +513,7 @@ void MainWindow::on_options_room_triggered()
     qry.first();
     CountRow = qry.value(1).toInt();
     CountColumn = qry.value(2).toInt();
-
+    coordinates_of_places_cleaning();
     create_a_MainTable();
     cleasing_places();
     places_fill();

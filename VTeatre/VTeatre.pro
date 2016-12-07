@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     statistic.cpp \
     optionsforhall.cpp \
     addscene.cpp \
-    qcustomplot.cpp
+    qcustomplot.cpp \
+    scene.cpp
 
 HEADERS  += mainwindow.h \
     about.h \
@@ -27,7 +28,8 @@ HEADERS  += mainwindow.h \
     statistic.h \
     optionsforhall.h \
     addscene.h \
-    qcustomplot.h
+    qcustomplot.h \
+    scene.h
 
 FORMS    += mainwindow.ui \
     about.ui \

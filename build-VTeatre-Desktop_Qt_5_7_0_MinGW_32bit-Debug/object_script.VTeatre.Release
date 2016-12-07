@@ -6,6 +6,8 @@ INPUT(
 ./release\statistic.o
 ./release\optionsforhall.o
 ./release\addscene.o
+./release\qcustomplot.o
+./release\scene.o
 ./release\qrc_Resurs1.o
 ./release\moc_mainwindow.o
 ./release\moc_about.o
@@ -13,4 +15,5 @@ INPUT(
 ./release\moc_statistic.o
 ./release\moc_optionsforhall.o
 ./release\moc_addscene.o
+./release\moc_qcustomplot.o
 );

@@ -1,8 +1,10 @@
-#ifndef ADDSCENE_H
+﻿#ifndef ADDSCENE_H
 #define ADDSCENE_H
 
 #include <QDialog>
 #include <QtSql>
+#include <QList>
+#include <scene.h>
 namespace Ui {
 class AddScene;
 }
@@ -14,7 +16,7 @@ class AddScene : public QDialog
 public:
     explicit AddScene(QWidget *parent = 0);
     ~AddScene();
-    
+    QList <Scene> Scenes;
 private slots:
     void on_ButtonAdd_clicked();
 

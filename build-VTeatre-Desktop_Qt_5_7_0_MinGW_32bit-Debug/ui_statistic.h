@@ -19,6 +19,7 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
+#include "qcustomplot.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -26,6 +27,7 @@ class Ui_Statistic
 {
 public:
     QGroupBox *groupBox;
+    QCustomPlot *widget;
     QDateEdit *dateEdit;
     QLabel *label;
     QPushButton *pushButton;
@@ -40,6 +42,9 @@ public:
         groupBox = new QGroupBox(Statistic);
         groupBox->setObjectName(QStringLiteral("groupBox"));
         groupBox->setGeometry(QRect(220, 10, 501, 361));
+        widget = new QCustomPlot(groupBox);
+        widget->setObjectName(QStringLiteral("widget"));
+        widget->setGeometry(QRect(10, 20, 481, 331));
         dateEdit = new QDateEdit(Statistic);
         dateEdit->setObjectName(QStringLiteral("dateEdit"));
         dateEdit->setGeometry(QRect(10, 40, 201, 30));

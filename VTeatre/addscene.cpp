@@ -22,10 +22,20 @@ AddScene::~AddScene()
 
 void AddScene::on_ButtonAdd_clicked()                               // Нажатие на кнопку "Добавить"
 {
-    QSqlQuery qry_insert("insert into Postanovka(name, time_seansa, date_seansa, cost_parter, cost_benuar, cost_beletaj) values('"+ui->NameLineEdit->text()+
+    Scene temp;
+    temp.set_cost(ui->ParterPrice->value(), ui->BenuarPrice->value(), ui->BeletazPrice->value());
+    temp.set_date(ui->dateEdit->text());
+    temp.set_time(ui->timeEdit->text());
+    temp.set_name(ui->NameLineEdit->text());
+
+    qDebug()<<;
+
+
+    /*QSqlQuery qry_insert("insert into Postanovka(name, time_seansa, date_seansa, cost_parter, cost_benuar, cost_beletaj) values('"+ui->NameLineEdit->text()+
                          "', '"+ui->timeEdit->text()+
                          "', '"+ui->dateEdit->text()+
                          "', "+QString::number(ui->ParterPrice->value())+
                          ", "+QString::number(ui->BenuarPrice->value())+
                          ", "+QString::number(ui->BeletazPrice->value())+")");
+*/
 }

@@ -7,12 +7,7 @@
 class Scene
 {
 
-   QString name,
-           date,
-           time;
-   double  cost_parter,
-           cost_benuar,
-           cost_beletaj;
+
 
 public:
     Scene();
@@ -29,6 +24,12 @@ public:
     int **TableParter,
         **TableBenuar,
         **TableBelietaj;
+    QString name,
+            date,
+            time;
+    double  cost_parter,
+            cost_benuar,
+            cost_beletaj;
 };
 
 #endif // SCENE_H

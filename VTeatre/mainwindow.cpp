@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     mydb= QSqlDatabase::addDatabase("QSQLITE");
-    mydb.setDatabaseName("D:/Kyrs/VTeatre.sqlite");
+    mydb.setDatabaseName("D:/Cursovaya/VTeatre.sqlite");
 
     CurScene = new Scene();
 
@@ -278,10 +278,11 @@ void MainWindow::on_comboBox_currentIndexChanged(int index) // по измене
 
 void MainWindow::on_tableSeans_cellClicked(int row, int column) // по нажатию на название изменить таблицу с местами
 {
-    //if(column == 1)
-    //{
-        //ui->comboBox->setEnabled(true);
-        /*quantity_prodactions=row;
+    qDebug()<<1;
+    if(column == 1)
+    {
+        ui->comboBox->setEnabled(true);
+       /* quantity_prodactions=row;
 
         QSqlQuery qry("select * from Options where type_place = '" + ui->comboBox->currentText() + "'");
 
@@ -295,7 +296,7 @@ void MainWindow::on_tableSeans_cellClicked(int row, int column) // по нажа
         places_fill();
         customizeTableInf();*/
 
-        /*delete CurScene;
+        delete CurScene;
         CurScene = new Scene;
 
         //1 - найти имя, время, дата
@@ -323,13 +324,13 @@ void MainWindow::on_tableSeans_cellClicked(int row, int column) // по нажа
 
 
 
-*/
+
         //coordinates_of_places_cleaning();
         //create_a_MainTable();
         //cleasing_places();
         //places_fill();
         //customizeTableInf();
-   // }
+    }
 }
 
 void MainWindow::on_dateEdit_dateChanged(const QDate &date)//Выводит сеансы по дате

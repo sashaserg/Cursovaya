@@ -37,11 +37,11 @@ void AddScene::on_ButtonAdd_clicked()                               // Нажа�
     {}//записать в базу данных все сцены с листа.
 
 
-    /*QSqlQuery qry_insert("insert into Postanovka(name, time_seansa, date_seansa, cost_parter, cost_benuar, cost_beletaj) values('"+ui->NameLineEdit->text()+
+    QSqlQuery qry_insert("insert into Postanovka(name, time_seansa, date_seansa, cost_parter, cost_benuar, cost_beletaj) values('"+ui->NameLineEdit->text()+
                          "', '"+ui->timeEdit->text()+
                          "', '"+ui->dateEdit->text()+
                          "', "+QString::number(ui->ParterPrice->value())+
                          ", "+QString::number(ui->BenuarPrice->value())+
                          ", "+QString::number(ui->BeletazPrice->value())+")");
-    */
+
 }

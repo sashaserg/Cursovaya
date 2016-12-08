@@ -8,8 +8,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    mydb= QSqlDatabase::addDatabase("QSQLITE");
+    mydb = QSqlDatabase::addDatabase("QSQLITE");
     mydb.setDatabaseName("D:/Cursovaya/VTeatre.sqlite");
+
 
     CurScene = new Scene();
 
@@ -326,9 +327,9 @@ void MainWindow::on_tableSeans_cellClicked(int row, int column) // по нажа
 
 
         //coordinates_of_places_cleaning();
-        //create_a_MainTable();
+        create_a_MainTable();
         //cleasing_places();
-        //places_fill();
+        places_fill();
         //customizeTableInf();
     }
 }
@@ -379,37 +380,30 @@ void MainWindow::on_dateEdit_dateChanged(const QDate &date)//Выводит се
 
 void MainWindow::on_pushButton_clicked() // купить
 {
-    QString type_place = ui->comboBox->currentText(),
-            date_seansa = ui->dateEdit->text(),
-            time_seansa = ui->tableSeans->item(quantity_prodactions,0)->text(),
-            name_seansa = ui->tableSeans->item(quantity_prodactions,1)->text();
-    int row=0, column=0;
+    int temp = ui->comboBox->currentIndex();
 
-    for(int i=0; i<CountRow; i++)
-        for(int j=0; j<CountColumn; j++)
+    for(int i=0; i < CurScene->ArrayCountPlaces[temp][0]; i++)
+    {
+        for(int j=0; j < CurScene->ArrayCountPlaces[temp][1]; j++)
+        {
             if(coordinates_of_places[i][j])
             {
-                row=i;
-                column=j;
-                        places_overwrite(row,column);
-                QSqlQuery qry_insert("insert into Employed_place(place, type_place, date_seansa, time_seansa, name_seansa, row, column, state) values ("+
-                               ui->tableWidget->item(row,column)->text()+
-                        ", '"+
-                        type_place+
-                        "', '"+
-                        date_seansa+
-                        "', '"+
-                        time_seansa+
-                        "', '"+
-                        name_seansa+
-                        "', "+
-                        QString::number(row)+
-                        ", "+
-                        QString::number(column)+
-                        ", 'Куплено')");
-                        pix_close(row, column);
+                if(temp == 0){//parter
+                    CurScene->TableParter[i][j] = 1;
+                }
+                if(temp == 1){//ben
+                    CurScene->TableBenuar[i][j] = 1;
+                }
+                if(temp == 2){//bel
+                    CurScene->TableBelietaj[i][j] = 1;
+                }
              }
+            //qDebug()<<i<<'\t'<<j<<'\t'<<CurScene->TableParter[i][j];
+        }
 
+    }
+
+    CurScene->InsertTablesToDataBase();
     coordinates_of_places_cleaning();
     customizeTableInf();
 }
@@ -534,10 +528,9 @@ void MainWindow::create_a_MainTable()
             item->setTextAlignment(Qt::AlignCenter);
             item->setFlags(item->flags() & (~Qt::ItemIsSelectable)); // устанавливаю флаг ItemIsSelectable в false
             ui->tableWidget->setItem( i, j, item );
+
             if(i == 0)
                 ui->tableWidget->setColumnWidth(j, column_width); // ширина столбцов
-            qDebug()<<1;
-
         }
     }
     //places_fill();

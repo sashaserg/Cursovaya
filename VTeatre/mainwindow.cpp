@@ -120,15 +120,22 @@ void MainWindow::pix_standart(int row, int column)
 
 void MainWindow::cleasing_places()//очистка мест
 {
-    for(int i=0;i<CountRow;i++)
-    {
-        for(int j=0;j<CountColumn;j++)
+    try{
+        for(int i=0;i<CountRow;i++)
         {
-            QPixmap pix;
-            pix.load(":/image/image.png");
-            pix = pix.scaled(ui->tableWidget->columnWidth(0), ui->tableWidget->rowHeight(0));
-            ui->tableWidget->item(i, j)->setBackground(QBrush(pix));
+            for(int j=0;j<CountColumn;j++)
+            {
+                QPixmap pix;
+                pix.load(":/image/image.png");
+                pix = pix.scaled(ui->tableWidget->columnWidth(0), ui->tableWidget->rowHeight(0));
+                ui->tableWidget->item(i, j)->setBackground(QBrush(pix));
+            }
         }
+    }
+    catch(...)
+    {
+        int a;
+
     }
 }
 

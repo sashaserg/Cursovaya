@@ -28,7 +28,13 @@ void AddScene::on_ButtonAdd_clicked()                               // Нажа�
     temp.set_time(ui->timeEdit->text());
     temp.set_name(ui->NameLineEdit->text());
 
-    qDebug()<<;
+    Scenes.append(temp);
+
+    qDebug()<< "Added";
+
+    QList<Scene>::const_iterator it = Scenes.constBegin();
+    for(; it != Scenes.constEnd(); ++it)
+    {}//записать в базу данных все сцены с листа.
 
 
     /*QSqlQuery qry_insert("insert into Postanovka(name, time_seansa, date_seansa, cost_parter, cost_benuar, cost_beletaj) values('"+ui->NameLineEdit->text()+
@@ -37,5 +43,5 @@ void AddScene::on_ButtonAdd_clicked()                               // Нажа�
                          "', "+QString::number(ui->ParterPrice->value())+
                          ", "+QString::number(ui->BenuarPrice->value())+
                          ", "+QString::number(ui->BeletazPrice->value())+")");
-*/
+    */
 }

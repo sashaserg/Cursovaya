@@ -1,5 +1,15 @@
 ﻿#include "scene.h"
 
+Scene::Scene(int temp)
+{
+    name = date = time = "";
+    cost_parter = cost_benuar = cost_beletaj = 0;
+    CountOfTypesPlaces = temp;
+    nameofplace[0] = "Партер";
+    nameofplace[1] = "Бенуар";
+    nameofplace[2] = "Бельэтаж";
+}
+
 Scene::Scene()
 {
     name = date = time = "";
@@ -35,116 +45,65 @@ void Scene::SetArrayCountPlaces(){
 }
 
 void Scene::SetDataToTables(){
-    TableParter = new int * [ArrayCountPlaces[0][0]];
-    TableBenuar = new int * [ArrayCountPlaces[1][0]];
-    TableBelietaj = new int * [ArrayCountPlaces[2][0]];
 
-    for(int i = 0; i < ArrayCountPlaces[0][0]; i++){
-        TableParter[i] = new int [ArrayCountPlaces[0][1]];
-    }
-    for(int i = 0; i < ArrayCountPlaces[1][0]; i++){
-        TableBenuar[i] = new int [ArrayCountPlaces[1][1]];
-    }
-    for(int i = 0; i < ArrayCountPlaces[2][0]; i++){
-        TableBelietaj[i] = new int [ArrayCountPlaces[2][1]];
+    TablesPlaces = new int ** [CountOfTypesPlaces];
+    for(int i = 0; i < CountOfTypesPlaces; i++){
+        TablesPlaces[i] = new int * [ArrayCountPlaces[i][0]];
+        for(int j = 0; j < ArrayCountPlaces[i][0]; j++)
+            TablesPlaces[i][j] = new int [ArrayCountPlaces[i][1]];
     }
 
-    QSqlQuery qryPar("select * from Employed_place where type_place='Партер' and time_seansa='" + time +"' and date_seansa='" + date + "' and name_seansa='" + name +"'" );
-    for(int i = 0; i < ArrayCountPlaces[0][0]; i++){
-        for(int j = 0; j < ArrayCountPlaces[0][1]; j++){
-            TableParter[i][j] = 0;
-        }
-    }
-    while(qryPar.next()){
-        if(qryPar.value(7).toString() == "Куплено"){
-            TableParter[qryPar.value(5).toInt()][qryPar.value(6).toInt()] = 1;
-        }
+    QString nameofplace[3];
+    nameofplace[0] = "Партер";
+    nameofplace[1] = "Бенуар";
+    nameofplace[2] = "Бельэтаж";
 
-        if(qryPar.value(7).toString() == "Забронировано"){
-            TableParter[qryPar.value(5).toInt()][qryPar.value(6).toInt()] = 2;
+    for(int k = 0; k < CountOfTypesPlaces; k++){
+        QSqlQuery qry("select * from Employed_place where type_place='" + nameofplace[k] + "' and time_seansa='" + time +"' and date_seansa='" + date + "' and name_seansa='" + name +"'" );
+        for(int i = 0; i < ArrayCountPlaces[k][0]; i++){
+            for(int j = 0; j < ArrayCountPlaces[k][1]; j++){
+                TablesPlaces[k][i][j] = 0;
+            }
         }
-    }
+        while(qry.next()){
+            if(qry.value(7).toString() == "Куплено"){
+                TablesPlaces[k][qry.value(5).toInt()][qry.value(6).toInt()] = 1;
+            }
 
-    QSqlQuery qryBen("select * from Employed_place where type_place='Бенуар' and time_seansa='" + time +"' and date_seansa='" + date + "' and name_seansa='" + name +"'" );
-    for(int i = 0; i < ArrayCountPlaces[1][0]; i++){
-        for(int j = 0; j < ArrayCountPlaces[1][1]; j++){
-            TableBenuar[i][j] = 0;
-        }
-    }
-    while(qryBen.next()){
-        if(qryBen.value(7).toString() == "Куплено"){
-            TableBenuar[qryBen.value(5).toInt()][qryBen.value(6).toInt()] = 1;
-        }
-
-        if(qryBen.value(7).toString() == "Забронировано"){
-            TableBenuar[qryBen.value(5).toInt()][qryBen.value(6).toInt()] = 2;
-        }
-    }
-
-    QSqlQuery qryBel("select * from Employed_place where type_place='Бельэтаж' and time_seansa='" + time +"' and date_seansa='" + date + "' and name_seansa='" + name +"'" );
-    for(int i = 0; i < ArrayCountPlaces[2][0]; i++){
-        for(int j = 0; j < ArrayCountPlaces[2][1]; j++){
-            TableBelietaj[i][j] = 0;
-        }
-    }
-    while(qryBel.next()){
-        if(qryBel.value(7).toString() == "Куплено"){
-            TableBelietaj[qryBel.value(5).toInt()][qryBel.value(6).toInt()] = 1;
-        }
-
-        if(qryBel.value(7).toString() == "Забронировано"){
-            TableBelietaj[qryBel.value(5).toInt()][qryBel.value(6).toInt()] = 2;
+            if(qry.value(7).toString() == "Забронировано"){
+                TablesPlaces[k][qry.value(5).toInt()][qry.value(6).toInt()] = 2;
+            }
         }
     }
 }
 
 void Scene::DeleteTables(){
-    for(int i = 0; i < ArrayCountPlaces[0][0]; i++){
-        delete []TableParter[i];
+    for(int k = 0; k < CountOfTypesPlaces; k++){
+        for(int i = 0; i < ArrayCountPlaces[k][0]; i++){
+            delete []TablesPlaces[k][i];
+        }
+        delete [] TablesPlaces[k];
     }
-    delete []TableParter;
-
-    for(int i = 0; i < ArrayCountPlaces[1][0]; i++){
-        delete []TableBenuar[i];
-    }
-    delete []TableBenuar;
-
-    for(int i = 0; i < ArrayCountPlaces[2][0]; i++){
-        delete []TableBelietaj[i];
-    }
-    delete []TableBelietaj;
+    delete [] TablesPlaces;
 }
 
-void Scene::InsertTablesToDataBase(){
-    QSqlQuery qry("delete from Employed_place where name_seansa='" + name + "' and time_seansa='" + time + "' and date_seansa='" + date +"'");
-    for(int i = 0; i < ArrayCountPlaces[0][0]; i++){
-        for(int j = 0; j < ArrayCountPlaces[0][1]; j++){
-            if(TableParter[i][j] == 1){
-                QSqlQuery qry_insert("insert into Employed_place(place, type_place, date_seansa, time_seansa, name_seansa, row, column, state) values (" +QString::number(ArrayCountPlaces[0][1]*i+j+1) +", 'Партер', '" + date + "', '" + time + "', '" + name + "', " + QString::number(i) + ", " + QString::number(j) + ", 'Куплено')");
-            }
-            if(TableParter[i][j] == 2){
-                QSqlQuery qry_insert("insert into Employed_place(place, type_place, date_seansa, time_seansa, name_seansa, row, column, state) values (" +QString::number(ArrayCountPlaces[0][1]*i+j+1) + ", 'Партер', '" + date + "', '" + time + "', '" + name + "', " + QString::number(i) + ", " + QString::number(j) + ", 'Забронировано')");
-            }
+void Scene::InsertTablesToDataBase(std::vector<short> SelectedPlaces, int Index, int operation){
+
+    for(int i = 0; i < SelectedPlaces.size(); i++){
+        if(operation == 1 ){//Купить
+            int row = (SelectedPlaces[i] - 1) / ArrayCountPlaces[Index][1];
+            int column = (SelectedPlaces[i] - 1) % ArrayCountPlaces[Index][1];
+            QSqlQuery qry("insert into Employed_place (place, type_place, date_seansa, time_seansa, name_seansa, row, column, state) values (" + QString::number(SelectedPlaces[i]) +", '" + nameofplace[Index] + "', '" + date + "', '" + time + "', '" + name + "', " + QString::number(row) + ", " + QString::number(column) + ", 'Куплено')");
         }
-    }
-    for(int i = 0; i < ArrayCountPlaces[1][0]; i++){
-        for(int j = 0; j < ArrayCountPlaces[1][1]; j++){
-            if(TableBenuar[i][j] == 1){
-                QSqlQuery qry_insert("insert into Employed_place(place, type_place, date_seansa, time_seansa, name_seansa, row, column, state) values (" +QString::number(ArrayCountPlaces[1][1]*i+j+1) +", 'Бенуар', '" + date + "', '" + time + "', '" + name + "', " + QString::number(i) + ", " + QString::number(j) + ", 'Куплено')");
-            }
-            if(TableBenuar[i][j] == 2){
-                QSqlQuery qry_insert("insert into Employed_place(place, type_place, date_seansa, time_seansa, name_seansa, row, column, state) values (" +QString::number(ArrayCountPlaces[1][1]*i+j+1) + ", 'Бенуар', '" + date + "', '" + time + "', '" + name + "', " + QString::number(i) + ", " + QString::number(j) + ", 'Забронировано')");
-            }
+         if(operation == 2){//Забронировать
+            int row = (SelectedPlaces[i] - 1) / ArrayCountPlaces[Index][1];
+            int column = (SelectedPlaces[i] - 1) % ArrayCountPlaces[Index][1];
+            QSqlQuery qry("insert into Employed_place (place, type_place, date_seansa, time_seansa, name_seansa, row, column, state) values (" + QString::number(SelectedPlaces[i]) +", '" + nameofplace[Index] + "', '" + date + "', '" + time + "', '" + name + "', " + QString::number(row) + ", " + QString::number(column) + ", 'Забронировано')");
         }
-    }
-    for(int i = 0; i < ArrayCountPlaces[2][0]; i++){
-        for(int j = 0; j < ArrayCountPlaces[2][1]; j++){
-            if(TableBelietaj[i][j] == 1){
-                QSqlQuery qry_insert("insert into Employed_place(place, type_place, date_seansa, time_seansa, name_seansa, row, column, state) values (" +QString::number(ArrayCountPlaces[2][1]*i+j+1) +", 'Бельэтаж', '" + date + "', '" + time + "', '" + name + "', " + QString::number(i) + ", " + QString::number(j) + ", 'Куплено')");
-            }
-            if(TableBelietaj[i][j] == 2){
-                QSqlQuery qry_insert("insert into Employed_place(place, type_place, date_seansa, time_seansa, name_seansa, row, column, state) values (" +QString::number(ArrayCountPlaces[2][1]*i+j+1) + ", 'Бельэтаж', '" + date + "', '" + time + "', '" + name + "', " + QString::number(i) + ", " + QString::number(j) + ", 'Забронировано')");
-            }
+         if(operation == 0){//Вернуть
+            int row = (SelectedPlaces[i] -1) / ArrayCountPlaces[Index][1];
+            int column = (SelectedPlaces[i] - 1) % ArrayCountPlaces[Index][1];
+            QSqlQuery qry("delete from Employed_place where place=" + QString::number(SelectedPlaces[i]) + " and type_place = '" + nameofplace[Index] +"' and date_seansa = '" + date + "' and time_seansa='" + time + "' and name_seansa='" + name + "' and row=" + QString::number(row) + " and column=" + QString::number(column));
         }
     }
 }

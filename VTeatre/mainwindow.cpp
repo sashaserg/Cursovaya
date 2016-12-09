@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     mydb.setDatabaseName("D:/Cursovaya/VTeatre.sqlite");
 
 
-    CurScene = new Scene();
+    CurScene = new Scene(3);
 
     if(!mydb.open())
         qDebug()<<mydb.lastError().text();
@@ -23,22 +23,10 @@ MainWindow::MainWindow(QWidget *parent) :
     qry.next();
     CountRow = qry.value(1).toInt();
     CountColumn = qry.value(2).toInt();
-
+    PreviousIndex = 0;
     CountPurchased = 0;
     CountBooked = 0;
-    /*
-    for(int i = 0; qry.next(); i++)                     //загрузить значения из БД
-    {
-        Array[i][0] = qry.value(1).toInt();             //row
-        Array[i][1] = qry.value(2).toInt();             //column
-    }
 
-    CountColumn = Array[0][1];                          //количество колонок и строк в таблице
-    CountRow = Array[0][0];
-    */
-
-    // устанавливаю картинки
-    // QGraphicsScene * scen = new QGraphicsScene();
     QPixmap  pix;
     pix.load(":/image/scena.png");
     pix = pix.scaled(ui->label_2->size());
@@ -49,35 +37,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->label_4->setPixmap(pix_Legend);
 
 
-    /* for(int i = 0; i < ui->tableWidget->rowCount(); i++)
-        for(int j = 0; j < ui->tableWidget->columnCount(); j++)
-            ui->tableWidget->item(i,j)->setTextAlignment(Qt::AlignCenter);*/ // Нужно поставить текст ячейки по центру.
-
-// -----------------------------------------------
-// Работа с таблицей информации о местах------------------
-
-    ui->tableInfo->item(0,0)->setText("Всего мест: " + QString::number(count_places_all=ui->tableWidget->rowCount()*ui->tableWidget->columnCount()));
-
-//----------------------------------------------------
-    //dateEdit.DateTime выставляется в текущую дату
     dt = QDateTime::currentDateTime();
     ui->dateEdit->setDateTime(dt);
     ui->dateEdit->setMinimumDateTime(dt); // минимальная дата выставляется по текущей дате
 
     ui->tableSeans->setEditTriggers(QAbstractItemView::NoEditTriggers); //запрет редактирования всех ячеек в таблице tableSeans
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers); //запрет редактирования всех ячеек в таблице tableWidget
-/*
-    ui->tableWidget->setMinimumSize(ui->tableWidget->size());
-    ui->tableInfo->setMinimumSize(ui->tableInfo->size());
-    ui->pushButton->setMinimumSize(ui->pushButton->size());
-    ui->pushButton_2->setMinimumSize(ui->pushButton_2->size());
-    ui->pushButton_3->setMinimumSize(ui->pushButton_3->size());
-    ui->label->setMinimumSize(ui->label->size());
-    ui->label_2->setMinimumSize(ui->label_2->size());
-    ui->label_3->setMinimumSize(ui->label_3->size());
-    ui->label_4->setMinimumSize(ui->label_4->size());
-    ui->comboBox->setMinimumSize(ui->comboBox->size());
-*/
+
     coordinates_of_places = new bool*[CountRow];
     for(int i = 0; i < CountRow; i++)
         coordinates_of_places[i] = new bool [CountColumn];
@@ -135,17 +101,18 @@ void MainWindow::cleasing_places()//очистка мест
     }*/
 }
 
-void MainWindow::coordinates_of_places_cleaning()
+void MainWindow::coordinates_of_places_cleaning(int temp)
 {
-    for(int i = 0; i < CountRow; i++)
+    int current_temp = ui->comboBox->currentIndex();
+    for(int i = 0; i < CurScene->ArrayCountPlaces[temp][0]; i++)
         delete [] coordinates_of_places[i];
     delete []coordinates_of_places;
 
-    coordinates_of_places = new bool*[CountRow];
-    for(int i = 0; i < CountRow; i++)
-        coordinates_of_places[i] = new bool [CountColumn];
-    for(int i=0; i < CountRow; i++)
-      for(int j = 0; j < CountColumn; j++)
+    coordinates_of_places = new bool*[CurScene->ArrayCountPlaces[current_temp][0]];
+    for(int i = 0; i < CurScene->ArrayCountPlaces[current_temp][0]; i++)
+        coordinates_of_places[i] = new bool [CurScene->ArrayCountPlaces[current_temp][1]];
+    for(int i=0; i < CurScene->ArrayCountPlaces[current_temp][0]; i++)
+      for(int j = 0; j < CurScene->ArrayCountPlaces[current_temp][1]; j++)
       {
            coordinates_of_places[i][j]=false;
       }
@@ -159,54 +126,22 @@ void MainWindow::places_fill()//заполнение мест
     {
         for(int j=0; j < CurScene->ArrayCountPlaces[temp][1]; j++)
         {
-            if(temp == 0)//партер
-            {
-                if(CurScene->TableParter[i][j] == 0)
-                    pix_standart(i, j);
-                if(CurScene->TableParter[i][j] == 1)
-                    pix_close(i, j);
-                if(CurScene->TableParter[i][j] == 2)
-                    pix_reserv(i, j);
+            if(CurScene->TablesPlaces[temp][i][j] == 0){
+                pix_standart(i, j);
+                continue;
             }
-
-            if(temp == 1)//ben
-            {
-                if(CurScene->TableBenuar[i][j] == 0)
-                    pix_standart(i, j);
-                if(CurScene->TableBenuar[i][j] == 1)
-                    pix_close(i, j);
-                if(CurScene->TableBenuar[i][j] == 2)
-                    pix_reserv(i, j);
+            if(CurScene->TablesPlaces[temp][i][j] == 1){
+                pix_close(i, j);
+                continue;
             }
-
-            if(temp == 2)//bel
-            {
-                if(CurScene->TableBelietaj[i][j] == 0)
-                    pix_standart(i, j);
-                if(CurScene->TableBelietaj[i][j] == 1)
-                    pix_close(i, j);
-                if(CurScene->TableBelietaj[i][j] == 2)
-                    pix_reserv(i, j);
+            if(CurScene->TablesPlaces[temp][i][j] == 2){
+                pix_reserv(i, j);
+                continue;
             }
         }
     }
 }
 
-void MainWindow::places_overwrite(int row, int column)
-{
-    QString type_place = ui->comboBox->currentText(),
-            date_seansa = ui->dateEdit->text(),
-            time_seansa = ui->tableSeans->item(quantity_prodactions,0)->text(),
-            name_seansa = ui->tableSeans->item(quantity_prodactions,1)->text();
-    QSqlQuery qry;
-    qry.exec("delete from Employed_place where row="+
-             QString::number(row)+" and column="+
-             QString::number(column)+" and type_place='"+
-             type_place+"' and date_seansa='"+
-             date_seansa+"' and name_seansa='"+
-             name_seansa+"' and time_seansa='"+
-             time_seansa+"'");
-}
 
 MainWindow::~MainWindow()
 {
@@ -228,52 +163,46 @@ void MainWindow::on_tableWidget_cellClicked(int row, int column) // по наж�
 {
     if(coordinates_of_places[row][column])//проверяет активно ли нажатое место
     {
-        QString place=ui->tableWidget->item(row,column)->text(),
-                type_place = ui->comboBox->currentText(),
-                date_seansa = ui->dateEdit->text(),
-                time_seansa = ui->tableSeans->item(quantity_prodactions,0)->text(),
-                name_seansa = ui->tableSeans->item(quantity_prodactions,1)->text();
-        QSqlQuery qry("select * from Employed_place where place="+place+" and type_place='"+type_place+"' and date_seansa='"+date_seansa+"' and time_seansa='"+time_seansa+"' and name_seansa='"+name_seansa+"'");
-        qry.first();
-        if(qry.value(0) == place &&
-           qry.value(1) == type_place &&
-           qry.value(2) == date_seansa &&
-           qry.value(3) == time_seansa &&
-           qry.value(4) == name_seansa &&
-           qry.value(7) == "Куплено")
-        {
-            pix_close(row,column);
-            coordinates_of_places[row][column]=false;
-        }
-        else if(qry.value(0) == place &&
-                qry.value(1) == type_place &&
-                qry.value(2) == date_seansa &&
-                qry.value(3) == time_seansa &&
-                qry.value(4) == name_seansa &&
-                qry.value(7) == "Забронировано")
-        {
-            pix_reserv(row,column);
-            coordinates_of_places[row][column]=false;
-        }
-        else
-        {
+        int temp = ui->comboBox->currentIndex();
+
+        if(CurScene->TablesPlaces[temp][row][column] == 0)
             pix_standart(row,column);
-            coordinates_of_places[row][column]=false;
+        if(CurScene->TablesPlaces[temp][row][column] == 1)
+            pix_close(row,column);
+        if(CurScene->TablesPlaces[temp][row][column] == 2)
+            pix_reserv(row,column);
+
+        coordinates_of_places[row][column]=false;
+
+        for(int i = 0; i < SelectedPlaces.size(); i ++){
+            if(SelectedPlaces[i] == CurScene->ArrayCountPlaces[ui->comboBox->currentIndex()][1] * row + column + 1){
+                SelectedPlaces.erase(SelectedPlaces.begin() + i - 1);
+            }
+            qDebug()<<SelectedPlaces[i];
         }
     }
     else
     {
         coordinates_of_places[row][column]=true;
-        qDebug()<<CountColumn*row+column+1<<"\t"<<coordinates_of_places[row][column]<<coordinates_of_places[row][column+1];
         pix_checking(row,column);
-
+        SelectedPlaces.push_back(CurScene->ArrayCountPlaces[ui->comboBox->currentIndex()][1] * row + column + 1);
     }
-
 }
 
 void MainWindow::on_comboBox_currentIndexChanged(int index) // по изменению пункта в combobox менять таблицу
 {
-
+    qDebug()<<1;
+    coordinates_of_places_cleaning(PreviousIndex);
+    qDebug()<<2;
+    create_a_MainTable();
+    qDebug()<<3;
+    places_fill();
+    qDebug()<<4;
+    customizeTableInf();
+    qDebug()<<5;
+    SelectedPlaces.clear();
+    qDebug()<<6;
+    PreviousIndex = index;
 }
 
 
@@ -283,22 +212,9 @@ void MainWindow::on_tableSeans_cellClicked(int row, int column) // по нажа
     if(column == 1)
     {
         ui->comboBox->setEnabled(true);
-       /* quantity_prodactions=row;
-
-        QSqlQuery qry("select * from Options where type_place = '" + ui->comboBox->currentText() + "'");
-
-        qry.first();
-        CountRow = qry.value(1).toInt();
-        CountColumn = qry.value(2).toInt();
-
-        coordinates_of_places_cleaning();
-        create_a_MainTable();
-        cleasing_places();
-        places_fill();
-        customizeTableInf();*/
 
         delete CurScene;
-        CurScene = new Scene;
+        CurScene = new Scene(3);
 
         //1 - найти имя, время, дата
         CurScene->set_name(ui->tableSeans->item(row, 1)->text());
@@ -322,15 +238,13 @@ void MainWindow::on_tableSeans_cellClicked(int row, int column) // по нажа
         //3 - найти инф. о каждом месте
         CurScene->SetDataToTables();
 
-
-
-
-
-        //coordinates_of_places_cleaning();
+        coordinates_of_places_cleaning(ui->comboBox->currentIndex());
         create_a_MainTable();
-        //cleasing_places();
         places_fill();
-        //customizeTableInf();
+        customizeTableInf();
+
+        SelectedPlaces.clear();
+        ui->comboBox->setCurrentIndex(0);
     }
 }
 
@@ -382,74 +296,52 @@ void MainWindow::on_pushButton_clicked() // купить
 {
     int temp = ui->comboBox->currentIndex();
 
-    for(int i=0; i < CurScene->ArrayCountPlaces[temp][0]; i++)
-    {
-        for(int j=0; j < CurScene->ArrayCountPlaces[temp][1]; j++)
-        {
-            if(coordinates_of_places[i][j])
-            {
-                if(temp == 0){//parter
-                    CurScene->TableParter[i][j] = 1;
-                }
-                if(temp == 1){//ben
-                    CurScene->TableBenuar[i][j] = 1;
-                }
-                if(temp == 2){//bel
-                    CurScene->TableBelietaj[i][j] = 1;
-                }
-                //pix_close(i, j);
-             }
-        }
-    }
+    for(int i = 0; i < SelectedPlaces.size(); i++){
 
-    CurScene->InsertTablesToDataBase();
+        int row = (SelectedPlaces[i] - 1) / CurScene->ArrayCountPlaces[ui->comboBox->currentIndex()][1];
+        int column  = (SelectedPlaces[i] - 1)  % CurScene->ArrayCountPlaces[ui->comboBox->currentIndex()][1];
+
+        if(CurScene->TablesPlaces[temp][row][column] == 1 || CurScene->TablesPlaces[temp][row][column] == 2){
+            SelectedPlaces.erase(SelectedPlaces.begin() + i - 1);
+            i--;
+        }
+        else
+            CurScene->TablesPlaces[temp][row][column] = 1;
+    }
+    for(int i = 0; i < SelectedPlaces.size(); i++){
+        qDebug()<<SelectedPlaces[i];
+    }
+    CurScene->InsertTablesToDataBase(SelectedPlaces, ui->comboBox->currentIndex(), 1);
     places_fill();
-    coordinates_of_places_cleaning();
+    coordinates_of_places_cleaning(ui->comboBox->currentIndex());
     customizeTableInf();
+    SelectedPlaces.clear();
 }
 
 void MainWindow::on_pushButton_2_clicked() // забронировать
 {
     int temp = ui->comboBox->currentIndex();
 
-    for(int i=0; i < CurScene->ArrayCountPlaces[temp][0]; i++)
-    {
-        for(int j=0; j < CurScene->ArrayCountPlaces[temp][1]; j++)
-        {
-            if(coordinates_of_places[i][j])
-            {
-                if(temp == 0){//parter
-                    CurScene->TableParter[i][j] = 2;
-                }
-                if(temp == 1){//ben
-                    CurScene->TableBenuar[i][j] = 2;
-                }
-                if(temp == 2){//bel
-                    CurScene->TableBelietaj[i][j] = 2;
-                }
-                //pix_close(i, j);
-             }
+    for(int i = 0; i < SelectedPlaces.size(); i++){
+
+        int row = (SelectedPlaces[i] - 1) / CurScene->ArrayCountPlaces[ui->comboBox->currentIndex()][1];
+        int column  = (SelectedPlaces[i] - 1)  % CurScene->ArrayCountPlaces[ui->comboBox->currentIndex()][1];
+
+        if(CurScene->TablesPlaces[temp][row][column] == 2 || CurScene->TablesPlaces[temp][row][column] == 1){
+            SelectedPlaces.erase(SelectedPlaces.begin() + i - 1);
+            i--;
         }
+        else
+            CurScene->TablesPlaces[temp][row][column] = 2;
     }
-
-    CurScene->InsertTablesToDataBase();
+    for(int i = 0; i < SelectedPlaces.size(); i++){
+        qDebug()<<SelectedPlaces[i];
+    }
+    CurScene->InsertTablesToDataBase(SelectedPlaces, ui->comboBox->currentIndex(), 2);
     places_fill();
-    coordinates_of_places_cleaning();
+    coordinates_of_places_cleaning(ui->comboBox->currentIndex());
     customizeTableInf();
-}
-
-void MainWindow::on_comboBox_currentTextChanged(const QString &arg1)
-{
-        QSqlQuery qry("select * from Options where type_place = '" + ui->comboBox->currentText() + "'");
-
-        qry.first();
-        CountRow = qry.value(1).toInt();
-        CountColumn = qry.value(2).toInt();
-        coordinates_of_places_cleaning();
-        create_a_MainTable();
-        cleasing_places();
-        places_fill();
-        customizeTableInf();
+    SelectedPlaces.clear();
 }
 
 void MainWindow::on_action_exit_triggered() // пункт Выход
@@ -466,30 +358,25 @@ void MainWindow::on_pushButton_3_clicked()//вернуть
 {
     int temp = ui->comboBox->currentIndex();
 
-    for(int i=0; i < CurScene->ArrayCountPlaces[temp][0]; i++)
-    {
-        for(int j=0; j < CurScene->ArrayCountPlaces[temp][1]; j++)
-        {
-            if(coordinates_of_places[i][j])
-            {
-                if(temp == 0){//parter
-                    CurScene->TableParter[i][j] = 0;
-                }
-                if(temp == 1){//ben
-                    CurScene->TableBenuar[i][j] = 0;
-                }
-                if(temp == 2){//bel
-                    CurScene->TableBelietaj[i][j] = 0;
-                }
-                //pix_close(i, j);
-             }
-        }
-    }
+    for(int i = 0; i < SelectedPlaces.size(); i++){
 
-    CurScene->InsertTablesToDataBase();
+        int row = (SelectedPlaces[i] - 1) / CurScene->ArrayCountPlaces[ui->comboBox->currentIndex()][1];
+        int column  = (SelectedPlaces[i] - 1)  % CurScene->ArrayCountPlaces[ui->comboBox->currentIndex()][1];
+
+        if(CurScene->TablesPlaces[temp][row][column] == 0){
+            SelectedPlaces.erase(SelectedPlaces.begin() + i - 1);
+        }
+        else
+            CurScene->TablesPlaces[temp][row][column] = 0;
+    }
+    for(int i = 0; i < SelectedPlaces.size(); i++){
+        qDebug()<<SelectedPlaces[i];
+    }
+    CurScene->InsertTablesToDataBase(SelectedPlaces, ui->comboBox->currentIndex(), 0);
     places_fill();
-    coordinates_of_places_cleaning();
+    coordinates_of_places_cleaning(ui->comboBox->currentIndex());
     customizeTableInf();
+    SelectedPlaces.clear();
 }
 
 void MainWindow::create_a_MainTable()
@@ -541,7 +428,7 @@ void MainWindow::on_options_room_triggered()
     qry.first();
     CountRow = qry.value(1).toInt();
     CountColumn = qry.value(2).toInt();
-    coordinates_of_places_cleaning();
+    coordinates_of_places_cleaning(ui->comboBox->currentIndex());
     create_a_MainTable();
     cleasing_places();
     places_fill();
@@ -559,28 +446,19 @@ void MainWindow::customizeTableInf()
     CountPurchased = 0;
     CountBooked = 0;
 
-    QSqlQuery qry("select * from Employed_place");
-    while(qry.next())
-    {
-        for(int i=0; i < CountRow; i++)
+    int temp = ui->comboBox->currentIndex();
+        for(int i=0; i < CurScene->ArrayCountPlaces[temp][0] ; i++)
         {
-            for(int j=0; j < CountColumn; j++)
+            for(int j=0; j < CurScene->ArrayCountPlaces[temp][1]; j++)
             {
-                if(qry.value(0) == ui->tableWidget->item(i,j)->text() &&
-                   qry.value(1) == ui->comboBox->currentText() &&
-                   qry.value(2) == ui->dateEdit->text() &&
-                   qry.value(3) == ui->tableSeans->item(quantity_prodactions,0)->text()&&
-                   qry.value(4) == ui->tableSeans->item(quantity_prodactions,1)->text())
-                {
-                    if(qry.value(7) == "Куплено")
-                        CountPurchased++;
-                    if(qry.value(7) == "Забронировано")
-                        CountBooked++;
-                }
+                if(CurScene->TablesPlaces[temp][i][j] == 1)
+                    CountPurchased++;
+                if(CurScene->TablesPlaces[temp][i][j] == 2)
+                    CountBooked++;
             }
         }
-    }
-    int CountOfPlaces = CountColumn * CountRow;
+
+    int CountOfPlaces = CurScene->ArrayCountPlaces[temp][0] * CurScene->ArrayCountPlaces[temp][1];
     ui->tableInfo->item(0,0)->setText("Всего мест: " + QString::number(CountOfPlaces));
     ui->tableInfo->item(0,1)->setText("Продано: " + QString::number(CountPurchased));
     ui->tableInfo->item(1,1)->setText("Бронь: " + QString::number(CountBooked));
@@ -592,7 +470,4 @@ void MainWindow::on_action_hovered()
 
 }
 
-void MainWindow::on_comboBox_currentIndexChanged(const QString &arg1)
-{
 
-}

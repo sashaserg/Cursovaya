@@ -17,6 +17,7 @@
 #include "optionsforhall.h"
 #include "addscene.h"
 #include "scene.h"
+#include <vector>
 
 namespace Ui {
 class MainWindow;
@@ -35,13 +36,11 @@ public:
     QDateTime dt; // переменная для записи текущей даты
     int row_height; // высота строки
     int column_width; // ширина столбца
-    int quantity_prodactions=0;//запоминает выбраную строку
     bool **coordinates_of_places;//запоминаю координаты столбика и строчки
-    unsigned int count_place_purchased = 0;//счетчик купленых мест
-    int count_places_all =0;//всего мест
-    int count_place_free = 0;//счетчик свободных
-    void coordinates_of_places_cleaning();
+    void coordinates_of_places_cleaning(int temp);
     //***ПЕРЕМЕННЫЕ ОТ САНИ***
+    std::vector <short> SelectedPlaces;
+    int PreviousIndex;
     int CountRow;               //Количество строк
     int CountColumn;            //Количество столбцов
     int CountPurchased;         //количество купленных
@@ -64,8 +63,6 @@ private slots:
 
     void on_pushButton_2_clicked();
 
-    void on_comboBox_currentTextChanged(const QString &arg1);
-
     void on_action_exit_triggered();
 
     void on_action_statistic_sale_triggered();
@@ -77,8 +74,6 @@ private slots:
     void on_action_addScene_triggered();
 
     void on_action_hovered();
-
-    void on_comboBox_currentIndexChanged(const QString &arg1);
 
 private:
     Ui::MainWindow *ui;

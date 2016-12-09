@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[22];
-    char stringdata0[432];
+    QByteArrayData data[20];
+    char stringdata0[396];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -43,14 +43,12 @@ QT_MOC_LITERAL(10, 164, 23), // "on_dateEdit_dateChanged"
 QT_MOC_LITERAL(11, 188, 4), // "date"
 QT_MOC_LITERAL(12, 193, 21), // "on_pushButton_clicked"
 QT_MOC_LITERAL(13, 215, 23), // "on_pushButton_2_clicked"
-QT_MOC_LITERAL(14, 239, 30), // "on_comboBox_currentTextChanged"
-QT_MOC_LITERAL(15, 270, 4), // "arg1"
-QT_MOC_LITERAL(16, 275, 24), // "on_action_exit_triggered"
-QT_MOC_LITERAL(17, 300, 34), // "on_action_statistic_sale_trig..."
-QT_MOC_LITERAL(18, 335, 23), // "on_pushButton_3_clicked"
-QT_MOC_LITERAL(19, 359, 25), // "on_options_room_triggered"
-QT_MOC_LITERAL(20, 385, 28), // "on_action_addScene_triggered"
-QT_MOC_LITERAL(21, 414, 17) // "on_action_hovered"
+QT_MOC_LITERAL(14, 239, 24), // "on_action_exit_triggered"
+QT_MOC_LITERAL(15, 264, 34), // "on_action_statistic_sale_trig..."
+QT_MOC_LITERAL(16, 299, 23), // "on_pushButton_3_clicked"
+QT_MOC_LITERAL(17, 323, 25), // "on_options_room_triggered"
+QT_MOC_LITERAL(18, 349, 28), // "on_action_addScene_triggered"
+QT_MOC_LITERAL(19, 378, 17) // "on_action_hovered"
 
     },
     "MainWindow\0on_informationAbout_triggered\0"
@@ -59,7 +57,6 @@ QT_MOC_LITERAL(21, 414, 17) // "on_action_hovered"
     "index\0on_tableSeans_cellClicked\0"
     "on_dateEdit_dateChanged\0date\0"
     "on_pushButton_clicked\0on_pushButton_2_clicked\0"
-    "on_comboBox_currentTextChanged\0arg1\0"
     "on_action_exit_triggered\0"
     "on_action_statistic_sale_triggered\0"
     "on_pushButton_3_clicked\0"
@@ -75,7 +72,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      16,   14, // methods
+      14,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -83,22 +80,20 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   94,    2, 0x08 /* Private */,
-       3,    0,   95,    2, 0x08 /* Private */,
-       4,    2,   96,    2, 0x08 /* Private */,
-       7,    1,  101,    2, 0x08 /* Private */,
-       9,    2,  104,    2, 0x08 /* Private */,
-      10,    1,  109,    2, 0x08 /* Private */,
-      12,    0,  112,    2, 0x08 /* Private */,
-      13,    0,  113,    2, 0x08 /* Private */,
-      14,    1,  114,    2, 0x08 /* Private */,
-      16,    0,  117,    2, 0x08 /* Private */,
-      17,    0,  118,    2, 0x08 /* Private */,
-      18,    0,  119,    2, 0x08 /* Private */,
-      19,    0,  120,    2, 0x08 /* Private */,
-      20,    0,  121,    2, 0x08 /* Private */,
-      21,    0,  122,    2, 0x08 /* Private */,
-       7,    1,  123,    2, 0x08 /* Private */,
+       1,    0,   84,    2, 0x08 /* Private */,
+       3,    0,   85,    2, 0x08 /* Private */,
+       4,    2,   86,    2, 0x08 /* Private */,
+       7,    1,   91,    2, 0x08 /* Private */,
+       9,    2,   94,    2, 0x08 /* Private */,
+      10,    1,   99,    2, 0x08 /* Private */,
+      12,    0,  102,    2, 0x08 /* Private */,
+      13,    0,  103,    2, 0x08 /* Private */,
+      14,    0,  104,    2, 0x08 /* Private */,
+      15,    0,  105,    2, 0x08 /* Private */,
+      16,    0,  106,    2, 0x08 /* Private */,
+      17,    0,  107,    2, 0x08 /* Private */,
+      18,    0,  108,    2, 0x08 /* Private */,
+      19,    0,  109,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -109,14 +104,12 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void, QMetaType::QDate,   11,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QString,   15,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QString,   15,
 
        0        // eod
 };
@@ -135,14 +128,12 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 5: _t->on_dateEdit_dateChanged((*reinterpret_cast< const QDate(*)>(_a[1]))); break;
         case 6: _t->on_pushButton_clicked(); break;
         case 7: _t->on_pushButton_2_clicked(); break;
-        case 8: _t->on_comboBox_currentTextChanged((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 9: _t->on_action_exit_triggered(); break;
-        case 10: _t->on_action_statistic_sale_triggered(); break;
-        case 11: _t->on_pushButton_3_clicked(); break;
-        case 12: _t->on_options_room_triggered(); break;
-        case 13: _t->on_action_addScene_triggered(); break;
-        case 14: _t->on_action_hovered(); break;
-        case 15: _t->on_comboBox_currentIndexChanged((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 8: _t->on_action_exit_triggered(); break;
+        case 9: _t->on_action_statistic_sale_triggered(); break;
+        case 10: _t->on_pushButton_3_clicked(); break;
+        case 11: _t->on_options_room_triggered(); break;
+        case 12: _t->on_action_addScene_triggered(); break;
+        case 13: _t->on_action_hovered(); break;
         default: ;
         }
     }
@@ -173,13 +164,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 16)
+        if (_id < 14)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 16;
+        _id -= 14;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 16)
+        if (_id < 14)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 16;
+        _id -= 14;
     }
     return _id;
 }

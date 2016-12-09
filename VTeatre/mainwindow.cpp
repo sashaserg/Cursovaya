@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     mydb = QSqlDatabase::addDatabase("QSQLITE");
-    mydb.setDatabaseName("D:/Cursovaya/VTeatre.sqlite");
+    mydb.setDatabaseName("D:/Cursovaya/Cursovaya/VTeatre.sqlite");
 
 
     CurScene = new Scene();
@@ -397,50 +397,43 @@ void MainWindow::on_pushButton_clicked() // купить
                 if(temp == 2){//bel
                     CurScene->TableBelietaj[i][j] = 1;
                 }
+                //pix_close(i, j);
              }
-            //qDebug()<<i<<'\t'<<j<<'\t'<<CurScene->TableParter[i][j];
         }
-
     }
 
     CurScene->InsertTablesToDataBase();
+    places_fill();
     coordinates_of_places_cleaning();
     customizeTableInf();
 }
 
 void MainWindow::on_pushButton_2_clicked() // забронировать
 {
-    QString type_place = ui->comboBox->currentText(),
-            date_seansa = ui->dateEdit->text(),
-            time_seansa = ui->tableSeans->item(quantity_prodactions,0)->text(),
-            name_seansa = ui->tableSeans->item(quantity_prodactions,1)->text();
-    int row=0, column=0;
+    int temp = ui->comboBox->currentIndex();
 
-    for(int i=0; i<CountRow; i++)
-        for(int j=0; j<CountColumn; j++)
+    for(int i=0; i < CurScene->ArrayCountPlaces[temp][0]; i++)
+    {
+        for(int j=0; j < CurScene->ArrayCountPlaces[temp][1]; j++)
+        {
             if(coordinates_of_places[i][j])
             {
-                places_overwrite(i,j);
-                row=i;
-                column=j;
-                QSqlQuery qry1("insert into Employed_place(place, type_place, date_seansa, time_seansa, name_seansa, row, column, state) values ("+
-                               ui->tableWidget->item(row,column)->text()+
-                        ", '"+
-                        type_place+
-                        "', '"+
-                        date_seansa+
-                        "', '"+
-                        time_seansa+
-                        "', '"+
-                        name_seansa+
-                        "', "+
-                        QString::number(row)+
-                        ", "+
-                        QString::number(column)+
-                        ", 'Забронировано')");
-               pix_reserv(row, column);
+                if(temp == 0){//parter
+                    CurScene->TableParter[i][j] = 2;
+                }
+                if(temp == 1){//ben
+                    CurScene->TableBenuar[i][j] = 2;
+                }
+                if(temp == 2){//bel
+                    CurScene->TableBelietaj[i][j] = 2;
+                }
+                //pix_close(i, j);
              }
+        }
+    }
 
+    CurScene->InsertTablesToDataBase();
+    places_fill();
     coordinates_of_places_cleaning();
     customizeTableInf();
 }
@@ -471,28 +464,30 @@ void MainWindow::on_action_statistic_sale_triggered() // окно статист
 
 void MainWindow::on_pushButton_3_clicked()//вернуть
 {
-    QString type_place = ui->comboBox->currentText(),
-            date_seansa = ui->dateEdit->text(),
-            time_seansa = ui->tableSeans->item(quantity_prodactions,0)->text(),
-            name_seansa = ui->tableSeans->item(quantity_prodactions,1)->text();
-    QSqlQuery qry;
-    int row,column;
-    QSqlQuery qry1("select * from Employed_place");
-    for(int i=0; i < CountRow; i++)
-        for(int j=0; j < CountColumn; j++)
+    int temp = ui->comboBox->currentIndex();
+
+    for(int i=0; i < CurScene->ArrayCountPlaces[temp][0]; i++)
+    {
+        for(int j=0; j < CurScene->ArrayCountPlaces[temp][1]; j++)
+        {
             if(coordinates_of_places[i][j])
             {
-                row=i;
-                column=j;
-                qry.exec("delete from Employed_place where row="+
-                         QString::number(row)+" and column="+
-                         QString::number(column)+" and type_place='"+
-                         type_place+"' and date_seansa='"+
-                         date_seansa+"' and name_seansa='"+
-                         name_seansa+"' and time_seansa='"+
-                         time_seansa+"'");
-                pix_standart(row,column);
-            }
+                if(temp == 0){//parter
+                    CurScene->TableParter[i][j] = 0;
+                }
+                if(temp == 1){//ben
+                    CurScene->TableBenuar[i][j] = 0;
+                }
+                if(temp == 2){//bel
+                    CurScene->TableBelietaj[i][j] = 0;
+                }
+                //pix_close(i, j);
+             }
+        }
+    }
+
+    CurScene->InsertTablesToDataBase();
+    places_fill();
     coordinates_of_places_cleaning();
     customizeTableInf();
 }

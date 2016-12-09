@@ -17,6 +17,7 @@
 #include "optionsforhall.h"
 #include "addscene.h"
 #include "scene.h"
+#include <vector>
 
 namespace Ui {
 class MainWindow;
@@ -42,6 +43,7 @@ public:
     int count_place_free = 0;//счетчик свободных
     void coordinates_of_places_cleaning();
     //***ПЕРЕМЕННЫЕ ОТ САНИ***
+    std::vector <short> SelectedPlaces;
     int CountRow;               //Количество строк
     int CountColumn;            //Количество столбцов
     int CountPurchased;         //количество купленных

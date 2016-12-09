@@ -101,7 +101,7 @@ border-style: outset;
            </size>
           </property>
           <property name="text">
-           <string>тут легенда</string>
+           <string>Тут цены на места</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -255,6 +255,9 @@ border-style: outset;
             <height>505</height>
            </size>
           </property>
+          <property name="contextMenuPolicy">
+           <enum>Qt::CustomContextMenu</enum>
+          </property>
           <property name="styleSheet">
            <string notr="true">background-color:rgb(239, 236, 253);</string>
           </property>
@@ -338,7 +341,7 @@ border-style: outset;
         <property name="styleSheet">
          <string notr="true">border-style: solid;
 border-width: 5px;
-border-radius: 10px;		
+border-radius: 1px;		
 border-color: #d3bb9c;
 
 
@@ -518,6 +521,7 @@ border-radius: 10px;
              <string notr="true">background-color: #b31e2c;
 border-style: outset;
 border-radius: 10px;	
+
 </string>
             </property>
             <property name="text">

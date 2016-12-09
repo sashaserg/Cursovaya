@@ -9,9 +9,15 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     mydb = QSqlDatabase::addDatabase("QSQLITE");
-    mydb.setDatabaseName("D:/Cursovaya/VTeatre.sqlite");
+    mydb.setDatabaseName("C:/Cursovaya/VTeatre.sqlite");
 
-
+    ui->pushButton->setStyleSheet("QPushButton::pressed {"
+                                  " background-color: #376bbf;"
+                                  "}"
+                                  "QPushButton{"
+                                  "background-color: #b31e2c;"
+                                  " border-radius: 10px ;"
+                                  "}");
     CurScene = new Scene(3);
 
     if(!mydb.open())
@@ -391,14 +397,14 @@ void MainWindow::create_a_MainTable()
         }
     }
 
-    QPixmap pix1;
-    pix1.load(":/image/image.png");
-    pix1 = pix1.scaled(column_width, row_height);
-
     QTableWidgetItem *item;
 
     row_height = ui->tableWidget->height() / ui->tableWidget->rowCount();
     column_width = ui->tableWidget->width() / ui->tableWidget->columnCount();
+
+    QPixmap pix1;
+    pix1.load(":/image/image.png");
+    pix1 = pix1.scaled(column_width, row_height);
 
     for(int i = 0; i < ui->tableWidget->rowCount();i++)
     {
@@ -471,3 +477,36 @@ void MainWindow::on_action_hovered()
 }
 
 
+
+void MainWindow::on_tableSeans_customContextMenuRequested(const QPoint &pos)
+{
+    /* Создаем объект контекстного меню */
+    QMenu * menu = new QMenu(this);
+    /* Создаём действия для контекстного меню */
+    QAction * editDevice = new QAction(trUtf8("Редактировать"), this);
+    /* Подключаем СЛОТы обработчики для действий контекстного меню */
+    connect(editDevice, SIGNAL(triggered()), this, SLOT(slotEditRecord()));     // Обработчик вызова диалога редактирования
+    /* Устанавливаем действия в меню */
+    menu->addAction(editDevice);
+    /* Вызываем контекстное меню */
+    menu->popup(ui->tableSeans->viewport()->mapToGlobal(pos));
+}
+void MainWindow::slotEditRecord()
+{
+    int row = ui->tableSeans->currentRow();
+    //Проверяем, что строка была действительно выбрана
+    if(row >= 0){
+        /* Задаём вопрос, стоит ли действительно редактировать запись.
+         * При положительном ответе редактируем запись
+         * */
+        if (QMessageBox::warning(this,
+                                 trUtf8("Редактирование записи"),
+                                 trUtf8("Вы уверены, что хотите редактировать эту запись?"),
+                                 QMessageBox::Yes | QMessageBox::No) == QMessageBox::No)
+            return;
+        else {
+            // В противном случае производим редактирование записи
+            // Твой выход, кодер.
+        }
+    }
+}

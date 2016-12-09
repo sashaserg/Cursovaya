@@ -18,7 +18,7 @@
 #include "addscene.h"
 #include "scene.h"
 #include <vector>
-
+#include <QMessageBox>
 namespace Ui {
 class MainWindow;
 }
@@ -74,6 +74,10 @@ private slots:
     void on_action_addScene_triggered();
 
     void on_action_hovered();
+
+    void on_tableSeans_customContextMenuRequested(const QPoint &pos);
+
+    void slotEditRecord();
 
 private:
     Ui::MainWindow *ui;

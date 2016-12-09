@@ -216,6 +216,7 @@ public:
         sizePolicy.setHeightForWidth(tableSeans->sizePolicy().hasHeightForWidth());
         tableSeans->setSizePolicy(sizePolicy);
         tableSeans->setMinimumSize(QSize(256, 505));
+        tableSeans->setContextMenuPolicy(Qt::CustomContextMenu);
         tableSeans->setStyleSheet(QStringLiteral("background-color:rgb(239, 236, 253);"));
 
         verticalLayout_3->addWidget(tableSeans);
@@ -255,7 +256,7 @@ public:
         tableWidget->setAutoFillBackground(false);
         tableWidget->setStyleSheet(QLatin1String("border-style: solid;\n"
 "border-width: 5px;\n"
-"border-radius: 10px;		\n"
+"border-radius: 1px;		\n"
 "border-color: #d3bb9c;\n"
 "\n"
 "\n"
@@ -347,6 +348,7 @@ public:
         pushButton->setStyleSheet(QLatin1String("background-color: #b31e2c;\n"
 "border-style: outset;\n"
 "border-radius: 10px;	\n"
+"\n"
 ""));
 
         horizontalLayout->addWidget(pushButton);
@@ -419,7 +421,7 @@ public:
          << QApplication::translate("MainWindow", "\320\221\320\265\320\275\321\203\320\260\321\200", 0)
          << QApplication::translate("MainWindow", "\320\221\320\265\320\273\321\214\321\215\321\202\320\260\320\266", 0)
         );
-        label_4->setText(QApplication::translate("MainWindow", "\321\202\321\203\321\202 \320\273\320\265\320\263\320\265\320\275\320\264\320\260", 0));
+        label_4->setText(QApplication::translate("MainWindow", "\320\242\321\203\321\202 \321\206\320\265\320\275\321\213 \320\275\320\260 \320\274\320\265\321\201\321\202\320\260", 0));
         QTableWidgetItem *___qtablewidgetitem = tableInfo->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QApplication::translate("MainWindow", "\320\235\320\276\320\262\321\213\320\271 \321\201\321\202\320\276\320\273\320\261\320\265\321\206", 0));
         QTableWidgetItem *___qtablewidgetitem1 = tableInfo->horizontalHeaderItem(1);

@@ -46,6 +46,7 @@ public:
     int CountPurchased;         //количество купленных
     int CountBooked;            //количество забронированных
     //***ВОТ НА ЭТОМ МОИ ПЕРЕМЕННЫЕ ВСЬО***
+
 private slots:
     void on_informationAbout_triggered();
 

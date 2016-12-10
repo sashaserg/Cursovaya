@@ -60,6 +60,7 @@ MainWindow::MainWindow(QWidget *parent) :
       }
 
     ui->comboBox->setEnabled(false);
+
 }
 void MainWindow::pix_close(int row, int column)
 {
@@ -392,15 +393,15 @@ void MainWindow::create_a_MainTable()
     ui->tableWidget->setColumnCount(CurScene->ArrayCountPlaces[temp][1]);
 
     for(int i=0; i < ui->tableWidget->rowCount(); i++){
-        for(int j=0; j < ui->tableWidget->colorCount(); j++){
+        for(int j=0; j < ui->tableWidget->columnCount(); j++){
             ui->tableWidget->setItem(i, j, new QTableWidgetItem);
         }
     }
 
     QTableWidgetItem *item;
 
-    row_height = ui->tableWidget->height() / ui->tableWidget->rowCount();
-    column_width = ui->tableWidget->width() / ui->tableWidget->columnCount();
+    row_height = (ui->tableWidget->height() -10) / ui->tableWidget->rowCount();
+    column_width = (ui->tableWidget->width() -10) / ui->tableWidget->columnCount();
 
     QPixmap pix1;
     pix1.load(":/image/image.png");
@@ -422,6 +423,8 @@ void MainWindow::create_a_MainTable()
         }
     }
     //places_fill();
+    ui->tableWidget->setAutoScroll(false);                        // отключаю авто скролл к выбраной ячейке
+
 }
 
 void MainWindow::on_options_room_triggered()
@@ -507,6 +510,8 @@ void MainWindow::slotEditRecord()
         else {
             // В противном случае производим редактирование записи
             // Твой выход, кодер.
+            AddScene *temp = new AddScene(CurScene, this);
+            temp->show();
         }
     }
 }

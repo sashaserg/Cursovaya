@@ -15,6 +15,27 @@ AddScene::AddScene(QWidget *parent) :
         qDebug()<<"Connected Compled";
 }
 
+AddScene::AddScene(Scene *temp, QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::AddScene)
+{
+    ui->setupUi(this);
+    mydb= QSqlDatabase::addDatabase("QSQLITE");                     // Подключение базы данных
+    mydb.setDatabaseName("D:/Cursovaya/Cursovaya/VTeatre.sqlite");
+
+    if(!mydb.open())
+        qDebug()<<mydb.lastError().text();
+    else
+        qDebug()<<"Connected Compled";
+
+    ui->NameLineEdit->setText(temp->name);
+    ui->timeEdit->setTime(QTime::fromString(temp->time));
+    ui->dateEdit->setDate(QDate::fromString(temp->date));
+    ui->ParterPrice->setValue(temp->cost_parter);
+    ui->BenuarPrice->setValue(temp->cost_benuar);
+    ui->BeletazPrice->setValue(temp->cost_beletaj);
+    ui->ButtonAdd->setText("Редактировать");
+}
 AddScene::~AddScene()
 {
     delete ui;

@@ -462,9 +462,14 @@ border-color: #d3bb9c;
                </font>
               </property>
               <property name="styleSheet">
-               <string notr="true">background-color:#fada26;
+               <string notr="true">QPushButton{
+background-color:#fada26;
 border-style: outset;
 border-radius: 10px;	
+}
+QPushButton::pressed{
+background-color: #376bbf
+}
 </string>
               </property>
               <property name="text">
@@ -489,10 +494,14 @@ border-radius: 10px;
                </font>
               </property>
               <property name="styleSheet">
-               <string notr="true">background-color: #236c1b;
+               <string notr="true">QPushButton{
+background-color: #236c1b;
 border-style: outset;
 border-radius: 10px;	
-</string>
+}
+QPushButton::pressed{
+background-color: #376bbf
+}</string>
               </property>
               <property name="text">
                <string>Вернуть</string>
@@ -518,10 +527,14 @@ border-radius: 10px;
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: #b31e2c;
+             <string notr="true">QPushButton{
+background-color: #b31e2c;
 border-style: outset;
 border-radius: 10px;	
-
+}
+QPushButton::pressed{
+background-color: #376bbf
+}
 </string>
             </property>
             <property name="text">
@@ -547,9 +560,8 @@ border-radius: 10px;
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">QMenuBar:hover
-{
-
+    <string notr="true">QMenu::item:selected{ 
+background-color: #d3bb9c;
 }</string>
    </property>
    <widget class="QMenu" name="menu">
@@ -558,37 +570,18 @@ border-radius: 10px;
     </property>
     <addaction name="informationAbout"/>
    </widget>
-   <widget class="QMenu" name="menu_2">
-    <property name="title">
-     <string>Программа</string>
-    </property>
-    <addaction name="action"/>
-    <addaction name="separator"/>
-    <addaction name="action_exit"/>
-   </widget>
-   <widget class="QMenu" name="menu_3">
-    <property name="title">
-     <string>Статистика</string>
-    </property>
-    <addaction name="action_statistic_sale"/>
-   </widget>
-   <widget class="QMenu" name="menu_4">
-    <property name="title">
-     <string>Настройки</string>
-    </property>
-    <addaction name="options_room"/>
-   </widget>
    <widget class="QMenu" name="menu_5">
     <property name="title">
      <string>Театр</string>
     </property>
     <addaction name="action_addScene"/>
+    <addaction name="options_room"/>
+    <addaction name="action"/>
+    <addaction name="action_statistic_sale"/>
+    <addaction name="action_exit"/>
    </widget>
-   <addaction name="menu_2"/>
    <addaction name="menu_5"/>
-   <addaction name="menu_3"/>
    <addaction name="menu"/>
-   <addaction name="menu_4"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">

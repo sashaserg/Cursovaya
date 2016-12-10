@@ -70,9 +70,6 @@ public:
     QPushButton *pushButton;
     QMenuBar *menuBar;
     QMenu *menu;
-    QMenu *menu_2;
-    QMenu *menu_3;
-    QMenu *menu_4;
     QMenu *menu_5;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -320,9 +317,14 @@ public:
         pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
         pushButton_2->setMinimumSize(QSize(80, 20));
         pushButton_2->setFont(font);
-        pushButton_2->setStyleSheet(QLatin1String("background-color:#fada26;\n"
+        pushButton_2->setStyleSheet(QLatin1String("QPushButton{\n"
+"background-color:#fada26;\n"
 "border-style: outset;\n"
 "border-radius: 10px;	\n"
+"}\n"
+"QPushButton::pressed{\n"
+"background-color: #376bbf\n"
+"}\n"
 ""));
 
         verticalLayout->addWidget(pushButton_2);
@@ -331,10 +333,14 @@ public:
         pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
         pushButton_3->setMinimumSize(QSize(80, 20));
         pushButton_3->setFont(font);
-        pushButton_3->setStyleSheet(QLatin1String("background-color: #236c1b;\n"
+        pushButton_3->setStyleSheet(QLatin1String("QPushButton{\n"
+"background-color: #236c1b;\n"
 "border-style: outset;\n"
 "border-radius: 10px;	\n"
-""));
+"}\n"
+"QPushButton::pressed{\n"
+"background-color: #376bbf\n"
+"}"));
 
         verticalLayout->addWidget(pushButton_3);
 
@@ -345,10 +351,14 @@ public:
         pushButton->setObjectName(QStringLiteral("pushButton"));
         pushButton->setMinimumSize(QSize(120, 50));
         pushButton->setFont(font);
-        pushButton->setStyleSheet(QLatin1String("background-color: #b31e2c;\n"
+        pushButton->setStyleSheet(QLatin1String("QPushButton{\n"
+"background-color: #b31e2c;\n"
 "border-style: outset;\n"
 "border-radius: 10px;	\n"
-"\n"
+"}\n"
+"QPushButton::pressed{\n"
+"background-color: #376bbf\n"
+"}\n"
 ""));
 
         horizontalLayout->addWidget(pushButton);
@@ -366,18 +376,11 @@ public:
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 899, 21));
-        menuBar->setStyleSheet(QLatin1String("QMenuBar:hover\n"
-"{\n"
-"\n"
+        menuBar->setStyleSheet(QLatin1String("QMenu::item:selected{ \n"
+"background-color: #d3bb9c;\n"
 "}"));
         menu = new QMenu(menuBar);
         menu->setObjectName(QStringLiteral("menu"));
-        menu_2 = new QMenu(menuBar);
-        menu_2->setObjectName(QStringLiteral("menu_2"));
-        menu_3 = new QMenu(menuBar);
-        menu_3->setObjectName(QStringLiteral("menu_3"));
-        menu_4 = new QMenu(menuBar);
-        menu_4->setObjectName(QStringLiteral("menu_4"));
         menu_5 = new QMenu(menuBar);
         menu_5->setObjectName(QStringLiteral("menu_5"));
         MainWindow->setMenuBar(menuBar);
@@ -388,18 +391,14 @@ public:
         statusBar->setObjectName(QStringLiteral("statusBar"));
         MainWindow->setStatusBar(statusBar);
 
-        menuBar->addAction(menu_2->menuAction());
         menuBar->addAction(menu_5->menuAction());
-        menuBar->addAction(menu_3->menuAction());
         menuBar->addAction(menu->menuAction());
-        menuBar->addAction(menu_4->menuAction());
         menu->addAction(informationAbout);
-        menu_2->addAction(action);
-        menu_2->addSeparator();
-        menu_2->addAction(action_exit);
-        menu_3->addAction(action_statistic_sale);
-        menu_4->addAction(options_room);
         menu_5->addAction(action_addScene);
+        menu_5->addAction(options_room);
+        menu_5->addAction(action);
+        menu_5->addAction(action_statistic_sale);
+        menu_5->addAction(action_exit);
 
         retranslateUi(MainWindow);
 
@@ -454,9 +453,6 @@ public:
         pushButton_3->setText(QApplication::translate("MainWindow", "\320\222\320\265\321\200\320\275\321\203\321\202\321\214", 0));
         pushButton->setText(QApplication::translate("MainWindow", "\320\236\320\277\320\273\320\260\321\202\320\270\321\202\321\214", 0));
         menu->setTitle(QApplication::translate("MainWindow", "&\320\236 \320\277\321\200\320\276\320\264\321\203\320\272\321\202\320\265", 0));
-        menu_2->setTitle(QApplication::translate("MainWindow", "\320\237\321\200\320\276\320\263\321\200\320\260\320\274\320\274\320\260", 0));
-        menu_3->setTitle(QApplication::translate("MainWindow", "\320\241\321\202\320\260\321\202\320\270\321\201\321\202\320\270\320\272\320\260", 0));
-        menu_4->setTitle(QApplication::translate("MainWindow", "\320\235\320\260\321\201\321\202\321\200\320\276\320\271\320\272\320\270", 0));
         menu_5->setTitle(QApplication::translate("MainWindow", "\320\242\320\265\320\260\321\202\321\200", 0));
     } // retranslateUi
 

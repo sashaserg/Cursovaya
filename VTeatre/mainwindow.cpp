@@ -11,13 +11,6 @@ MainWindow::MainWindow(QWidget *parent) :
     mydb = QSqlDatabase::addDatabase("QSQLITE");
     mydb.setDatabaseName("C:/Cursovaya/VTeatre.sqlite");
 
-    ui->pushButton->setStyleSheet("QPushButton::pressed {"
-                                  " background-color: #376bbf;"
-                                  "}"
-                                  "QPushButton{"
-                                  "background-color: #b31e2c;"
-                                  " border-radius: 10px ;"
-                                  "}");
     CurScene = new Scene(3);
 
     if(!mydb.open())

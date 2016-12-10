@@ -13,9 +13,8 @@ OptionsForHall::OptionsForHall(QWidget *parent) :
     for(int i = 0; i < 3; i++)                          //Изначально массив заполнен -1
         Array[i][0] = Array[i][1] = -1;
 
-    mydb= QSqlDatabase::addDatabase("QSQLITE");         //Подключаю БД
-    mydb.setDatabaseName("D:/Cursovaya/VTeatre.sqlite");
-
+    mydb = QSqlDatabase::addDatabase("QSQLITE");         //Подключаю БД
+    mydb.setDatabaseName("D:/Cursovaya/Cursovaya/VTeatre.sqlite");
 
     if(!mydb.open())                                    //Проверяю подключение БД
         qDebug()<<mydb.lastError().text();

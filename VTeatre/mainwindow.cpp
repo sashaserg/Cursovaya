@@ -8,8 +8,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
     mydb = QSqlDatabase::addDatabase("QSQLITE");
-    mydb.setDatabaseName("C:/Cursovaya/VTeatre.sqlite");
+    mydb.setDatabaseName("D:/Cursovaya/Cursovaya/VTeatre.sqlite");
 
     CurScene = new Scene(3);
 
@@ -22,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
     qry.next();
     CountRow = qry.value(1).toInt();
     CountColumn = qry.value(2).toInt();
+
     PreviousIndex = 0;
     CountPurchased = 0;
     CountBooked = 0;
@@ -43,14 +45,17 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->tableSeans->setEditTriggers(QAbstractItemView::NoEditTriggers); //запрет редактирования всех ячеек в таблице tableSeans
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers); //запрет редактирования всех ячеек в таблице tableWidget
 
+    ui->tableSeans->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents); // Ширина столбца с датой по размеру контента
+    ui->tableSeans->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch); // Ширина столбца с названиями всё остальное пространство
+
     coordinates_of_places = new bool*[CountRow];
     for(int i = 0; i < CountRow; i++)
         coordinates_of_places[i] = new bool [CountColumn];
     for(int i=0; i < CountRow; i++)
-      for(int j = 0; j < CountColumn; j++)
-      {
-           coordinates_of_places[i][j]=false;
-      }
+        for(int j = 0; j < CountColumn; j++)
+        {
+            coordinates_of_places[i][j]=false;
+        }
 
     ui->comboBox->setEnabled(false);
 
@@ -89,16 +94,7 @@ void MainWindow::pix_standart(int row, int column)
 
 void MainWindow::cleasing_places()//очистка мест
 {
-    /*for(int i=0;i<CountRow;i++)
-    {
-        for(int j=0;j<CountColumn;j++)
-        {
-            QPixmap pix;
-            pix.load(":/image/image.png");
-            pix = pix.scaled(ui->tableWidget->columnWidth(0), ui->tableWidget->rowHeight(0));
-            ui->tableWidget->item(i, j)->setBackground(QBrush(pix));
-        }
-    }*/
+
 }
 
 void MainWindow::coordinates_of_places_cleaning(int temp)
@@ -178,7 +174,6 @@ void MainWindow::on_tableWidget_cellClicked(int row, int column) // по наж�
             if(SelectedPlaces[i] == CurScene->ArrayCountPlaces[ui->comboBox->currentIndex()][1] * row + column + 1){
                 SelectedPlaces.erase(SelectedPlaces.begin() + i - 1);
             }
-            qDebug()<<SelectedPlaces[i];
         }
     }
     else
@@ -191,24 +186,20 @@ void MainWindow::on_tableWidget_cellClicked(int row, int column) // по наж�
 
 void MainWindow::on_comboBox_currentIndexChanged(int index) // по изменению пункта в combobox менять таблицу
 {
-    qDebug()<<1;
     coordinates_of_places_cleaning(PreviousIndex);
-    qDebug()<<2;
+
     create_a_MainTable();
-    qDebug()<<3;
     places_fill();
-    qDebug()<<4;
     customizeTableInf();
-    qDebug()<<5;
+
     SelectedPlaces.clear();
-    qDebug()<<6;
+
     PreviousIndex = index;
 }
 
 
 void MainWindow::on_tableSeans_cellClicked(int row, int column) // по нажатию на название изменить таблицу с местами
 {
-    qDebug()<<1;
     if(column == 1)
     {
         ui->comboBox->setEnabled(true);
@@ -221,19 +212,8 @@ void MainWindow::on_tableSeans_cellClicked(int row, int column) // по нажа
         CurScene->set_time(ui->tableSeans->item(row, 0)->text());
         CurScene->set_date(ui->dateEdit->text());
 
-        qDebug()<<CurScene->name;
-        qDebug()<<CurScene->time;
-        qDebug()<<CurScene->date;
-
         //2 - найти количество мест в каждом типе
         CurScene->SetArrayCountPlaces();
-
-        qDebug()<<CurScene->ArrayCountPlaces[0][0];
-        qDebug()<<CurScene->ArrayCountPlaces[0][1];
-        qDebug()<<CurScene->ArrayCountPlaces[1][0];
-        qDebug()<<CurScene->ArrayCountPlaces[1][1];
-        qDebug()<<CurScene->ArrayCountPlaces[2][0];
-        qDebug()<<CurScene->ArrayCountPlaces[2][1];
 
         //3 - найти инф. о каждом месте
         CurScene->SetDataToTables();
@@ -250,47 +230,39 @@ void MainWindow::on_tableSeans_cellClicked(int row, int column) // по нажа
 
 void MainWindow::on_dateEdit_dateChanged(const QDate &date)//Выводит сеансы по дате
 {
-        //cleasing_places();
         QString date_seansa=ui->dateEdit->text();
-        QString query = "select * from Postanovka where date_seansa='"+date_seansa+"'";
-        QSqlQuery qry1;
-        qry1.exec(query);
+        QSqlQuery qry1("select * from Postanovka where date_seansa='"+date_seansa+"'");
+
         int i = 0;
         QString Postanovka[255][2];
         while(qry1.next())
         {
-                for(int j=0; j < 2 ;++j)
-                {
-                    Postanovka[i][j]=qry1.value(1-j).toString();//записывает данные спектакля в массив
-                }
-
-                ++i;
+            for(int j=0; j < 2 ;++j)
+            {
+                Postanovka[i][j]=qry1.value(1-j).toString();//записывает данные спектакля в массив
+            }
+            i++;
          }
 
         // работа с таблицей сеансов-------------------------------
 
-            ui->tableSeans->setRowCount(i); // указываем количество строк, вместо 10 нужно подставлять количество спектаклей на какое-то число
-            for(int row = 0; row < ui->tableSeans->rowCount(); row++)
-              for(int column = 0; column < ui->tableSeans->columnCount(); column++)
-              {
-                  QTableWidgetItem *item = new QTableWidgetItem(); // выделяем память под ячейку
-                  //item->setText(QString::number(row + column)); // вставляем текст
-                  ui->tableSeans->setItem(row, column, item); // вставляем ячейку
-              }
-            ui->tableSeans->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents); // Ширина столбца с датой по размеру контента
-            ui->tableSeans->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch); // Ширина столбца с названиями всё остальное пространство
-            for(int k=0;k<i;++k)
+        ui->tableSeans->setRowCount(i); // указываем количество строк, вместо 10 нужно подставлять количество спектаклей на какое-то число
+
+        for(int row = 0; row < i; row++)
+        {
+            for(int column = 0; column < 2; column++)
             {
-                for(int j =0;j<2;++j)
-                {
-                    ui->tableSeans->item(k,j)->setText(Postanovka[k][j]);
-                }
+                ui->tableSeans->setItem(row, column, new QTableWidgetItem); // вставляем ячейку
             }
-        i=0;
+        }
+        for(int k = 0; k < i; k++)
+        {
+            for(int j = 0; j < 2; j++)
+            {
+                ui->tableSeans->item(k, j)->setText(Postanovka[k][j]);
+            }
+        }
 }
-
-
-
 
 void MainWindow::on_pushButton_clicked() // купить
 {
@@ -307,9 +279,6 @@ void MainWindow::on_pushButton_clicked() // купить
         }
         else
             CurScene->TablesPlaces[temp][row][column] = 1;
-    }
-    for(int i = 0; i < SelectedPlaces.size(); i++){
-        qDebug()<<SelectedPlaces[i];
     }
     CurScene->InsertTablesToDataBase(SelectedPlaces, ui->comboBox->currentIndex(), 1);
     places_fill();
@@ -333,9 +302,6 @@ void MainWindow::on_pushButton_2_clicked() // забронировать
         }
         else
             CurScene->TablesPlaces[temp][row][column] = 2;
-    }
-    for(int i = 0; i < SelectedPlaces.size(); i++){
-        qDebug()<<SelectedPlaces[i];
     }
     CurScene->InsertTablesToDataBase(SelectedPlaces, ui->comboBox->currentIndex(), 2);
     places_fill();
@@ -369,9 +335,6 @@ void MainWindow::on_pushButton_3_clicked()//вернуть
         else
             CurScene->TablesPlaces[temp][row][column] = 0;
     }
-    for(int i = 0; i < SelectedPlaces.size(); i++){
-        qDebug()<<SelectedPlaces[i];
-    }
     CurScene->InsertTablesToDataBase(SelectedPlaces, ui->comboBox->currentIndex(), 0);
     places_fill();
     coordinates_of_places_cleaning(ui->comboBox->currentIndex());
@@ -391,31 +354,24 @@ void MainWindow::create_a_MainTable()
         }
     }
 
-    QTableWidgetItem *item;
-
     row_height = (ui->tableWidget->height() -10) / ui->tableWidget->rowCount();
     column_width = (ui->tableWidget->width() -10) / ui->tableWidget->columnCount();
 
-    QPixmap pix1;
-    pix1.load(":/image/image.png");
-    pix1 = pix1.scaled(column_width, row_height);
-
-    for(int i = 0; i < ui->tableWidget->rowCount();i++)
+    for(int i = 0; i < ui->tableWidget->rowCount(); i++)
     {
         ui->tableWidget->setRowHeight(i, row_height); // высота строк
         for(int j = 0; j < ui->tableWidget->columnCount(); j++)
         {
-            item = new QTableWidgetItem;
-            item->setText(QString::number(i*ui->tableWidget->columnCount() + j + 1));
+            if(i == 0)
+                ui->tableWidget->setColumnWidth(j, column_width); // ширина столбцов
+
+            QTableWidgetItem *item = new QTableWidgetItem;
+            item->setText(QString::number(i * ui->tableWidget->columnCount() + j + 1));
             item->setTextAlignment(Qt::AlignCenter);
             item->setFlags(item->flags() & (~Qt::ItemIsSelectable)); // устанавливаю флаг ItemIsSelectable в false
             ui->tableWidget->setItem( i, j, item );
-
-            if(i == 0)
-                ui->tableWidget->setColumnWidth(j, column_width); // ширина столбцов
         }
     }
-    //places_fill();
     ui->tableWidget->setAutoScroll(false);                        // отключаю авто скролл к выбраной ячейке
 
 }
@@ -425,14 +381,27 @@ void MainWindow::on_options_room_triggered()
     OptionsForHall *wind = new OptionsForHall(this);
     wind->exec();
 
-    QSqlQuery qry("select * from Options where type_place = '" + ui->comboBox->currentText() + "'");
+    QSqlQuery qry("select * from Options");
 
-    qry.first();
-    CountRow = qry.value(1).toInt();
-    CountColumn = qry.value(2).toInt();
+    for (int i = 0; qry.next(); i++) {
+        CurScene->ArrayCountPlaces[i][0] = qry.value(1).toInt();
+        CurScene->ArrayCountPlaces[i][1] = qry.value(2).toInt();
+    }
+
+    QSqlQuery qry1("select place, type_place, date_seansa, time_seansa, name_seansa from Employed_place");
+    //QString Names[3] = {"Партер", "Бенуар", "Бельэтаж"};
+    while(qry1.next()){
+
+        QSqlQuery qry2("update Employed_place set column=" + QString::number( (qry1.value(0).toInt() - 1) / qry1.value(1).toInt() ) + ", row=" + QString::number( (qry1.value(0).toInt() - 1) % qry1.value(1).toInt() ) + " where type_place='" + qry1.value(1).toString() + "' and date_seansa='" + qry.value(2).toString() + "' and time_seansa='" + qry1.value(3).toString() + "' and name_seansa='" + qry.value(4).toString() + "'");
+        qDebug()<<qry1.value(0).toInt();
+    }
+
+    CurScene->SetDataToTables();
+
     coordinates_of_places_cleaning(ui->comboBox->currentIndex());
+    SelectedPlaces.clear();
+
     create_a_MainTable();
-    cleasing_places();
     places_fill();
     customizeTableInf();
 }

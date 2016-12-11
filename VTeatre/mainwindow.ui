@@ -80,8 +80,8 @@ border-style: outset;
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>40</width>
-            <height>20</height>
+            <width>13</width>
+            <height>38</height>
            </size>
           </property>
          </spacer>
@@ -100,6 +100,15 @@ border-style: outset;
             <height>41</height>
            </size>
           </property>
+          <property name="font">
+           <font>
+            <family>High Tower Text</family>
+            <pointsize>20</pointsize>
+            <weight>75</weight>
+            <italic>false</italic>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="text">
            <string>Тут цены на места</string>
           </property>
@@ -115,8 +124,8 @@ border-style: outset;
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>40</width>
-            <height>20</height>
+            <width>13</width>
+            <height>38</height>
            </size>
           </property>
          </spacer>

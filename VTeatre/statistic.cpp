@@ -8,9 +8,7 @@ Statistic::Statistic(QDateTime datenow, QWidget *parent) :
     ui->setupUi(this);
 
     ui->dateEdit->setDateTime(datenow);                                // Устанавливаю дату в dateEdit в текущую дату
-
-    ui->setupUi(this);
-
+/*
     //Changing ticks on y axis
     QVector<double> ticks;
     int tmp = -100;
@@ -64,10 +62,12 @@ Statistic::Statistic(QDateTime datenow, QWidget *parent) :
     ui->widget->legend->setFont(legendFont);
     ui->widget->legend->setBrush(QBrush(QColor(255,255,255,150)));
     // by default, the legend is in the inset layout of the main axis rect. So this is how we access it to change legend placement:
-    ui->widget->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignBottom|Qt::AlignRight);
+    ui->widget->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignBottom|Qt::AlignRight);*/
 }
 
 Statistic::~Statistic()
 {
     delete ui;
 }
+
+

@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     mydb = QSqlDatabase::addDatabase("QSQLITE");
-    mydb.setDatabaseName("D:/Cursovaya/VTeatre.sqlite");
+    mydb.setDatabaseName("C:/Cursovaya/VTeatre.sqlite");
 
     CurScene = new Scene(3);
 
@@ -33,10 +33,9 @@ MainWindow::MainWindow(QWidget *parent) :
     pix = pix.scaled(ui->label_2->size());
     ui->label_2->setPixmap(pix);
 
-    QPixmap pix_Legend(":/image/Legend.png");
+   /* QPixmap pix_Legend(":/image/Legend.png");
     pix_Legend = pix_Legend.scaled(ui->label_4->size(), Qt::KeepAspectRatio);
-    ui->label_4->setPixmap(pix_Legend);
-
+    ui->label_4->setPixmap(pix_Legend);*/
 
     dt = QDateTime::currentDateTime();
     ui->dateEdit->setDateTime(dt);
@@ -171,8 +170,9 @@ void MainWindow::on_tableWidget_cellClicked(int row, int column) // по наж�
         coordinates_of_places[row][column]=false;
 
         for(int i = 0; i < SelectedPlaces.size(); i ++){
+            int temp = CurScene->ArrayCountPlaces[ui->comboBox->currentIndex()][1] * row + column + 1;
             if(SelectedPlaces[i] == CurScene->ArrayCountPlaces[ui->comboBox->currentIndex()][1] * row + column + 1){
-                SelectedPlaces.erase(SelectedPlaces.begin() + i - 1);
+                SelectedPlaces.erase(SelectedPlaces.begin() + i );
             }
         }
     }
@@ -231,6 +231,8 @@ qDebug()<<8;
         ui->comboBox->setCurrentIndex(0);
         qDebug()<<10;
     }
+    QString name = ui->tableSeans->item(row,column)->text();
+    ui->label_4->setText(name);
 }
 
 void MainWindow::on_dateEdit_dateChanged(const QDate &date)//Выводит сеансы по дате
@@ -395,14 +397,14 @@ void MainWindow::on_options_room_triggered()
         qDebug()<<qry1.value(0).toInt();
     }
 
-    //CurScene->SetDataToTables();
+    CurScene->SetDataToTables();
 
-    //coordinates_of_places_cleaning(ui->comboBox->currentIndex());
-    //SelectedPlaces.clear();
+    coordinates_of_places_cleaning(ui->comboBox->currentIndex());
+    SelectedPlaces.clear();
 
-    //create_a_MainTable();
-    //places_fill();
-    //customizeTableInf();
+    create_a_MainTable();
+    places_fill();
+    customizeTableInf();
 }
 
 void MainWindow::on_action_addScene_triggered()                 // нажатие на "Добавить постановку"

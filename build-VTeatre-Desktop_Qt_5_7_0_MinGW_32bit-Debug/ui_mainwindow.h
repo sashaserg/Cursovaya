@@ -127,7 +127,7 @@ public:
 
         horizontalLayout_3->addWidget(comboBox);
 
-        horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        horizontalSpacer_4 = new QSpacerItem(13, 38, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout_3->addItem(horizontalSpacer_4);
 
@@ -135,11 +135,18 @@ public:
         label_4->setObjectName(QStringLiteral("label_4"));
         label_4->setMinimumSize(QSize(291, 41));
         label_4->setMaximumSize(QSize(291, 41));
+        QFont font1;
+        font1.setFamily(QStringLiteral("High Tower Text"));
+        font1.setPointSize(20);
+        font1.setBold(true);
+        font1.setItalic(false);
+        font1.setWeight(75);
+        label_4->setFont(font1);
         label_4->setAlignment(Qt::AlignCenter);
 
         horizontalLayout_3->addWidget(label_4);
 
-        horizontalSpacer_5 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        horizontalSpacer_5 = new QSpacerItem(13, 38, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout_3->addItem(horizontalSpacer_5);
 
@@ -167,9 +174,9 @@ public:
         tableInfo->setObjectName(QStringLiteral("tableInfo"));
         tableInfo->setMinimumSize(QSize(191, 41));
         tableInfo->setMaximumSize(QSize(191, 41));
-        QFont font1;
-        font1.setPointSize(8);
-        tableInfo->setFont(font1);
+        QFont font2;
+        font2.setPointSize(8);
+        tableInfo->setFont(font2);
         tableInfo->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         tableInfo->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         tableInfo->horizontalHeader()->setVisible(false);
@@ -189,9 +196,9 @@ public:
         dateEdit = new QDateEdit(centralWidget);
         dateEdit->setObjectName(QStringLiteral("dateEdit"));
         dateEdit->setMinimumSize(QSize(256, 30));
-        QFont font2;
-        font2.setPointSize(12);
-        dateEdit->setFont(font2);
+        QFont font3;
+        font3.setPointSize(12);
+        dateEdit->setFont(font3);
         dateEdit->setFocusPolicy(Qt::WheelFocus);
         dateEdit->setDateTime(QDateTime(QDate(2016, 1, 1), QTime(0, 0, 0)));
         dateEdit->setCalendarPopup(true);
@@ -281,22 +288,22 @@ public:
         label = new QLabel(centralWidget);
         label->setObjectName(QStringLiteral("label"));
         label->setMinimumSize(QSize(160, 22));
-        QFont font3;
-        font3.setFamily(QStringLiteral("MS Serif"));
-        font3.setPointSize(9);
-        label->setFont(font3);
+        QFont font4;
+        font4.setFamily(QStringLiteral("MS Serif"));
+        font4.setPointSize(9);
+        label->setFont(font4);
 
         verticalLayout_2->addWidget(label);
 
         label_3 = new QLabel(centralWidget);
         label_3->setObjectName(QStringLiteral("label_3"));
         label_3->setMinimumSize(QSize(160, 22));
-        QFont font4;
-        font4.setFamily(QStringLiteral("Arial"));
-        font4.setPointSize(10);
-        font4.setBold(true);
-        font4.setWeight(75);
-        label_3->setFont(font4);
+        QFont font5;
+        font5.setFamily(QStringLiteral("Arial"));
+        font5.setPointSize(10);
+        font5.setBold(true);
+        font5.setWeight(75);
+        label_3->setFont(font5);
 
         verticalLayout_2->addWidget(label_3);
 

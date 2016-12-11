@@ -15,6 +15,8 @@ public:
     explicit Statistic(QDateTime datenow, QWidget *parent = 0);
     ~Statistic();
     
+private slots:
+
 private:
     Ui::Statistic *ui;
 };

@@ -7,7 +7,7 @@ AddScene::AddScene(QWidget *parent) :
 {
     ui->setupUi(this);
     mydb= QSqlDatabase::addDatabase("QSQLITE");                     // Подключение базы данных
-    mydb.setDatabaseName("D:/Cursovaya/Cursovaya/VTeatre.sqlite");
+    mydb.setDatabaseName("C:/Cursovaya/VTeatre.sqlite");
 
     if(!mydb.open())
         qDebug()<<mydb.lastError().text();
@@ -21,7 +21,7 @@ AddScene::AddScene(Scene *temp, QWidget *parent) :
 {
     ui->setupUi(this);
     mydb= QSqlDatabase::addDatabase("QSQLITE");                     // Подключение базы данных
-    mydb.setDatabaseName("D:/Cursovaya/Cursovaya/VTeatre.sqlite");
+    mydb.setDatabaseName("C:/Cursovaya/VTeatre.sqlite");
 
     if(!mydb.open())
         qDebug()<<mydb.lastError().text();

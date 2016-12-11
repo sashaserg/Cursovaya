@@ -54,13 +54,13 @@ public:
     QDateEdit *dateEdit;
     QTableWidget *tableSeans;
     QHBoxLayout *horizontalLayout_4;
-    QSpacerItem *horizontalSpacer_2;
     QLabel *label_2;
-    QSpacerItem *horizontalSpacer_3;
     QTableWidget *tableWidget;
-    QHBoxLayout *horizontalLayout_2;
+    QHBoxLayout *horizontalLayout_5;
     QVBoxLayout *verticalLayout_2;
+    QHBoxLayout *horizontalLayout_2;
     QLabel *label;
+    QLabel *label_5;
     QLabel *label_3;
     QSpacerItem *horizontalSpacer;
     QHBoxLayout *horizontalLayout;
@@ -78,7 +78,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(899, 620);
+        MainWindow->resize(924, 620);
         MainWindow->setAcceptDrops(false);
         MainWindow->setStyleSheet(QLatin1String("background-color: #f1f2f8;\n"
 ""));
@@ -142,7 +142,7 @@ public:
         font1.setItalic(false);
         font1.setWeight(75);
         label_4->setFont(font1);
-        label_4->setAlignment(Qt::AlignCenter);
+        label_4->setAlignment(Qt::AlignHCenter|Qt::AlignTop);
 
         horizontalLayout_3->addWidget(label_4);
 
@@ -231,30 +231,27 @@ public:
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setSpacing(6);
         horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
-        horizontalSpacer_2 = new QSpacerItem(13, 17, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout_4->addItem(horizontalSpacer_2);
-
         label_2 = new QLabel(centralWidget);
         label_2->setObjectName(QStringLiteral("label_2"));
-        label_2->setMinimumSize(QSize(601, 31));
+        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Preferred);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(label_2->sizePolicy().hasHeightForWidth());
+        label_2->setSizePolicy(sizePolicy1);
+        label_2->setMinimumSize(QSize(639, 31));
 
         horizontalLayout_4->addWidget(label_2);
-
-        horizontalSpacer_3 = new QSpacerItem(13, 17, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout_4->addItem(horizontalSpacer_3);
 
 
         gridLayout->addLayout(horizontalLayout_4, 1, 0, 1, 1);
 
         tableWidget = new QTableWidget(centralWidget);
         tableWidget->setObjectName(QStringLiteral("tableWidget"));
-        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Expanding);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(tableWidget->sizePolicy().hasHeightForWidth());
-        tableWidget->setSizePolicy(sizePolicy1);
+        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(tableWidget->sizePolicy().hasHeightForWidth());
+        tableWidget->setSizePolicy(sizePolicy2);
         tableWidget->setMinimumSize(QSize(605, 400));
         tableWidget->setLayoutDirection(Qt::LeftToRight);
         tableWidget->setAutoFillBackground(false);
@@ -280,40 +277,49 @@ public:
 
         gridLayout->addWidget(tableWidget, 2, 0, 1, 1);
 
-        horizontalLayout_2 = new QHBoxLayout();
-        horizontalLayout_2->setSpacing(6);
-        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        horizontalLayout_5 = new QHBoxLayout();
+        horizontalLayout_5->setSpacing(6);
+        horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         label = new QLabel(centralWidget);
         label->setObjectName(QStringLiteral("label"));
-        label->setMinimumSize(QSize(160, 22));
-        QFont font4;
-        font4.setFamily(QStringLiteral("MS Serif"));
-        font4.setPointSize(9);
-        label->setFont(font4);
+        label->setMinimumSize(QSize(50, 20));
 
-        verticalLayout_2->addWidget(label);
+        horizontalLayout_2->addWidget(label);
+
+        label_5 = new QLabel(centralWidget);
+        label_5->setObjectName(QStringLiteral("label_5"));
+        label_5->setMinimumSize(QSize(90, 0));
+
+        horizontalLayout_2->addWidget(label_5);
+
+
+        verticalLayout_2->addLayout(horizontalLayout_2);
 
         label_3 = new QLabel(centralWidget);
         label_3->setObjectName(QStringLiteral("label_3"));
         label_3->setMinimumSize(QSize(160, 22));
-        QFont font5;
-        font5.setFamily(QStringLiteral("Arial"));
-        font5.setPointSize(10);
-        font5.setBold(true);
-        font5.setWeight(75);
-        label_3->setFont(font5);
+        QFont font4;
+        font4.setFamily(QStringLiteral("Arial"));
+        font4.setPointSize(10);
+        font4.setBold(true);
+        font4.setUnderline(true);
+        font4.setWeight(75);
+        label_3->setFont(font4);
 
         verticalLayout_2->addWidget(label_3);
 
 
-        horizontalLayout_2->addLayout(verticalLayout_2);
+        horizontalLayout_5->addLayout(verticalLayout_2);
 
         horizontalSpacer = new QSpacerItem(168, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        horizontalLayout_2->addItem(horizontalSpacer);
+        horizontalLayout_5->addItem(horizontalSpacer);
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(6);
@@ -372,10 +378,10 @@ public:
         horizontalLayout->addWidget(pushButton);
 
 
-        horizontalLayout_2->addLayout(horizontalLayout);
+        horizontalLayout_5->addLayout(horizontalLayout);
 
 
-        gridLayout->addLayout(horizontalLayout_2, 3, 0, 1, 1);
+        gridLayout->addLayout(horizontalLayout_5, 3, 0, 1, 1);
 
 
         gridLayout_2->addLayout(gridLayout, 0, 0, 1, 1);
@@ -383,7 +389,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 899, 21));
+        menuBar->setGeometry(QRect(0, 0, 924, 21));
         menuBar->setStyleSheet(QLatin1String("QMenu::item:selected{ \n"
 "background-color: #d3bb9c;\n"
 "}"));
@@ -428,7 +434,7 @@ public:
          << QApplication::translate("MainWindow", "\320\221\320\265\320\275\321\203\320\260\321\200", 0)
          << QApplication::translate("MainWindow", "\320\221\320\265\320\273\321\214\321\215\321\202\320\260\320\266", 0)
         );
-        label_4->setText(QApplication::translate("MainWindow", "\320\242\321\203\321\202 \321\206\320\265\320\275\321\213 \320\275\320\260 \320\274\320\265\321\201\321\202\320\260", 0));
+        label_4->setText(QApplication::translate("MainWindow", "\320\235\320\260\320\267\320\262\320\260\320\275\320\270\320\265", 0));
         QTableWidgetItem *___qtablewidgetitem = tableInfo->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QApplication::translate("MainWindow", "\320\235\320\276\320\262\321\213\320\271 \321\201\321\202\320\276\320\273\320\261\320\265\321\206", 0));
         QTableWidgetItem *___qtablewidgetitem1 = tableInfo->horizontalHeaderItem(1);
@@ -455,7 +461,8 @@ public:
         QTableWidgetItem *___qtablewidgetitem9 = tableSeans->horizontalHeaderItem(1);
         ___qtablewidgetitem9->setText(QApplication::translate("MainWindow", "\320\235\320\260\320\267\320\262\320\260\320\275\320\270\320\265", 0));
         label_2->setText(QApplication::translate("MainWindow", "\320\241\321\206\320\265\320\275\320\260", 0));
-        label->setText(QApplication::translate("MainWindow", "\320\236\321\202\320\274\320\265\321\207\320\265\320\275\320\276:", 0));
+        label->setText(QApplication::translate("MainWindow", "\320\240\321\217\320\264", 0));
+        label_5->setText(QApplication::translate("MainWindow", "\320\234\320\265\321\201\321\202\320\276", 0));
         label_3->setText(QApplication::translate("MainWindow", "\320\232 \320\276\320\277\320\273\320\260\321\202\320\265:", 0));
         pushButton_2->setText(QApplication::translate("MainWindow", "\320\221\321\200\320\276\320\275\321\214", 0));
         pushButton_3->setText(QApplication::translate("MainWindow", "\320\222\320\265\321\200\320\275\321\203\321\202\321\214", 0));

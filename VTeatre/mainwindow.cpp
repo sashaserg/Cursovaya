@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     mydb = QSqlDatabase::addDatabase("QSQLITE");
-    mydb.setDatabaseName("D:/Cursovaya/VTeatre.sqlite");
+    mydb.setDatabaseName("C:/Cursovaya/VTeatre.sqlite");
 
     CurScene = new Scene(3);
 
@@ -374,11 +374,12 @@ void MainWindow::create_a_MainTable()
             item->setText(QString::number(j + 1));
             item->setTextAlignment(Qt::AlignCenter);
             item->setFlags(item->flags() & (~Qt::ItemIsSelectable)); // устанавливаю флаг ItemIsSelectable в false
+//            item->setData(Qt::ToolTip, QString::number(10));
+            item->setToolTip("Ряд " + QString::number(i+1));
             ui->tableWidget->setItem( i, j, item );
         }
     }
     ui->tableWidget->setAutoScroll(false);                        // отключаю авто скролл к выбраной ячейке
-
 }
 
 void MainWindow::on_options_room_triggered()
@@ -481,3 +482,4 @@ void MainWindow::slotEditRecord()
         }
     }
 }
+

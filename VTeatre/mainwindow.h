@@ -18,7 +18,7 @@
 #include "addscene.h"
 #include "scene.h"
 #include <vector>
-
+#include <QMessageBox>
 namespace Ui {
 class MainWindow;
 }
@@ -46,6 +46,7 @@ public:
     int CountPurchased;         //количество купленных
     int CountBooked;            //количество забронированных
     //***ВОТ НА ЭТОМ МОИ ПЕРЕМЕННЫЕ ВСЬО***
+
 private slots:
     void on_informationAbout_triggered();
 
@@ -74,6 +75,10 @@ private slots:
     void on_action_addScene_triggered();
 
     void on_action_hovered();
+
+    void on_tableSeans_customContextMenuRequested(const QPoint &pos);
+
+    void slotEditRecord();
 
 private:
     Ui::MainWindow *ui;

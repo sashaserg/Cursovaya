@@ -1,0 +1,19 @@
+{
+    "options": [
+        {
+            "column": 10,
+            "row": 10,
+            "type_place": "Партер"
+        },
+        {
+            "column": 16,
+            "row": 16,
+            "type_place": "Бенуар"
+        },
+        {
+            "column": 14,
+            "row": 14,
+            "type_place": "Бельэтаж"
+        }
+    ]
+}

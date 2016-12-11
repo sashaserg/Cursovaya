@@ -1,5 +1,8 @@
 ﻿#include "optionsforhall.h"
 #include "ui_optionsforhall.h"
+#include <QtXml>
+#include <QFileDialog>
+#include <QMessageBox>
 
 OptionsForHall::OptionsForHall(QWidget *parent) :
     QDialog(parent),
@@ -9,33 +12,28 @@ OptionsForHall::OptionsForHall(QWidget *parent) :
 
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers); //запрет редактирования всех ячеек в таблице tableWidget
 
-    TypeOfPlace = 0;                                    //Тип места изначально - Партер
-    for(int i = 0; i < 3; i++)                          //Изначально массив заполнен -1
-        Array[i][0] = Array[i][1] = -1;
-
-    mydb= QSqlDatabase::addDatabase("QSQLITE");         //Подключаю БД
-    mydb.setDatabaseName("D:/Cursovaya/VTeatre.sqlite");
-
-
-    if(!mydb.open())                                    //Проверяю подключение БД
-        qDebug()<<mydb.lastError().text();
-    else
-        qDebug()<<"Connected Compled";
-
-    QSqlQuery qry("select * from Options");
-
-    for(int i = 0; qry.next(); i++)                     //загрузить значения из БД
+    QString jsonFileName = "D:/Cursovaya/Data.json";
+    if(jsonFileName != NULL)
     {
-        Array[i][0] = qry.value(1).toInt();             //row
-        Array[i][1] = qry.value(2).toInt();             //column
+        QString jsonText;
+            QFile jsonFile(jsonFileName);
+
+            if(jsonFile.open(QIODevice::ReadOnly | QIODevice::Text))
+            {
+                jsonText = jsonFile.readAll();
+                QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonText.toUtf8());
+                parseJSON(jsonDoc);
+                jsonFile.close();
+            }
+            else
+            {
+                QMessageBox msgBox;
+                msgBox.setWindowTitle("Error");
+                msgBox.setText("Error opening JSON file.");
+                msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+                msgBox.exec();
+            }
     }
-
-    CountColumn = Array[0][1];                          //количество колонок и строк в таблице
-    CountRow = Array[0][0];
-
-    ui->spinBox_Column->setValue(CountColumn);          //изменить чекбоксы
-    ui->spinBox_Row->setValue(CountRow);
-
 }
 
 OptionsForHall::~OptionsForHall()
@@ -45,31 +43,27 @@ OptionsForHall::~OptionsForHall()
 
 void OptionsForHall::on_spinBox_Row_valueChanged(int arg1)//при изменении количества рядов
 {
-    CountRow = arg1;                                    //После изменения чекбокса изменяю переменную
-    DrawTable();                                        //перерисовываю таблицу
-
-    Array[TypeOfPlace][0] = CountRow;                   //Заношу соответствующие данные в массив
-    Array[TypeOfPlace][1] = CountColumn;
+    int temp = ui->ComboBoxType->currentIndex();
+    dataJsonFile[temp][0]=arg1;
+    DrawTable();
 }
 
 void OptionsForHall::on_spinBox_Column_valueChanged(int arg1)//при изменении количества мест в ряду
 {
-    CountColumn = arg1;                                 //После изменения чекбокса изменяю переменную
-    DrawTable();                                        //перерисовываю таблицу
-
-    Array[TypeOfPlace][0] = CountRow;                   //Заношу соответствующие данные в массив
-    Array[TypeOfPlace][1] = CountColumn;
+    int temp = ui->ComboBoxType->currentIndex();
+    dataJsonFile[temp][1]=arg1;
+    DrawTable();
 }
 
 void OptionsForHall::DrawTable()
 {
     QTableWidgetItem *item;
+    int temp = ui->ComboBoxType->currentIndex();
+    ui->tableWidget->setRowCount(dataJsonFile[temp][0]);             //задаю таблице нужное количечство строк
+    ui->tableWidget->setColumnCount(dataJsonFile[temp][1]);       //и столбцов
 
-    ui->tableWidget->setRowCount(CountRow);             //задаю таблице нужное количечство строк
-    ui->tableWidget->setColumnCount(CountColumn);       //и столбцов
-
-    for(int i=0; i < CountRow; i++){                    //освобождаю для них память
-        for(int j=0; j < CountColumn; j++){
+    for(int i=0; i < dataJsonFile[temp][0]; i++){                    //освобождаю для них память
+        for(int j=0; j < dataJsonFile[temp][1]; j++){
             ui->tableWidget->setItem(i, j, new QTableWidgetItem);
         }
     }
@@ -102,25 +96,58 @@ void OptionsForHall::DrawTable()
         }
     }
 }
+void OptionsForHall::parseJSON(QJsonDocument& jsonDoc)
+{
+    QJsonObject jsonObject = jsonDoc.object();
+    QJsonArray optionsArray = jsonObject["options"].toArray();
+
+    for(int i=0; i<3; i++)
+    {
+    dataJsonFile[i][0] = optionsArray[i].toObject()["row"].toDouble();
+    dataJsonFile[i][1] = optionsArray[i].toObject()["column"].toDouble();
+    type_placeJsonFile[i] = optionsArray[i].toObject()["type_place"].toString();
+    }
+    int temp = ui->ComboBoxType->currentIndex();
+    ui->spinBox_Row->setValue(dataJsonFile[temp][0]);
+    ui->spinBox_Column->setValue(dataJsonFile[temp][1]);
+}
 
 void OptionsForHall::on_ComboBoxType_currentIndexChanged(int index)
 {
-    TypeOfPlace = index;                                //После выбора вида мест изменяю переменную
-
-    CountColumn = Array[TypeOfPlace][1];                //Подгружаю нужное количество колонок и строк
-    CountRow = Array[TypeOfPlace][0];
-
-    ui->spinBox_Column->setValue(CountColumn);          //изменить чекбоксы
-    ui->spinBox_Row->setValue(CountRow);
-
+    ui->spinBox_Row->setValue(dataJsonFile[index][0]);
+    ui->spinBox_Column->setValue(dataJsonFile[index][1]);
 }
 
 void OptionsForHall::on_pushButtonOK_clicked()          //при нажатии на "ОК" изменяю БД
 {
-    if(Array[0][0] != -1)
-        QSqlQuery qry1("update options set kol_rows=" + QString::number(Array[0][0]) + ", kol_column=" + QString::number(Array[0][1]) + " where type_place = 'Партер'");
-    if(Array[1][0] != -1)
-        QSqlQuery qry1("update options set kol_rows=" + QString::number(Array[1][0]) + ", kol_column=" + QString::number(Array[1][1]) + " where type_place = 'Бенуар'");
-    if(Array[2][0] != -1)
-        QSqlQuery qry1("update options set kol_rows=" + QString::number(Array[2][0]) + ", kol_column=" + QString::number(Array[2][1]) + " where type_place = 'Бельэтаж'");
+    QString jsonFileName = "D:/Cursovaya/Data.json";
+    if(jsonFileName != NULL)
+    {
+            QFile jsonFile(jsonFileName);
+
+            if(jsonFile.open(QIODevice::WriteOnly | QIODevice::Truncate))
+            {
+                QJsonObject json, json1;
+                QJsonArray data;
+                for(int i = 0; i < 3; i++)
+                {
+                json1["row"]=dataJsonFile[i][0];
+                json1["column"]=dataJsonFile[i][1];
+                json1["type_place"]=type_placeJsonFile[i];
+                data.append(json1);
+                }
+                json["options"]=data;
+                QJsonDocument saveDoc(json);
+                jsonFile.write(saveDoc.toJson());
+                jsonFile.close();
+            }
+            else
+            {
+                QMessageBox msgBox;
+                msgBox.setWindowTitle("Error");
+                msgBox.setText("Error writing JSON file.");
+                msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+                msgBox.exec();
+            }
+    }
 }

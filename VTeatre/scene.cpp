@@ -35,12 +35,11 @@ void Scene::set_date(QString arg){
 }
 
 void Scene::SetArrayCountPlaces(){
-    QSqlQuery qry("select * from Options");
 
+    OptionsForHall options;
     for(int i = 0; i < 3; i++){
-        qry.next();
-        ArrayCountPlaces[i][0] = qry.value(1).toInt();
-        ArrayCountPlaces[i][1] = qry.value(2).toInt();
+        ArrayCountPlaces[i][0] = options.dataJsonFile[i][0];
+        ArrayCountPlaces[i][1] = options.dataJsonFile[i][1];
     }
 }
 

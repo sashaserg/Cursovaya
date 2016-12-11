@@ -46,17 +46,18 @@ void Scene::SetArrayCountPlaces(){
 void Scene::SetDataToTables(){
 
     TablesPlaces = new int ** [CountOfTypesPlaces];
+    qDebug()<<0;
     for(int i = 0; i < CountOfTypesPlaces; i++){
         TablesPlaces[i] = new int * [ArrayCountPlaces[i][0]];
         for(int j = 0; j < ArrayCountPlaces[i][0]; j++)
             TablesPlaces[i][j] = new int [ArrayCountPlaces[i][1]];
     }
-
+qDebug()<<1;
     QString nameofplace[3];
     nameofplace[0] = "Партер";
     nameofplace[1] = "Бенуар";
     nameofplace[2] = "Бельэтаж";
-
+qDebug()<<2;
     for(int k = 0; k < CountOfTypesPlaces; k++){
         QSqlQuery qry("select * from Employed_place where type_place='" + nameofplace[k] + "' and time_seansa='" + time +"' and date_seansa='" + date + "' and name_seansa='" + name +"'" );
         for(int i = 0; i < ArrayCountPlaces[k][0]; i++){
@@ -66,6 +67,7 @@ void Scene::SetDataToTables(){
         }
         while(qry.next()){
             if(qry.value(7).toString() == "Куплено"){
+                qDebug()<<1;
                 TablesPlaces[k][qry.value(5).toInt()][qry.value(6).toInt()] = 1;
             }
 

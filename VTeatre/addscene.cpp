@@ -7,7 +7,7 @@ AddScene::AddScene(QWidget *parent) :
 {
     ui->setupUi(this);
     mydb= QSqlDatabase::addDatabase("QSQLITE");                     // Подключение базы данных
-    mydb.setDatabaseName("C:/Cursovaya/VTeatre.sqlite");
+    mydb.setDatabaseName("D:/Cursovaya/Cursovaya/VTeatre.sqlite");
 
     if(!mydb.open())
         qDebug()<<mydb.lastError().text();

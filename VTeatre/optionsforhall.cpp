@@ -12,27 +12,27 @@ OptionsForHall::OptionsForHall(QWidget *parent) :
 
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers); //запрет редактирования всех ячеек в таблице tableWidget
 
-    QString jsonFileName = "C:/Cursovaya/Data.json";                    // у меня не отрывает файл.
+    QString jsonFileName = "D:/Cursovaya/Cursovaya/Data.json";                    // у меня не отрывает файл.
     if(jsonFileName != NULL)
     {
         QString jsonText;
-            QFile jsonFile(jsonFileName);
+        QFile jsonFile(jsonFileName);
 
-            if(jsonFile.open(QIODevice::ReadOnly | QIODevice::Text))
-            {
-                jsonText = jsonFile.readAll();
-                QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonText.toUtf8());
-                parseJSON(jsonDoc);
-                jsonFile.close();
-            }
-            else
-            {
-                QMessageBox msgBox;
-                msgBox.setWindowTitle("Error");
-                msgBox.setText("Error opening JSON file.");
-                msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
-                msgBox.exec();
-            }
+        if(jsonFile.open(QIODevice::ReadOnly | QIODevice::Text))
+        {
+            jsonText = jsonFile.readAll();
+            QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonText.toUtf8());
+            parseJSON(jsonDoc);
+            jsonFile.close();
+        }
+        else
+        {
+            QMessageBox msgBox;
+            msgBox.setWindowTitle("Error");
+            msgBox.setText("Error opening JSON file.");
+            msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+            msgBox.exec();
+        }
     }
 }
 
@@ -103,9 +103,9 @@ void OptionsForHall::parseJSON(QJsonDocument& jsonDoc)
 
     for(int i=0; i<3; i++)
     {
-    dataJsonFile[i][0] = optionsArray[i].toObject()["row"].toDouble();
-    dataJsonFile[i][1] = optionsArray[i].toObject()["column"].toDouble();
-    type_placeJsonFile[i] = optionsArray[i].toObject()["type_place"].toString();
+        dataJsonFile[i][0] = optionsArray[i].toObject()["row"].toDouble();
+        dataJsonFile[i][1] = optionsArray[i].toObject()["column"].toDouble();
+        type_placeJsonFile[i] = optionsArray[i].toObject()["type_place"].toString();
     }
     int temp = ui->ComboBoxType->currentIndex();
     ui->spinBox_Row->setValue(dataJsonFile[temp][0]);
@@ -120,7 +120,7 @@ void OptionsForHall::on_ComboBoxType_currentIndexChanged(int index)
 
 void OptionsForHall::on_pushButtonOK_clicked()          //при нажатии на "ОК" изменяю БД
 {
-    QString jsonFileName = "C:/Cursovaya/Data.json";
+    QString jsonFileName = "D:/Cursovaya/Cursovaya/Data.json";
     if(jsonFileName != NULL)
     {
             QFile jsonFile(jsonFileName);

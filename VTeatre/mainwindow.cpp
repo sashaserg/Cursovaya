@@ -55,6 +55,14 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->comboBox->setEnabled(false);
 
+    QString date = ui->dateEdit->text();
+    QSqlQuery qry_delete("delete from Postanovka where date_seansa<'" +date+ "'");
+    QSqlQuery qry_delete1("delete from Employed_place where date_seansa<'" +date+ "'");
+
+    /*qry_insert.prepare("insert into Date(date_seansa) values(':date');");
+    qry_insert.bindValue(":date", "14.12.2016");*/
+    //QDateTime dt1= QDateTime::fromString("12.12.2016", "dd.MM.yyyy");
+
 }
 void MainWindow::pix_close(int row, int column)
 {

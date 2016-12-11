@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     mydb = QSqlDatabase::addDatabase("QSQLITE");
-    mydb.setDatabaseName("C:/Cursovaya/VTeatre.sqlite");
+    mydb.setDatabaseName("D:/Cursovaya/VTeatre.sqlite");
 
     CurScene = new Scene(3);
 
@@ -96,9 +96,9 @@ void MainWindow::cleasing_places()//очистка мест
 void MainWindow::coordinates_of_places_cleaning(int temp)
 {
     int current_temp = ui->comboBox->currentIndex();
-    for(int i = 0; i < CurScene->ArrayCountPlaces[temp][0]; i++)
+    /*for(int i = 0; i < CurScene->ArrayCountPlaces[temp][0]; i++)
         delete [] coordinates_of_places[i];
-    delete []coordinates_of_places;
+    delete []coordinates_of_places;*/
 
     coordinates_of_places = new bool*[CurScene->ArrayCountPlaces[current_temp][0]];
     for(int i = 0; i < CurScene->ArrayCountPlaces[current_temp][0]; i++)

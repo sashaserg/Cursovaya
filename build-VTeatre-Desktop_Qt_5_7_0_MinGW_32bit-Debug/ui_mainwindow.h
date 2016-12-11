@@ -272,6 +272,7 @@ public:
         tableWidget->setColumnCount(0);
         tableWidget->horizontalHeader()->setVisible(false);
         tableWidget->horizontalHeader()->setDefaultSectionSize(61);
+        tableWidget->horizontalHeader()->setHighlightSections(false);
         tableWidget->verticalHeader()->setVisible(false);
         tableWidget->verticalHeader()->setCascadingSectionResizes(false);
         tableWidget->verticalHeader()->setDefaultSectionSize(27);

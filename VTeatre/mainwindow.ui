@@ -377,6 +377,9 @@ border-color: #d3bb9c;
         <attribute name="horizontalHeaderDefaultSectionSize">
          <number>61</number>
         </attribute>
+        <attribute name="horizontalHeaderHighlightSections">
+         <bool>false</bool>
+        </attribute>
         <attribute name="verticalHeaderVisible">
          <bool>false</bool>
         </attribute>

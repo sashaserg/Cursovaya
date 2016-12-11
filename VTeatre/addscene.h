@@ -15,9 +15,14 @@ class AddScene : public QDialog
     
 public:
     explicit AddScene(QWidget *parent = 0);
-    explicit AddScene(Scene *temp, QWidget *parent = 0);
+    explicit AddScene(bool edit, Scene *temp, QWidget *parent = 0);
     ~AddScene();
     QList <Scene> Scenes;
+    bool Editing = false;
+    QString PriviosName,
+            PriviosTime,
+            PriviosDate;
+
 private slots:
     void on_ButtonAdd_clicked();
 

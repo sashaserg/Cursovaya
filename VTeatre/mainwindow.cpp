@@ -19,10 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     else
         qDebug()<<"Connected Compled";
 
-    QSqlQuery qry("select * from Options where type_place = '" + ui->comboBox->currentText() + "'");
-    qry.next();
-    CountRow = qry.value(1).toInt();
-    CountColumn = qry.value(2).toInt();
+    CurScene->SetArrayCountPlaces();
 
     PreviousIndex = 0;
     CountPurchased = 0;
@@ -47,11 +44,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->tableSeans->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents); // Ширина столбца с датой по размеру контента
     ui->tableSeans->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch); // Ширина столбца с названиями всё остальное пространство
 
-    coordinates_of_places = new bool*[CountRow];
-    for(int i = 0; i < CountRow; i++)
-        coordinates_of_places[i] = new bool [CountColumn];
-    for(int i=0; i < CountRow; i++)
-        for(int j = 0; j < CountColumn; j++)
+    coordinates_of_places = new bool*[CurScene->ArrayCountPlaces[ui->comboBox->currentIndex()][0]];
+    for(int i = 0; i < CurScene->ArrayCountPlaces[ui->comboBox->currentIndex()][0]; i++)
+        coordinates_of_places[i] = new bool [CurScene->ArrayCountPlaces[ui->comboBox->currentIndex()][1]];
+    for(int i=0; i < CurScene->ArrayCountPlaces[ui->comboBox->currentIndex()][0]; i++)
+        for(int j = 0; j < CurScene->ArrayCountPlaces[ui->comboBox->currentIndex()][1]; j++)
         {
             coordinates_of_places[i][j]=false;
         }
@@ -206,24 +203,25 @@ void MainWindow::on_tableSeans_cellClicked(int row, int column) // по нажа
 
         delete CurScene;
         CurScene = new Scene(3);
-        qDebug()<<1;
+qDebug()<<1;
         //1 - найти имя, время, дата
         CurScene->set_name(ui->tableSeans->item(row, 1)->text());
         CurScene->set_time(ui->tableSeans->item(row, 0)->text());
         CurScene->set_date(ui->dateEdit->text());
+        CurScene->set_cost();
 qDebug()<<2;
         //2 - найти количество мест в каждом типе
         CurScene->SetArrayCountPlaces();        
-        qDebug()<<3;
+qDebug()<<3;
         //3 - найти инф. о каждом месте
         CurScene->SetDataToTables();
 qDebug()<<4;
         coordinates_of_places_cleaning(ui->comboBox->currentIndex());//Багует когда меняю размер сцены(не всегда)
-        qDebug()<<5;
+qDebug()<<5;
         create_a_MainTable();
-        qDebug()<<6;
+qDebug()<<6;
         places_fill();
-        qDebug()<<7;
+qDebug()<<7;
         customizeTableInf();
 qDebug()<<8;
         SelectedPlaces.clear();
@@ -373,7 +371,7 @@ void MainWindow::create_a_MainTable()
                 ui->tableWidget->setColumnWidth(j, column_width); // ширина столбцов
 
             QTableWidgetItem *item = new QTableWidgetItem;
-            item->setText(QString::number(i * ui->tableWidget->columnCount() + j + 1));
+            item->setText(QString::number(j + 1));
             item->setTextAlignment(Qt::AlignCenter);
             item->setFlags(item->flags() & (~Qt::ItemIsSelectable)); // устанавливаю флаг ItemIsSelectable в false
             ui->tableWidget->setItem( i, j, item );
@@ -385,11 +383,14 @@ void MainWindow::create_a_MainTable()
 
 void MainWindow::on_options_room_triggered()
 {
+    coordinates_of_places_cleaning(ui->comboBox->currentIndex());
+    places_fill();
+
     OptionsForHall *wind = new OptionsForHall(this);
     wind->exec();
 
     CurScene->SetArrayCountPlaces();
-
+/*
     QSqlQuery qry1("select place, type_place, time_seansa, date_seansa, name_seansa from Employed_place");
 
     while(qry1.next()){//Работает только для партера
@@ -397,10 +398,9 @@ void MainWindow::on_options_room_triggered()
         QSqlQuery qry2("update Employed_place set column=" + QString::number( (qry1.value(0).toInt() - 1) % CurScene->ArrayCountPlaces[0][1] ) + ", row=" + QString::number((qry1.value(0).toInt() - 1) / CurScene->ArrayCountPlaces[0][0] ) + " where place=" +QString::number(qry1.value(0).toInt()) + " and type_place='" + qry1.value(1).toString()+ "' and date_seansa='" + qry1.value(3).toString() + "' and time_seansa='" + qry1.value(2).toString() + "' and name_seansa='" + qry1.value(4).toString() + "'");
         qDebug()<<qry1.value(0).toInt();
     }
-
+*/
     CurScene->SetDataToTables();
 
-    coordinates_of_places_cleaning(ui->comboBox->currentIndex());
     SelectedPlaces.clear();
 
     create_a_MainTable();
@@ -474,8 +474,10 @@ void MainWindow::slotEditRecord()
         else {
             // В противном случае производим редактирование записи
             // Твой выход, кодер.
-            AddScene *temp = new AddScene(CurScene, this);
-            temp->show();
+
+            AddScene *temp = new AddScene(true, CurScene, this);
+            temp->exec();
+            on_dateEdit_dateChanged(QDate::fromString(ui->dateEdit->text(), "dd.MM.yyyy"));
         }
     }
 }

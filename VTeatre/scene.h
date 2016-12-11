@@ -14,7 +14,7 @@ public:
     void set_name(QString arg);
     void set_date(QString arg);
     void set_time(QString arg);
-    void set_cost(double parter, double benuar, double beletaj);
+    void set_cost();
     void SetArrayCountPlaces();
     void SetDataToTables();
     void DeleteTables();

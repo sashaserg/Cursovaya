@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     mydb = QSqlDatabase::addDatabase("QSQLITE");
-    mydb.setDatabaseName("C:/Cursovaya/VTeatre.sqlite");
+    mydb.setDatabaseName("D:/Cursovaya/VTeatre.sqlite");
 
     CurScene = new Scene(3);
 
@@ -391,6 +391,7 @@ void MainWindow::on_options_room_triggered()
     CurScene->SetArrayCountPlaces();
 
     QSqlQuery qry1("select place, type_place, time_seansa, date_seansa, name_seansa from Employed_place");
+
     while(qry1.next()){//Работает только для партера
 
         QSqlQuery qry2("update Employed_place set column=" + QString::number( (qry1.value(0).toInt() - 1) % CurScene->ArrayCountPlaces[0][1] ) + ", row=" + QString::number((qry1.value(0).toInt() - 1) / CurScene->ArrayCountPlaces[0][0] ) + " where place=" +QString::number(qry1.value(0).toInt()) + " and type_place='" + qry1.value(1).toString()+ "' and date_seansa='" + qry1.value(3).toString() + "' and time_seansa='" + qry1.value(2).toString() + "' and name_seansa='" + qry1.value(4).toString() + "'");

@@ -1,13 +1,13 @@
 {
     "options": [
         {
-            "column": 10,
-            "row": 10,
+            "column": 11,
+            "row": 11,
             "type_place": "Партер"
         },
         {
-            "column": 16,
-            "row": 16,
+            "column": 14,
+            "row": 14,
             "type_place": "Бенуар"
         },
         {

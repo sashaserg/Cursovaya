@@ -18,7 +18,7 @@ public:
     void SetArrayCountPlaces();
     void SetDataToTables();
     void DeleteTables();
-    void InsertTablesToDataBase(std::vector<short> SelectedPlaces, int Index, int operation); // Обновляем базу данных
+    void InsertTablesToDataBase(std::vector<short> SelectedPlacesRow, std::vector<short> SelectedPlacesCol, int Index, int operation); // Обновляем базу данных
 
     int ArrayCountPlaces[3][2]; // Хранит количество мест для каждого типа зала
     int ***TablesPlaces;

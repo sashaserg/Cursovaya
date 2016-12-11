@@ -39,7 +39,8 @@ public:
     bool **coordinates_of_places;//запоминаю координаты столбика и строчки
     void coordinates_of_places_cleaning(int temp);
     //***ПЕРЕМЕННЫЕ ОТ САНИ***
-    std::vector <short> SelectedPlaces;
+    std::vector <short> SelectedPlacesRow;
+    std::vector <short> SelectedPlacesCol;
     int PreviousIndex;
     int CountRow;               //Количество строк
     int CountColumn;            //Количество столбцов

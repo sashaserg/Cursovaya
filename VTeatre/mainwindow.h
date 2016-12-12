@@ -93,6 +93,8 @@ private:
     void pix_reserv(int row, int column);//красит в желтый
     void pix_standart(int row, int column);//красит в зелёный
     void customizeTableInf();
+    void DeleteBooked(std::vector <short> PurRow, std::vector<short>PurCol);
+    void CustomizePrice();
 
 };
 

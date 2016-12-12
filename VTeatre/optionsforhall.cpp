@@ -90,7 +90,7 @@ void OptionsForHall::DrawTable()
                 ui->tableWidget->setColumnWidth(j, column_width);       // ширина столбцов
             item = new QTableWidgetItem;
             item->setBackground(QBrush(pix1));
-            item->setText(QString::number(i*ui->tableWidget->columnCount() + j + 1));
+            item->setText(QString::number(j + 1));
             item->setTextAlignment(Qt::AlignCenter);
             item->setFlags(item->flags() & (~Qt::ItemIsSelectable));    // устанавливаю флаг ItemIsSelectable в false
             ui->tableWidget->setItem( i, j, item );     //вставляю в ячейку созданный Item

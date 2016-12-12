@@ -104,18 +104,20 @@ void MainWindow::cleasing_places()//очистка мест
 void MainWindow::coordinates_of_places_cleaning(int temp)
 {
     int current_temp = ui->comboBox->currentIndex();
-    /*for(int i = 0; i < CurScene->ArrayCountPlaces[temp][0]; i++)
+    /*for(int i = 0; i < CurScene->ArrayCountPlaces[temp][0]; i++){
         delete [] coordinates_of_places[i];
+    }
     delete []coordinates_of_places;*/
 
     coordinates_of_places = new bool*[CurScene->ArrayCountPlaces[current_temp][0]];
     for(int i = 0; i < CurScene->ArrayCountPlaces[current_temp][0]; i++)
         coordinates_of_places[i] = new bool [CurScene->ArrayCountPlaces[current_temp][1]];
     for(int i=0; i < CurScene->ArrayCountPlaces[current_temp][0]; i++)
-      for(int j = 0; j < CurScene->ArrayCountPlaces[current_temp][1]; j++)
-      {
-           coordinates_of_places[i][j]=false;
-      }
+        for(int j = 0; j < CurScene->ArrayCountPlaces[current_temp][1]; j++)
+        {
+            coordinates_of_places[i][j]=false;
+        }
+
 }
 
 void MainWindow::places_fill()//заполнение мест
@@ -188,6 +190,7 @@ void MainWindow::on_tableWidget_cellClicked(int row, int column) // по наж�
         SelectedPlacesRow.push_back(row);
         SelectedPlacesCol.push_back(column);
     }
+    CustomizePrice();
 }
 
 void MainWindow::on_comboBox_currentIndexChanged(int index) // по изменению пункта в combobox менять таблицу
@@ -202,6 +205,7 @@ void MainWindow::on_comboBox_currentIndexChanged(int index) // по измене
     SelectedPlacesCol.clear();
 
     PreviousIndex = index;
+    CustomizePrice();
 }
 
 
@@ -237,6 +241,7 @@ void MainWindow::on_tableSeans_cellClicked(int row, int column) // по нажа
         QString name = ui->tableSeans->item(row,column)->text();
         ui->label_4->setText(name);
     }
+    CustomizePrice();
 }
 
 void MainWindow::on_dateEdit_dateChanged(const QDate &date)//Выводит сеансы по дате
@@ -275,9 +280,15 @@ void MainWindow::on_dateEdit_dateChanged(const QDate &date)//Выводит се
 void MainWindow::on_pushButton_clicked() // купить
 {
     int temp = ui->comboBox->currentIndex();
+    std::vector <short> PurRow;
+    std::vector <short> PurCol;
 
     for(int i = 0; i < SelectedPlacesRow.size(); i++){
-        if(CurScene->TablesPlaces[temp][SelectedPlacesRow[i]][SelectedPlacesCol[i]] == 1 || CurScene->TablesPlaces[temp][SelectedPlacesRow[i]][SelectedPlacesCol[i]] == 2){
+        if(CurScene->TablesPlaces[temp][SelectedPlacesRow[i]][SelectedPlacesCol[i]] == 2){
+            PurRow.push_back(SelectedPlacesRow[i]);
+            PurCol.push_back(SelectedPlacesCol[i]);
+        }
+        if(CurScene->TablesPlaces[temp][SelectedPlacesRow[i]][SelectedPlacesCol[i]] == 1){
             SelectedPlacesRow.erase(SelectedPlacesRow.begin() + i);
             SelectedPlacesCol.erase(SelectedPlacesCol.begin() + i);
             i--;
@@ -285,24 +296,27 @@ void MainWindow::on_pushButton_clicked() // купить
         else
             CurScene->TablesPlaces[temp][SelectedPlacesRow[i]][SelectedPlacesCol[i]] = 1;
     }
+
+    DeleteBooked(PurRow, PurCol);
     CurScene->InsertTablesToDataBase(SelectedPlacesRow, SelectedPlacesCol, ui->comboBox->currentIndex(), 1);
     places_fill();
     coordinates_of_places_cleaning(ui->comboBox->currentIndex());
     customizeTableInf();
     SelectedPlacesRow.clear();
     SelectedPlacesCol.clear();
+    CustomizePrice();
 }
 
 void MainWindow::on_pushButton_2_clicked() // забронировать
 {
     int temp = ui->comboBox->currentIndex();
-
     for(int i = 0; i < SelectedPlacesRow.size(); i++){
         if(CurScene->TablesPlaces[temp][SelectedPlacesRow[i]][SelectedPlacesCol[i]] == 2 || CurScene->TablesPlaces[temp][SelectedPlacesRow[i]][SelectedPlacesCol[i]] == 1){
             SelectedPlacesRow.erase(SelectedPlacesRow.begin() + i);
-            SelectedPlacesRow.erase(SelectedPlacesCol.begin() + i);
+            SelectedPlacesCol.erase(SelectedPlacesCol.begin() + i);
             i--;
         }
+
         else
             CurScene->TablesPlaces[temp][SelectedPlacesRow[i]][SelectedPlacesCol[i]] = 2;
     }
@@ -312,6 +326,7 @@ void MainWindow::on_pushButton_2_clicked() // забронировать
     customizeTableInf();
     SelectedPlacesRow.clear();
     SelectedPlacesCol.clear();
+    CustomizePrice();
 }
 
 void MainWindow::on_action_exit_triggered() // пункт Выход
@@ -342,6 +357,7 @@ void MainWindow::on_pushButton_3_clicked()//вернуть
     customizeTableInf();
     SelectedPlacesRow.clear();
     SelectedPlacesCol.clear();
+    CustomizePrice();
 }
 
 void MainWindow::create_a_MainTable()
@@ -381,8 +397,7 @@ void MainWindow::create_a_MainTable()
 
 void MainWindow::on_options_room_triggered()
 {
-    coordinates_of_places_cleaning(ui->comboBox->currentIndex());
-    places_fill();
+    int temp = ui->comboBox->currentIndex();
 
     OptionsForHall *wind = new OptionsForHall(this);
     wind->exec();
@@ -390,10 +405,12 @@ void MainWindow::on_options_room_triggered()
     CurScene->SetArrayCountPlaces();
     CurScene->SetDataToTables();
 
+
     SelectedPlacesRow.clear();
     SelectedPlacesCol.clear();
 
     create_a_MainTable();
+    coordinates_of_places_cleaning(ui->comboBox->currentIndex());
     places_fill();
     customizeTableInf();
 }
@@ -456,10 +473,7 @@ void MainWindow::slotEditRecord()
         /* Задаём вопрос, стоит ли действительно редактировать запись.
          * При положительном ответе редактируем запись
          * */
-        if (QMessageBox::warning(this,
-                                 trUtf8("Редактирование записи"),
-                                 trUtf8("Вы уверены, что хотите редактировать эту запись?"),
-                                 QMessageBox::Yes | QMessageBox::No) == QMessageBox::No)
+        if (QMessageBox::warning(this, trUtf8("Редактирование записи"), trUtf8("Вы уверены, что хотите редактировать эту запись?"), QMessageBox::Yes | QMessageBox::No) == QMessageBox::No)
             return;
         else {
             // В противном случае производим редактирование записи
@@ -470,5 +484,26 @@ void MainWindow::slotEditRecord()
             on_dateEdit_dateChanged(QDate::fromString(ui->dateEdit->text(), "dd.MM.yyyy"));
         }
     }
+    on_tableSeans_cellClicked(row, 1);
 }
 
+void MainWindow::DeleteBooked(std::vector <short> PurRow, std::vector<short>PurCol)
+{
+    for(int i = 0; i < PurRow.size(); i++){
+        QSqlQuery qry("delete from Employed_place where type_place = '" + QString::number(ui->comboBox->currentIndex()) +"' and date_seansa = '" + CurScene->date + "' and time_seansa='" + CurScene->time + "' and name_seansa='" + CurScene->name + "' and row=" + QString::number(PurRow[i]) + " and column=" + QString::number(PurCol[i]));
+    }
+}
+
+void MainWindow::CustomizePrice(){
+    int CountChecked = 0;
+    int temp = ui->comboBox->currentIndex();
+    for(int i=0; i < CurScene->ArrayCountPlaces[temp][0]; i++){
+        for(int j = 0; j < CurScene->ArrayCountPlaces[temp][1]; j++){
+            if(coordinates_of_places[i][j])
+                CountChecked++;
+        }
+    }
+
+    ui->LabelCountSel->setText("Выбрано: " + QString::number(CountChecked));
+    ui->label_3->setText("К оплате: " + QString::number(CountChecked * CurScene->Cost[ui->comboBox->currentIndex()]));
+}

@@ -59,8 +59,7 @@ public:
     QHBoxLayout *horizontalLayout_5;
     QVBoxLayout *verticalLayout_2;
     QHBoxLayout *horizontalLayout_2;
-    QLabel *label;
-    QLabel *label_5;
+    QLabel *LabelCountSel;
     QLabel *label_3;
     QSpacerItem *horizontalSpacer;
     QHBoxLayout *horizontalLayout;
@@ -78,7 +77,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(924, 620);
+        MainWindow->resize(925, 620);
         MainWindow->setAcceptDrops(false);
         MainWindow->setStyleSheet(QLatin1String("background-color: #f1f2f8;\n"
 ""));
@@ -286,17 +285,11 @@ public:
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setSpacing(6);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        label = new QLabel(centralWidget);
-        label->setObjectName(QStringLiteral("label"));
-        label->setMinimumSize(QSize(50, 20));
+        LabelCountSel = new QLabel(centralWidget);
+        LabelCountSel->setObjectName(QStringLiteral("LabelCountSel"));
+        LabelCountSel->setMinimumSize(QSize(50, 20));
 
-        horizontalLayout_2->addWidget(label);
-
-        label_5 = new QLabel(centralWidget);
-        label_5->setObjectName(QStringLiteral("label_5"));
-        label_5->setMinimumSize(QSize(90, 0));
-
-        horizontalLayout_2->addWidget(label_5);
+        horizontalLayout_2->addWidget(LabelCountSel);
 
 
         verticalLayout_2->addLayout(horizontalLayout_2);
@@ -308,7 +301,7 @@ public:
         font4.setFamily(QStringLiteral("Arial"));
         font4.setPointSize(10);
         font4.setBold(true);
-        font4.setUnderline(true);
+        font4.setUnderline(false);
         font4.setWeight(75);
         label_3->setFont(font4);
 
@@ -389,7 +382,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 924, 21));
+        menuBar->setGeometry(QRect(0, 0, 925, 21));
         menuBar->setStyleSheet(QLatin1String("QMenu::item:selected{ \n"
 "background-color: #d3bb9c;\n"
 "}"));
@@ -461,9 +454,8 @@ public:
         QTableWidgetItem *___qtablewidgetitem9 = tableSeans->horizontalHeaderItem(1);
         ___qtablewidgetitem9->setText(QApplication::translate("MainWindow", "\320\235\320\260\320\267\320\262\320\260\320\275\320\270\320\265", 0));
         label_2->setText(QApplication::translate("MainWindow", "\320\241\321\206\320\265\320\275\320\260", 0));
-        label->setText(QApplication::translate("MainWindow", "\320\240\321\217\320\264", 0));
-        label_5->setText(QApplication::translate("MainWindow", "\320\234\320\265\321\201\321\202\320\276", 0));
-        label_3->setText(QApplication::translate("MainWindow", "\320\232 \320\276\320\277\320\273\320\260\321\202\320\265:", 0));
+        LabelCountSel->setText(QApplication::translate("MainWindow", "\320\222\321\213\320\261\321\200\320\260\320\275\320\276: 0", 0));
+        label_3->setText(QApplication::translate("MainWindow", "\320\232 \320\276\320\277\320\273\320\260\321\202\320\265: 0", 0));
         pushButton_2->setText(QApplication::translate("MainWindow", "\320\221\321\200\320\276\320\275\321\214", 0));
         pushButton_3->setText(QApplication::translate("MainWindow", "\320\222\320\265\321\200\320\275\321\203\321\202\321\214", 0));
         pushButton->setText(QApplication::translate("MainWindow", "\320\236\320\277\320\273\320\260\321\202\320\270\321\202\321\214", 0));

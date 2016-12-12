@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>925</width>
-    <height>620</height>
+    <height>621</height>
    </rect>
   </property>
   <property name="acceptDrops">
@@ -16,9 +16,14 @@
   <property name="windowTitle">
    <string>VTeatre</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="Resurs1.qrc">
+    <normaloff>:/image/theater.ico</normaloff>:/image/theater.ico</iconset>
+  </property>
   <property name="styleSheet">
    <string notr="true">background-color: #f1f2f8;
-</string>
+background-color: #dde2e3;
+background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(0, 0, 0, 255), stop:0.19397 rgba(0, 0, 0, 255), stop:0.202312 rgba(122, 97, 0, 255), stop:0.495514 rgba(76, 58, 0, 255), stop:0.504819 rgba(255, 255, 255, 255), stop:0.79 rgba(255, 255, 255, 255), stop:1 rgba(255, 158, 158, 255));</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout_2">
@@ -268,7 +273,9 @@ border-style: outset;
            <enum>Qt::CustomContextMenu</enum>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color:rgb(239, 236, 253);</string>
+           <string notr="true">background-color: #e5efe9;
+background-color: #dde2e3;
+background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(0, 0, 0, 255), stop:0.19397 rgba(0, 0, 0, 255), stop:0.202312 rgba(122, 97, 0, 255), stop:0.495514 rgba(76, 58, 0, 255), stop:0.504819 rgba(255, 255, 255, 255), stop:0.79 rgba(255, 255, 255, 255), stop:1 rgba(255, 158, 158, 255));</string>
           </property>
           <column>
            <property name="text">
@@ -328,13 +335,7 @@ border-style: outset;
          <bool>false</bool>
         </property>
         <property name="styleSheet">
-         <string notr="true">border-style: solid;
-border-width: 5px;
-border-radius: 1px;		
-border-color: #d3bb9c;
-
-
-					</string>
+         <string notr="true"/>
         </property>
         <property name="verticalScrollBarPolicy">
          <enum>Qt::ScrollBarAlwaysOff</enum>
@@ -361,7 +362,7 @@ border-color: #d3bb9c;
          <bool>false</bool>
         </attribute>
         <attribute name="verticalHeaderVisible">
-         <bool>false</bool>
+         <bool>true</bool>
         </attribute>
         <attribute name="verticalHeaderCascadingSectionResizes">
          <bool>false</bool>
@@ -574,15 +575,17 @@ background-color: #d3bb9c;
    <addaction name="menu_5"/>
    <addaction name="menu"/>
   </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
+  <widget class="QStatusBar" name="statusBar">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="autoFillBackground">
     <bool>false</bool>
-   </attribute>
+   </property>
+   <property name="sizeGripEnabled">
+    <bool>true</bool>
+   </property>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
   <action name="informationAbout">
    <property name="text">
     <string>Информация</string>
@@ -627,6 +630,8 @@ background-color: #d3bb9c;
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="Resurs1.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -6,6 +6,9 @@
         <file>image_close.png</file>
         <file>image_reserv.png</file>
         <file>Legend.png</file>
+        <file>tools.ico</file>
+        <file>theater.ico</file>
+        <file>trends.ico</file>
     </qresource>
     <qresource prefix="/database">
         <file>VTeatre.sqlite</file>

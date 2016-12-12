@@ -12,7 +12,7 @@ OptionsForHall::OptionsForHall(QWidget *parent) :
 
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers); //запрет редактирования всех ячеек в таблице tableWidget
 
-    QString jsonFileName = "D:/Cursovaya/Data.json";                    // у меня не отрывает файл.
+    QString jsonFileName = "C:/Cursovaya/Data.json";                    // у меня не отрывает файл.
 
     if(jsonFileName != NULL)
     {
@@ -69,8 +69,8 @@ void OptionsForHall::DrawTable()
         }
     }
 
-    int row_height = ui->tableWidget->height() / ui->tableWidget->rowCount();       //подсчитываю высоту строк
-    int column_width = ui->tableWidget->width() / ui->tableWidget->columnCount();   //и ширину столбцов
+    int row_height = (ui->tableWidget->height() - 10) / ui->tableWidget->rowCount();       //подсчитываю высоту строк
+    int column_width = (ui->tableWidget->width() - 35) / ui->tableWidget->columnCount();   //и ширину столбцов
 
     if(row_height > 100)                                //задаю максимальные значения для высоты и ширины ячеек
         row_height = 100;
@@ -93,9 +93,29 @@ void OptionsForHall::DrawTable()
             item->setText(QString::number(j + 1));
             item->setTextAlignment(Qt::AlignCenter);
             item->setFlags(item->flags() & (~Qt::ItemIsSelectable));    // устанавливаю флаг ItemIsSelectable в false
+            item->setToolTip("Ряд " + QString::number(i+1));
             ui->tableWidget->setItem( i, j, item );     //вставляю в ячейку созданный Item
         }
     }
+    ui->tableWidget->verticalHeader()->setFixedWidth(25);         // размер хидера
+    ui->tableWidget->verticalHeader()->setStyleSheet("border-style: solid;"             // стиль для хидера
+                                                     "border-width: 1px;"
+                                                     "border-color: black;"
+                                                     "border-radius: 0px;"
+                                                     "color: black;");
+    ui->tableWidget->setStyleSheet("QTableWidget{"                                      // стиль для таблицы и tooltip-a
+                                   "border-style: solid;"
+                                   "border-width: 5px;"
+                                   "border-radius: 1px;"
+                                   "border-color: #d3bb9c;"
+                                   "}"
+                                   "QTableWidget QToolTip{"
+                                   "color:red;"
+                                   "border-style: solid;"
+                                   "border-width: 1px;"
+                                   "border-color: green;"
+                                   "border-radius: 0px;"
+                                   "}");
 }
 void OptionsForHall::parseJSON(QJsonDocument& jsonDoc)
 {
@@ -121,7 +141,7 @@ void OptionsForHall::on_ComboBoxType_currentIndexChanged(int index)
 
 void OptionsForHall::on_pushButtonOK_clicked()          //при нажатии на "ОК" изменяю БД
 {
-    QString jsonFileName = "D:/Cursovaya/Data.json";
+    QString jsonFileName = "C:/Cursovaya/Data.json";
     if(jsonFileName != NULL)
     {
             QFile jsonFile(jsonFileName);

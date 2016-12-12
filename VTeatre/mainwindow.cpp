@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     mydb = QSqlDatabase::addDatabase("QSQLITE");
-    mydb.setDatabaseName("D:/Cursovaya/VTeatre.sqlite");
+    mydb.setDatabaseName("C:/Cursovaya/VTeatre.sqlite");
 
     CurScene = new Scene(3);
 
@@ -373,7 +373,7 @@ void MainWindow::create_a_MainTable()
     }
 
     row_height = (ui->tableWidget->height() -10) / ui->tableWidget->rowCount();
-    column_width = (ui->tableWidget->width() -10) / ui->tableWidget->columnCount();
+    column_width = (ui->tableWidget->width() -35) / ui->tableWidget->columnCount();
 
     for(int i = 0; i < ui->tableWidget->rowCount(); i++)
     {
@@ -393,7 +393,29 @@ void MainWindow::create_a_MainTable()
         }
     }
     ui->tableWidget->setAutoScroll(false);                        // отключаю авто скролл к выбраной ячейке
+
+    ui->tableWidget->verticalHeader()->setFixedWidth(25);         // размер хидера
+    ui->tableWidget->verticalHeader()->setStyleSheet("border-style: solid;"             // стиль для хидера
+                                                     "border-width: 1px;"
+                                                     "border-color: black;"
+                                                     "border-radius: 0px;"
+                                                     "color: black;");
+    ui->tableWidget->setStyleSheet("QTableWidget{"                                      // стиль для таблицы и tooltip-a
+                                   "border-style: solid;"
+                                   "border-width: 5px;"
+                                   "border-radius: 1px;"
+                                   "border-color: #d3bb9c;"
+                                   "}"
+                                   "QTableWidget QToolTip{"
+                                   "color:red;"
+                                   "border-style: solid;"
+                                   "border-width: 1px;"
+                                   "border-color: green;"
+                                   "border-radius: 0px;"
+                                   "}");
 }
+
+
 
 void MainWindow::on_options_room_triggered()
 {

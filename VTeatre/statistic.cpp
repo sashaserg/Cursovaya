@@ -7,7 +7,6 @@ Statistic::Statistic(QDateTime datenow, QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->dateEdit->setDateTime(datenow);                                // Устанавливаю дату в dateEdit в текущую дату
 /*
     //Changing ticks on y axis
     QVector<double> ticks;

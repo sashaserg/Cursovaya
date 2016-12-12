@@ -26,7 +26,6 @@
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTableWidget>
-#include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -70,17 +69,20 @@ public:
     QMenuBar *menuBar;
     QMenu *menu;
     QMenu *menu_5;
-    QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(925, 620);
+        MainWindow->resize(925, 621);
         MainWindow->setAcceptDrops(false);
+        QIcon icon;
+        icon.addFile(QStringLiteral(":/image/theater.ico"), QSize(), QIcon::Normal, QIcon::Off);
+        MainWindow->setWindowIcon(icon);
         MainWindow->setStyleSheet(QLatin1String("background-color: #f1f2f8;\n"
-""));
+"background-color: #dde2e3;\n"
+"background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(0, 0, 0, 255), stop:0.19397 rgba(0, 0, 0, 255), stop:0.202312 rgba(122, 97, 0, 255), stop:0.495514 rgba(76, 58, 0, 255), stop:0.504819 rgba(255, 255, 255, 255), stop:0.79 rgba(255, 255, 255, 255), stop:1 rgba(255, 158, 158, 255));"));
         informationAbout = new QAction(MainWindow);
         informationAbout->setObjectName(QStringLiteral("informationAbout"));
         informationAbout->setMenuRole(QAction::TextHeuristicRole);
@@ -220,7 +222,9 @@ public:
         tableSeans->setSizePolicy(sizePolicy);
         tableSeans->setMinimumSize(QSize(256, 505));
         tableSeans->setContextMenuPolicy(Qt::CustomContextMenu);
-        tableSeans->setStyleSheet(QStringLiteral("background-color:rgb(239, 236, 253);"));
+        tableSeans->setStyleSheet(QLatin1String("background-color: #e5efe9;\n"
+"background-color: #dde2e3;\n"
+"background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(0, 0, 0, 255), stop:0.19397 rgba(0, 0, 0, 255), stop:0.202312 rgba(122, 97, 0, 255), stop:0.495514 rgba(76, 58, 0, 255), stop:0.504819 rgba(255, 255, 255, 255), stop:0.79 rgba(255, 255, 255, 255), stop:1 rgba(255, 158, 158, 255));"));
 
         verticalLayout_3->addWidget(tableSeans);
 
@@ -254,13 +258,7 @@ public:
         tableWidget->setMinimumSize(QSize(605, 400));
         tableWidget->setLayoutDirection(Qt::LeftToRight);
         tableWidget->setAutoFillBackground(false);
-        tableWidget->setStyleSheet(QLatin1String("border-style: solid;\n"
-"border-width: 5px;\n"
-"border-radius: 1px;		\n"
-"border-color: #d3bb9c;\n"
-"\n"
-"\n"
-"					"));
+        tableWidget->setStyleSheet(QStringLiteral(""));
         tableWidget->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         tableWidget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         tableWidget->setShowGrid(false);
@@ -269,7 +267,7 @@ public:
         tableWidget->horizontalHeader()->setVisible(false);
         tableWidget->horizontalHeader()->setDefaultSectionSize(61);
         tableWidget->horizontalHeader()->setHighlightSections(false);
-        tableWidget->verticalHeader()->setVisible(false);
+        tableWidget->verticalHeader()->setVisible(true);
         tableWidget->verticalHeader()->setCascadingSectionResizes(false);
         tableWidget->verticalHeader()->setDefaultSectionSize(27);
         tableWidget->verticalHeader()->setMinimumSectionSize(21);
@@ -391,11 +389,11 @@ public:
         menu_5 = new QMenu(menuBar);
         menu_5->setObjectName(QStringLiteral("menu_5"));
         MainWindow->setMenuBar(menuBar);
-        mainToolBar = new QToolBar(MainWindow);
-        mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
-        MainWindow->addToolBar(Qt::TopToolBarArea, mainToolBar);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
+        statusBar->setEnabled(true);
+        statusBar->setAutoFillBackground(false);
+        statusBar->setSizeGripEnabled(true);
         MainWindow->setStatusBar(statusBar);
 
         menuBar->addAction(menu_5->menuAction());

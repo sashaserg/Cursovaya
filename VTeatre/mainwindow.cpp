@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     mydb = QSqlDatabase::addDatabase("QSQLITE");
-    mydb.setDatabaseName("C:/Cursovaya/VTeatre.sqlite");
+    mydb.setDatabaseName("D:/Cursovaya/VTeatre.sqlite");
 
     CurScene = new Scene(3);
 

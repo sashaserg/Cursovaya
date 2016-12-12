@@ -165,7 +165,7 @@ void MainWindow::on_tableWidget_cellClicked(int row, int column) // по наж�
 {
     qDebug()<<1;
     if(coordinates_of_places[row][column])//проверяет активно ли нажатое место
-    {
+    {qDebug()<<2;
         int temp = ui->comboBox->currentIndex();
 
         if(CurScene->TablesPlaces[temp][row][column] == 0)
@@ -176,7 +176,7 @@ void MainWindow::on_tableWidget_cellClicked(int row, int column) // по наж�
             pix_reserv(row,column);
 
         coordinates_of_places[row][column]=false;
-qDebug()<<2;
+
         for(int i = 0; i < SelectedPlacesRow.size(); i++){
             if(SelectedPlacesRow[i] == row && SelectedPlacesCol[i] == column){
                 SelectedPlacesRow.erase(SelectedPlacesRow.begin() + i);
@@ -394,9 +394,6 @@ void MainWindow::on_options_room_triggered()
 {
     int temp = ui->comboBox->currentIndex();
 
-    coordinates_of_places_cleaning(ui->comboBox->currentIndex());
-    places_fill();
-
     OptionsForHall *wind = new OptionsForHall(this);
     wind->exec();
 
@@ -408,6 +405,7 @@ void MainWindow::on_options_room_triggered()
     SelectedPlacesCol.clear();
 
     create_a_MainTable();
+    coordinates_of_places_cleaning(ui->comboBox->currentIndex());
     places_fill();
     customizeTableInf();
 }

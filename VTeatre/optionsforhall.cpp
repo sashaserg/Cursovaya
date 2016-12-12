@@ -12,7 +12,7 @@ OptionsForHall::OptionsForHall(QWidget *parent) :
 
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers); //запрет редактирования всех ячеек в таблице tableWidget
 
-    QString jsonFileName = "D:/Cursovaya/Data.json";                    // у меня не отрывает файл.
+    QString jsonFileName = "D:/Cursovaya/Cursovaya/Data.json";                    // у меня не отрывает файл.
 
     if(jsonFileName != NULL)
     {
@@ -90,7 +90,7 @@ void OptionsForHall::DrawTable()
                 ui->tableWidget->setColumnWidth(j, column_width);       // ширина столбцов
             item = new QTableWidgetItem;
             item->setBackground(QBrush(pix1));
-            item->setText(QString::number(i*ui->tableWidget->columnCount() + j + 1));
+            item->setText(QString::number(j + 1));
             item->setTextAlignment(Qt::AlignCenter);
             item->setFlags(item->flags() & (~Qt::ItemIsSelectable));    // устанавливаю флаг ItemIsSelectable в false
             ui->tableWidget->setItem( i, j, item );     //вставляю в ячейку созданный Item
@@ -121,7 +121,7 @@ void OptionsForHall::on_ComboBoxType_currentIndexChanged(int index)
 
 void OptionsForHall::on_pushButtonOK_clicked()          //при нажатии на "ОК" изменяю БД
 {
-    QString jsonFileName = "D:/Cursovaya/Data.json";
+    QString jsonFileName = "D:/Cursovaya/Cursovaya/Data.json";
     if(jsonFileName != NULL)
     {
             QFile jsonFile(jsonFileName);

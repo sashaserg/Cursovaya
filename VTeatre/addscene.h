@@ -18,7 +18,7 @@ public:
     explicit AddScene(bool edit, Scene *temp, QWidget *parent = 0);
     ~AddScene();
     QList <Scene> Scenes;
-    bool Editing = false;
+    bool Editing;
     QString PriviosName,
             PriviosTime,
             PriviosDate;

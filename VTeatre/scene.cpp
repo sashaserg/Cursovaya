@@ -3,7 +3,6 @@
 Scene::Scene(int temp)
 {
     name = date = time = "";
-    cost_parter = cost_benuar = cost_beletaj = 0;
     CountOfTypesPlaces = temp;
     nameofplace[0] = "Партер";
     nameofplace[1] = "Бенуар";
@@ -27,9 +26,9 @@ void Scene::set_time(QString arg){
 void Scene::set_cost(){
     QSqlQuery qry("select cost_parter, cost_benuar, cost_beletaj from Postanovka where name = '" + name + "' and time_seansa='" + time + "' and date_seansa='" + date + "'");
     qry.next();
-    cost_parter = qry.value(0).toDouble();
-    cost_benuar = qry.value(1).toDouble();
-    cost_beletaj = qry.value(2).toDouble();
+    Cost.push_back(qry.value(0).toDouble());
+    Cost.push_back(qry.value(1).toDouble());
+    Cost.push_back(qry.value(2).toDouble());
 }
 
 void Scene::set_date(QString arg){

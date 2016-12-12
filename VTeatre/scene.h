@@ -37,6 +37,7 @@ public:
             cost_benuar,
             cost_beletaj;
     QString nameofplace[3];
+    std::vector<double>Cost;
 };
 
 #endif // SCENE_H

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>924</width>
+    <width>925</width>
     <height>620</height>
    </rect>
   </property>
@@ -381,7 +381,7 @@ border-color: #d3bb9c;
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_2">
             <item>
-             <widget class="QLabel" name="label">
+             <widget class="QLabel" name="LabelCountSel">
               <property name="minimumSize">
                <size>
                 <width>50</width>
@@ -389,20 +389,7 @@ border-color: #d3bb9c;
                </size>
               </property>
               <property name="text">
-               <string>Ряд</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_5">
-              <property name="minimumSize">
-               <size>
-                <width>90</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>Место</string>
+               <string>Выбрано: 0</string>
               </property>
              </widget>
             </item>
@@ -422,11 +409,11 @@ border-color: #d3bb9c;
               <pointsize>10</pointsize>
               <weight>75</weight>
               <bold>true</bold>
-              <underline>true</underline>
+              <underline>false</underline>
              </font>
             </property>
             <property name="text">
-             <string>К оплате:</string>
+             <string>К оплате: 0</string>
             </property>
            </widget>
           </item>
@@ -559,7 +546,7 @@ background-color: #376bbf
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>924</width>
+     <width>925</width>
      <height>21</height>
     </rect>
    </property>

@@ -163,9 +163,8 @@ void MainWindow::on_action_triggered()
 
 void MainWindow::on_tableWidget_cellClicked(int row, int column) // по нажатию на ячейку она меняет цвет
 {
-    qDebug()<<1;
     if(coordinates_of_places[row][column])//проверяет активно ли нажатое место
-    {qDebug()<<2;
+    {
         int temp = ui->comboBox->currentIndex();
 
         if(CurScene->TablesPlaces[temp][row][column] == 0)
@@ -185,12 +184,13 @@ void MainWindow::on_tableWidget_cellClicked(int row, int column) // по наж�
         }
     }
     else
-    {qDebug()<<3;
+    {
         coordinates_of_places[row][column]=true;
         pix_checking(row,column);
         SelectedPlacesRow.push_back(row);
         SelectedPlacesCol.push_back(column);
     }
+    CustomizePrice();
 }
 
 void MainWindow::on_comboBox_currentIndexChanged(int index) // по изменению пункта в combobox менять таблицу
@@ -205,6 +205,7 @@ void MainWindow::on_comboBox_currentIndexChanged(int index) // по измене
     SelectedPlacesCol.clear();
 
     PreviousIndex = index;
+    CustomizePrice();
 }
 
 
@@ -240,6 +241,7 @@ void MainWindow::on_tableSeans_cellClicked(int row, int column) // по нажа
         QString name = ui->tableSeans->item(row,column)->text();
         ui->label_4->setText(name);
     }
+    CustomizePrice();
 }
 
 void MainWindow::on_dateEdit_dateChanged(const QDate &date)//Выводит сеансы по дате
@@ -302,6 +304,7 @@ void MainWindow::on_pushButton_clicked() // купить
     customizeTableInf();
     SelectedPlacesRow.clear();
     SelectedPlacesCol.clear();
+    CustomizePrice();
 }
 
 void MainWindow::on_pushButton_2_clicked() // забронировать
@@ -323,6 +326,7 @@ void MainWindow::on_pushButton_2_clicked() // забронировать
     customizeTableInf();
     SelectedPlacesRow.clear();
     SelectedPlacesCol.clear();
+    CustomizePrice();
 }
 
 void MainWindow::on_action_exit_triggered() // пункт Выход
@@ -353,6 +357,7 @@ void MainWindow::on_pushButton_3_clicked()//вернуть
     customizeTableInf();
     SelectedPlacesRow.clear();
     SelectedPlacesCol.clear();
+    CustomizePrice();
 }
 
 void MainWindow::create_a_MainTable()
@@ -468,10 +473,7 @@ void MainWindow::slotEditRecord()
         /* Задаём вопрос, стоит ли действительно редактировать запись.
          * При положительном ответе редактируем запись
          * */
-        if (QMessageBox::warning(this,
-                                 trUtf8("Редактирование записи"),
-                                 trUtf8("Вы уверены, что хотите редактировать эту запись?"),
-                                 QMessageBox::Yes | QMessageBox::No) == QMessageBox::No)
+        if (QMessageBox::warning(this, trUtf8("Редактирование записи"), trUtf8("Вы уверены, что хотите редактировать эту запись?"), QMessageBox::Yes | QMessageBox::No) == QMessageBox::No)
             return;
         else {
             // В противном случае производим редактирование записи
@@ -482,6 +484,7 @@ void MainWindow::slotEditRecord()
             on_dateEdit_dateChanged(QDate::fromString(ui->dateEdit->text(), "dd.MM.yyyy"));
         }
     }
+    on_tableSeans_cellClicked(row, 1);
 }
 
 void MainWindow::DeleteBooked(std::vector <short> PurRow, std::vector<short>PurCol)
@@ -489,4 +492,18 @@ void MainWindow::DeleteBooked(std::vector <short> PurRow, std::vector<short>PurC
     for(int i = 0; i < PurRow.size(); i++){
         QSqlQuery qry("delete from Employed_place where type_place = '" + QString::number(ui->comboBox->currentIndex()) +"' and date_seansa = '" + CurScene->date + "' and time_seansa='" + CurScene->time + "' and name_seansa='" + CurScene->name + "' and row=" + QString::number(PurRow[i]) + " and column=" + QString::number(PurCol[i]));
     }
+}
+
+void MainWindow::CustomizePrice(){
+    int CountChecked = 0;
+    int temp = ui->comboBox->currentIndex();
+    for(int i=0; i < CurScene->ArrayCountPlaces[temp][0]; i++){
+        for(int j = 0; j < CurScene->ArrayCountPlaces[temp][1]; j++){
+            if(coordinates_of_places[i][j])
+                CountChecked++;
+        }
+    }
+
+    ui->LabelCountSel->setText("Выбрано: " + QString::number(CountChecked));
+    ui->label_3->setText("К оплате: " + QString::number(CountChecked * CurScene->Cost[ui->comboBox->currentIndex()]));
 }

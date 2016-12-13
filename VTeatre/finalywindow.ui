@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>531</width>
+    <width>533</width>
     <height>300</height>
    </rect>
   </property>
@@ -31,11 +31,6 @@
        </column>
        <column>
         <property name="text">
-         <string>Новый столбец</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
          <string>Тип места</string>
         </property>
        </column>
@@ -56,6 +51,11 @@
        </column>
        <column>
         <property name="text">
+         <string>Место</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
          <string>Цена</string>
         </property>
        </column>
@@ -63,24 +63,6 @@
      </item>
      <item>
       <layout class="QVBoxLayout" name="verticalLayout">
-       <item>
-        <widget class="QLabel" name="labelCode">
-         <property name="minimumSize">
-          <size>
-           <width>511</width>
-           <height>31</height>
-          </size>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>14</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Код для брони, скрыт для покупки</string>
-         </property>
-        </widget>
-       </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>

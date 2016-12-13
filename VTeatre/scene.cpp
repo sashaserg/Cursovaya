@@ -86,7 +86,7 @@ void Scene::DeleteTables(){
     delete [] TablesPlaces;
 }
 
-void Scene::InsertTablesToDataBase(std::vector<short> SelectedPlacesRow, std::vector<short> SelectedPlacesCol, int Index, int operation){
+void Scene::InsertTablesToDataBase(std::vector<short> SelectedPlacesRow, std::vector<short> SelectedPlacesCol, int Index, int operation, QString Code){
     for(int i = 0; i < SelectedPlacesRow.size(); i++){
 
         int row = SelectedPlacesRow[i];
@@ -99,7 +99,11 @@ void Scene::InsertTablesToDataBase(std::vector<short> SelectedPlacesRow, std::ve
             QSqlQuery qry("insert into Employed_place (type_place, date_seansa, time_seansa, name_seansa, row, column, state) values ('" + nameofplace[Index] + "', '" + date + "', '" + time + "', '" + name + "', " + QString::number(row) + ", " + QString::number(column) + ", 'Куплено')");
         }
         if(operation == 2){//Забронировать
-            QSqlQuery qry("insert into Employed_place (type_place, date_seansa, time_seansa, name_seansa, row, column, state) values ('" + nameofplace[Index] + "', '" + date + "', '" + time + "', '" + name + "', " + QString::number(row) + ", " + QString::number(column) + ", 'Забронировано')");
+            QSqlQuery qry("insert into Employed_place (code, type_place, date_seansa, time_seansa, name_seansa, row, column, state) values ('" + Code + "', '" + nameofplace[Index] + "', '" + date + "', '" + time + "', '" + name + "', " + QString::number(row) + ", " + QString::number(column) + ", 'Забронировано')");
         }
     }
+    /*QSqlQuery qry("select * from Employed_place");
+    while(qry.next()){
+        qDebug()<<qry.value(0);
+    }*/
 }

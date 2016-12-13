@@ -17,8 +17,10 @@
 #include "optionsforhall.h"
 #include "addscene.h"
 #include "scene.h"
+#include "finalywindow.h"
 #include <vector>
 #include <QMessageBox>
+#include <ctime>
 namespace Ui {
 class MainWindow;
 }
@@ -81,6 +83,10 @@ private slots:
 
     void slotEditRecord();
 
+    void on_pushButtonCode_clicked();
+
+    void main_window_resize(QResizeEvent *event);
+
 private:
     Ui::MainWindow *ui;
     QSqlDatabase mydb;
@@ -95,7 +101,10 @@ private:
     void customizeTableInf();
     void DeleteBooked(std::vector <short> PurRow, std::vector<short>PurCol);
     void CustomizePrice();
+    virtual void resizeEvent(QResizeEvent *event);
 
+signals:
+    void MyWindowReSize(QResizeEvent *event);
 };
 
 

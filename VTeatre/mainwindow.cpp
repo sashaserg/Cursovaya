@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     //QString path = qApp->applicationDirPath() + "/VTeatre.sqlite";
     mydb = QSqlDatabase::addDatabase("QSQLITE");
-    mydb.setDatabaseName("VTeatre.sqlite");
+    mydb.setDatabaseName("D:/Cursovaya/VTeatre.sqlite");
 
     CurScene = new Scene(3);
 
@@ -63,6 +63,7 @@ MainWindow::MainWindow(QWidget *parent) :
     qry_insert.bindValue(":date", "14.12.2016");*/
     //QDateTime dt1= QDateTime::fromString("12.12.2016", "dd.MM.yyyy");
 
+    connect(this, SIGNAL(MyWindowReSize(QResizeEvent*)), this, SLOT(main_window_resize(QResizeEvent*)));
 }
 void MainWindow::pix_close(int row, int column)
 {
@@ -279,6 +280,8 @@ void MainWindow::on_dateEdit_dateChanged(const QDate &date)//Выводит се
 
 void MainWindow::on_pushButton_clicked() // купить
 {
+    bool *verification = new bool [1];
+    *verification = false;
     int temp = ui->comboBox->currentIndex();
     std::vector <short> PurRow;
     std::vector <short> PurCol;
@@ -293,23 +296,35 @@ void MainWindow::on_pushButton_clicked() // купить
             SelectedPlacesCol.erase(SelectedPlacesCol.begin() + i);
             i--;
         }
-        else
-            CurScene->TablesPlaces[temp][SelectedPlacesRow[i]][SelectedPlacesCol[i]] = 1;
+        /*else
+            CurScene->TablesPlaces[temp][SelectedPlacesRow[i]][SelectedPlacesCol[i]] = 1;*/
     }
+    if(SelectedPlacesRow.size()){
+        FinalyWindow *wnd = new FinalyWindow(SelectedPlacesRow, SelectedPlacesCol, CurScene, ui->comboBox->currentText(), ui->comboBox->currentIndex(), verification);
+        wnd->exec();
 
-    DeleteBooked(PurRow, PurCol);
-    CurScene->InsertTablesToDataBase(SelectedPlacesRow, SelectedPlacesCol, ui->comboBox->currentIndex(), 1);
-    places_fill();
-    coordinates_of_places_cleaning(ui->comboBox->currentIndex());
-    customizeTableInf();
-    SelectedPlacesRow.clear();
-    SelectedPlacesCol.clear();
-    CustomizePrice();
+        if(*verification){
+            DeleteBooked(PurRow, PurCol);
+            for(int i = 0; i < SelectedPlacesRow.size(); i++){
+                CurScene->TablesPlaces[temp][SelectedPlacesRow[i]][SelectedPlacesCol[i]] = 1;
+            }
+            CurScene->InsertTablesToDataBase(SelectedPlacesRow, SelectedPlacesCol, ui->comboBox->currentIndex(), 1);
+            customizeTableInf();
+        }
+
+        places_fill();
+        coordinates_of_places_cleaning(ui->comboBox->currentIndex());
+        SelectedPlacesRow.clear();
+        SelectedPlacesCol.clear();
+        CustomizePrice();
+
+    }
 }
 
 void MainWindow::on_pushButton_2_clicked() // забронировать
 {
     int temp = ui->comboBox->currentIndex();
+    QString Code = "";
     for(int i = 0; i < SelectedPlacesRow.size(); i++){
         if(CurScene->TablesPlaces[temp][SelectedPlacesRow[i]][SelectedPlacesCol[i]] == 2 || CurScene->TablesPlaces[temp][SelectedPlacesRow[i]][SelectedPlacesCol[i]] == 1){
             SelectedPlacesRow.erase(SelectedPlacesRow.begin() + i);
@@ -320,7 +335,17 @@ void MainWindow::on_pushButton_2_clicked() // забронировать
         else
             CurScene->TablesPlaces[temp][SelectedPlacesRow[i]][SelectedPlacesCol[i]] = 2;
     }
-    CurScene->InsertTablesToDataBase(SelectedPlacesRow, SelectedPlacesCol, ui->comboBox->currentIndex(), 2);
+    if(SelectedPlacesCol.size()){
+        //генерир код
+
+        srand(time(NULL));
+        for(int i = 0; i < 10; i++){
+            Code += QString::number(std::rand() % 10);
+        }
+        //вівожу мес бокс
+        QMessageBox::information(NULL,QObject::tr("Бронирование"),tr("Ваш код: ") + Code);
+    }
+    CurScene->InsertTablesToDataBase(SelectedPlacesRow, SelectedPlacesCol, ui->comboBox->currentIndex(), 2, Code);
     places_fill();
     coordinates_of_places_cleaning(ui->comboBox->currentIndex());
     customizeTableInf();
@@ -344,6 +369,7 @@ void MainWindow::on_pushButton_3_clicked()//вернуть
     int temp = ui->comboBox->currentIndex();
 
     for(int i = 0; i < SelectedPlacesRow.size(); i++){
+        qDebug()<<SelectedPlacesCol[i];
         if(CurScene->TablesPlaces[temp][SelectedPlacesRow[i]][SelectedPlacesCol[i]] == 0){
             SelectedPlacesRow.erase(SelectedPlacesRow.begin() + i);
             SelectedPlacesCol.erase(SelectedPlacesCol.begin() + i);
@@ -527,5 +553,37 @@ void MainWindow::CustomizePrice(){
     }
 
     ui->LabelCountSel->setText("Выбрано: " + QString::number(CountChecked));
-    ui->label_3->setText("К оплате: " + QString::number(CountChecked * CurScene->Cost[ui->comboBox->currentIndex()]) + " грн");
+}
+
+void MainWindow::on_pushButtonCode_clicked()
+{
+    places_fill();
+    coordinates_of_places_cleaning(ui->comboBox->currentIndex());
+
+    SelectedPlacesRow.clear();
+    SelectedPlacesCol.clear();
+
+    QSqlQuery qry("select * from Employed_place where code='" + ui->lineEditCode->text() + "' and name_seansa='" + CurScene->name + "' and date_seansa='" + CurScene->date + "' and time_seansa='" + CurScene->time + "' and type_place='" + ui->comboBox->currentText() + "'");
+    bool Enabled = true;
+    while(qry.next()){
+        coordinates_of_places[qry.value(5).toInt()][qry.value(6).toInt()] = true;
+
+        SelectedPlacesRow.push_back(qry.value(5).toInt());
+        SelectedPlacesCol.push_back(qry.value(6).toInt());
+
+        pix_checking(qry.value(5).toInt(), qry.value(6).toInt());
+        Enabled = false;
+    }
+    if(Enabled){
+        QMessageBox::critical(NULL,QObject::tr("Ошибка"),tr("Для данной постановки код не найден."));
+    }
+}
+void MainWindow::resizeEvent(QResizeEvent* e)
+{
+    emit MyWindowReSize(e);
+    QWidget::resizeEvent(e);
+}
+
+void MainWindow::main_window_resize(QResizeEvent *event){
+    qDebug()<<1;
 }

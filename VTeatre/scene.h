@@ -20,7 +20,7 @@ public:
     void SetArrayCountPlaces();
     void SetDataToTables();
     void DeleteTables();
-    void InsertTablesToDataBase(std::vector<short> SelectedPlacesRow, std::vector<short> SelectedPlacesCol, int Index, int operation); // Обновляем базу данных
+    void InsertTablesToDataBase(std::vector<short> SelectedPlacesRow, std::vector<short> SelectedPlacesCol, int Index, int operation, QString Code = ""); // Обновляем базу данных
 
     int get_name();
     int get_date();

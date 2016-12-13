@@ -19,12 +19,12 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
-#include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTableWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -41,17 +41,15 @@ public:
     QAction *options_room;
     QAction *action_addScene;
     QWidget *centralWidget;
-    QGridLayout *gridLayout_2;
     QGridLayout *gridLayout;
+    QHBoxLayout *horizontalLayout_6;
+    QVBoxLayout *verticalLayout_5;
     QHBoxLayout *horizontalLayout_3;
     QComboBox *comboBox;
     QSpacerItem *horizontalSpacer_4;
     QLabel *label_4;
     QSpacerItem *horizontalSpacer_5;
     QTableWidget *tableInfo;
-    QVBoxLayout *verticalLayout_3;
-    QDateEdit *dateEdit;
-    QTableWidget *tableSeans;
     QHBoxLayout *horizontalLayout_4;
     QLabel *label_2;
     QTableWidget *tableWidget;
@@ -60,29 +58,34 @@ public:
     QHBoxLayout *horizontalLayout_2;
     QLabel *LabelCountSel;
     QLabel *label_3;
-    QSpacerItem *horizontalSpacer;
+    QVBoxLayout *verticalLayout_4;
+    QLabel *label;
+    QLineEdit *lineEdit;
+    QPushButton *pushButton_4;
     QHBoxLayout *horizontalLayout;
     QVBoxLayout *verticalLayout;
     QPushButton *pushButton_2;
     QPushButton *pushButton_3;
     QPushButton *pushButton;
+    QVBoxLayout *verticalLayout_3;
+    QDateEdit *dateEdit;
+    QTableWidget *tableSeans;
     QMenuBar *menuBar;
     QMenu *menu;
     QMenu *menu_5;
-    QStatusBar *statusBar;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(925, 621);
+        MainWindow->resize(925, 591);
         MainWindow->setAcceptDrops(false);
         QIcon icon;
         icon.addFile(QStringLiteral(":/image/theater.ico"), QSize(), QIcon::Normal, QIcon::Off);
         MainWindow->setWindowIcon(icon);
         MainWindow->setStyleSheet(QLatin1String("background-color: #f1f2f8;\n"
 "background-color: #dde2e3;\n"
-"background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(0, 0, 0, 255), stop:0.19397 rgba(0, 0, 0, 255), stop:0.202312 rgba(122, 97, 0, 255), stop:0.495514 rgba(76, 58, 0, 255), stop:0.504819 rgba(255, 255, 255, 255), stop:0.79 rgba(255, 255, 255, 255), stop:1 rgba(255, 158, 158, 255));"));
+""));
         informationAbout = new QAction(MainWindow);
         informationAbout->setObjectName(QStringLiteral("informationAbout"));
         informationAbout->setMenuRole(QAction::TextHeuristicRole);
@@ -101,13 +104,16 @@ public:
         action_addScene->setObjectName(QStringLiteral("action_addScene"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        gridLayout_2 = new QGridLayout(centralWidget);
-        gridLayout_2->setSpacing(6);
-        gridLayout_2->setContentsMargins(11, 11, 11, 11);
-        gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
-        gridLayout = new QGridLayout();
+        gridLayout = new QGridLayout(centralWidget);
         gridLayout->setSpacing(6);
+        gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        horizontalLayout_6 = new QHBoxLayout();
+        horizontalLayout_6->setSpacing(6);
+        horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
+        verticalLayout_5 = new QVBoxLayout();
+        verticalLayout_5->setSpacing(6);
+        verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setSpacing(6);
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
@@ -189,72 +195,32 @@ public:
         horizontalLayout_3->addWidget(tableInfo);
 
 
-        gridLayout->addLayout(horizontalLayout_3, 0, 0, 1, 1);
-
-        verticalLayout_3 = new QVBoxLayout();
-        verticalLayout_3->setSpacing(6);
-        verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
-        dateEdit = new QDateEdit(centralWidget);
-        dateEdit->setObjectName(QStringLiteral("dateEdit"));
-        dateEdit->setMinimumSize(QSize(256, 30));
-        QFont font3;
-        font3.setPointSize(12);
-        dateEdit->setFont(font3);
-        dateEdit->setFocusPolicy(Qt::WheelFocus);
-        dateEdit->setDateTime(QDateTime(QDate(2016, 1, 1), QTime(0, 0, 0)));
-        dateEdit->setCalendarPopup(true);
-
-        verticalLayout_3->addWidget(dateEdit);
-
-        tableSeans = new QTableWidget(centralWidget);
-        if (tableSeans->columnCount() < 2)
-            tableSeans->setColumnCount(2);
-        QTableWidgetItem *__qtablewidgetitem8 = new QTableWidgetItem();
-        tableSeans->setHorizontalHeaderItem(0, __qtablewidgetitem8);
-        QTableWidgetItem *__qtablewidgetitem9 = new QTableWidgetItem();
-        tableSeans->setHorizontalHeaderItem(1, __qtablewidgetitem9);
-        tableSeans->setObjectName(QStringLiteral("tableSeans"));
-        tableSeans->setEnabled(true);
-        QSizePolicy sizePolicy(QSizePolicy::Maximum, QSizePolicy::Expanding);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(tableSeans->sizePolicy().hasHeightForWidth());
-        tableSeans->setSizePolicy(sizePolicy);
-        tableSeans->setMinimumSize(QSize(256, 505));
-        tableSeans->setContextMenuPolicy(Qt::CustomContextMenu);
-        tableSeans->setStyleSheet(QLatin1String("background-color: #e5efe9;\n"
-"background-color: #dde2e3;\n"
-"background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(0, 0, 0, 255), stop:0.19397 rgba(0, 0, 0, 255), stop:0.202312 rgba(122, 97, 0, 255), stop:0.495514 rgba(76, 58, 0, 255), stop:0.504819 rgba(255, 255, 255, 255), stop:0.79 rgba(255, 255, 255, 255), stop:1 rgba(255, 158, 158, 255));"));
-
-        verticalLayout_3->addWidget(tableSeans);
-
-
-        gridLayout->addLayout(verticalLayout_3, 0, 1, 4, 1);
+        verticalLayout_5->addLayout(horizontalLayout_3);
 
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setSpacing(6);
         horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
         label_2 = new QLabel(centralWidget);
         label_2->setObjectName(QStringLiteral("label_2"));
-        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Preferred);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(label_2->sizePolicy().hasHeightForWidth());
-        label_2->setSizePolicy(sizePolicy1);
+        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(label_2->sizePolicy().hasHeightForWidth());
+        label_2->setSizePolicy(sizePolicy);
         label_2->setMinimumSize(QSize(639, 31));
 
         horizontalLayout_4->addWidget(label_2);
 
 
-        gridLayout->addLayout(horizontalLayout_4, 1, 0, 1, 1);
+        verticalLayout_5->addLayout(horizontalLayout_4);
 
         tableWidget = new QTableWidget(centralWidget);
         tableWidget->setObjectName(QStringLiteral("tableWidget"));
-        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Expanding);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(tableWidget->sizePolicy().hasHeightForWidth());
-        tableWidget->setSizePolicy(sizePolicy2);
+        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(tableWidget->sizePolicy().hasHeightForWidth());
+        tableWidget->setSizePolicy(sizePolicy1);
         tableWidget->setMinimumSize(QSize(605, 400));
         tableWidget->setLayoutDirection(Qt::LeftToRight);
         tableWidget->setAutoFillBackground(false);
@@ -272,7 +238,7 @@ public:
         tableWidget->verticalHeader()->setDefaultSectionSize(27);
         tableWidget->verticalHeader()->setMinimumSectionSize(21);
 
-        gridLayout->addWidget(tableWidget, 2, 0, 1, 1);
+        verticalLayout_5->addWidget(tableWidget);
 
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setSpacing(6);
@@ -295,22 +261,59 @@ public:
         label_3 = new QLabel(centralWidget);
         label_3->setObjectName(QStringLiteral("label_3"));
         label_3->setMinimumSize(QSize(160, 22));
-        QFont font4;
-        font4.setFamily(QStringLiteral("Arial"));
-        font4.setPointSize(10);
-        font4.setBold(true);
-        font4.setUnderline(false);
-        font4.setWeight(75);
-        label_3->setFont(font4);
+        QFont font3;
+        font3.setFamily(QStringLiteral("Arial"));
+        font3.setPointSize(10);
+        font3.setBold(true);
+        font3.setUnderline(false);
+        font3.setWeight(75);
+        label_3->setFont(font3);
 
         verticalLayout_2->addWidget(label_3);
 
 
         horizontalLayout_5->addLayout(verticalLayout_2);
 
-        horizontalSpacer = new QSpacerItem(168, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        verticalLayout_4 = new QVBoxLayout();
+        verticalLayout_4->setSpacing(6);
+        verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
+        label = new QLabel(centralWidget);
+        label->setObjectName(QStringLiteral("label"));
+        label->setMinimumSize(QSize(60, 15));
 
-        horizontalLayout_5->addItem(horizontalSpacer);
+        verticalLayout_4->addWidget(label);
+
+        lineEdit = new QLineEdit(centralWidget);
+        lineEdit->setObjectName(QStringLiteral("lineEdit"));
+        lineEdit->setMinimumSize(QSize(150, 30));
+        QFont font4;
+        font4.setPointSize(10);
+        lineEdit->setFont(font4);
+
+        verticalLayout_4->addWidget(lineEdit);
+
+
+        horizontalLayout_5->addLayout(verticalLayout_4);
+
+        pushButton_4 = new QPushButton(centralWidget);
+        pushButton_4->setObjectName(QStringLiteral("pushButton_4"));
+        QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Minimum);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(pushButton_4->sizePolicy().hasHeightForWidth());
+        pushButton_4->setSizePolicy(sizePolicy2);
+        pushButton_4->setMinimumSize(QSize(60, 45));
+        pushButton_4->setStyleSheet(QLatin1String("QPushButton{\n"
+"background-color: rgb(176, 181, 255);\n"
+"border-style: outset;\n"
+"border-radius: 10px;	\n"
+"}\n"
+"QPushButton::pressed{\n"
+"background-color: #376bbf\n"
+"}\n"
+""));
+
+        horizontalLayout_5->addWidget(pushButton_4);
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(6);
@@ -325,7 +328,7 @@ public:
         pushButton_2->setStyleSheet(QLatin1String("QPushButton{\n"
 "background-color:#fada26;\n"
 "border-style: outset;\n"
-"border-radius: 10px;	\n"
+"border-radius: 5px;	\n"
 "}\n"
 "QPushButton::pressed{\n"
 "background-color: #376bbf\n"
@@ -341,7 +344,7 @@ public:
         pushButton_3->setStyleSheet(QLatin1String("QPushButton{\n"
 "background-color: #236c1b;\n"
 "border-style: outset;\n"
-"border-radius: 10px;	\n"
+"border-radius: 5px;	\n"
 "}\n"
 "QPushButton::pressed{\n"
 "background-color: #376bbf\n"
@@ -372,10 +375,53 @@ public:
         horizontalLayout_5->addLayout(horizontalLayout);
 
 
-        gridLayout->addLayout(horizontalLayout_5, 3, 0, 1, 1);
+        verticalLayout_5->addLayout(horizontalLayout_5);
 
 
-        gridLayout_2->addLayout(gridLayout, 0, 0, 1, 1);
+        horizontalLayout_6->addLayout(verticalLayout_5);
+
+        verticalLayout_3 = new QVBoxLayout();
+        verticalLayout_3->setSpacing(6);
+        verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
+        dateEdit = new QDateEdit(centralWidget);
+        dateEdit->setObjectName(QStringLiteral("dateEdit"));
+        dateEdit->setMinimumSize(QSize(256, 30));
+        QFont font5;
+        font5.setPointSize(12);
+        dateEdit->setFont(font5);
+        dateEdit->setFocusPolicy(Qt::WheelFocus);
+        dateEdit->setDateTime(QDateTime(QDate(2016, 1, 1), QTime(0, 0, 0)));
+        dateEdit->setCalendarPopup(true);
+
+        verticalLayout_3->addWidget(dateEdit);
+
+        tableSeans = new QTableWidget(centralWidget);
+        if (tableSeans->columnCount() < 2)
+            tableSeans->setColumnCount(2);
+        QTableWidgetItem *__qtablewidgetitem8 = new QTableWidgetItem();
+        tableSeans->setHorizontalHeaderItem(0, __qtablewidgetitem8);
+        QTableWidgetItem *__qtablewidgetitem9 = new QTableWidgetItem();
+        tableSeans->setHorizontalHeaderItem(1, __qtablewidgetitem9);
+        tableSeans->setObjectName(QStringLiteral("tableSeans"));
+        tableSeans->setEnabled(true);
+        QSizePolicy sizePolicy3(QSizePolicy::Maximum, QSizePolicy::Expanding);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(tableSeans->sizePolicy().hasHeightForWidth());
+        tableSeans->setSizePolicy(sizePolicy3);
+        tableSeans->setMinimumSize(QSize(256, 505));
+        tableSeans->setContextMenuPolicy(Qt::CustomContextMenu);
+        tableSeans->setStyleSheet(QLatin1String("background-color: #e5efe9;\n"
+"background-color: #dde2e3;\n"
+""));
+
+        verticalLayout_3->addWidget(tableSeans);
+
+
+        horizontalLayout_6->addLayout(verticalLayout_3);
+
+
+        gridLayout->addLayout(horizontalLayout_6, 0, 0, 1, 1);
 
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
@@ -389,12 +435,6 @@ public:
         menu_5 = new QMenu(menuBar);
         menu_5->setObjectName(QStringLiteral("menu_5"));
         MainWindow->setMenuBar(menuBar);
-        statusBar = new QStatusBar(MainWindow);
-        statusBar->setObjectName(QStringLiteral("statusBar"));
-        statusBar->setEnabled(true);
-        statusBar->setAutoFillBackground(false);
-        statusBar->setSizeGripEnabled(true);
-        MainWindow->setStatusBar(statusBar);
 
         menuBar->addAction(menu_5->menuAction());
         menuBar->addAction(menu->menuAction());
@@ -447,16 +487,18 @@ public:
         ___qtablewidgetitem7->setText(QApplication::translate("MainWindow", "\320\221\321\200\320\276\320\275\321\214:", 0));
         tableInfo->setSortingEnabled(__sortingEnabled);
 
+        label_2->setText(QApplication::translate("MainWindow", "\320\241\321\206\320\265\320\275\320\260", 0));
+        LabelCountSel->setText(QApplication::translate("MainWindow", "\320\222\321\213\320\261\321\200\320\260\320\275\320\276: 0", 0));
+        label_3->setText(QApplication::translate("MainWindow", "\320\232 \320\276\320\277\320\273\320\260\321\202\320\265: 0", 0));
+        label->setText(QApplication::translate("MainWindow", "\320\232\320\276\320\264 \320\261\321\200\320\276\320\275\320\270:", 0));
+        pushButton_4->setText(QApplication::translate("MainWindow", "\320\235\320\260\320\271\321\202\320\270", 0));
+        pushButton_2->setText(QApplication::translate("MainWindow", "\320\221\321\200\320\276\320\275\321\214", 0));
+        pushButton_3->setText(QApplication::translate("MainWindow", "\320\222\320\265\321\200\320\275\321\203\321\202\321\214", 0));
+        pushButton->setText(QApplication::translate("MainWindow", "\320\236\320\277\320\273\320\260\321\202\320\270\321\202\321\214", 0));
         QTableWidgetItem *___qtablewidgetitem8 = tableSeans->horizontalHeaderItem(0);
         ___qtablewidgetitem8->setText(QApplication::translate("MainWindow", "\320\241\320\265\320\260\320\275\321\201", 0));
         QTableWidgetItem *___qtablewidgetitem9 = tableSeans->horizontalHeaderItem(1);
         ___qtablewidgetitem9->setText(QApplication::translate("MainWindow", "\320\235\320\260\320\267\320\262\320\260\320\275\320\270\320\265", 0));
-        label_2->setText(QApplication::translate("MainWindow", "\320\241\321\206\320\265\320\275\320\260", 0));
-        LabelCountSel->setText(QApplication::translate("MainWindow", "\320\222\321\213\320\261\321\200\320\260\320\275\320\276: 0", 0));
-        label_3->setText(QApplication::translate("MainWindow", "\320\232 \320\276\320\277\320\273\320\260\321\202\320\265: 0", 0));
-        pushButton_2->setText(QApplication::translate("MainWindow", "\320\221\321\200\320\276\320\275\321\214", 0));
-        pushButton_3->setText(QApplication::translate("MainWindow", "\320\222\320\265\321\200\320\275\321\203\321\202\321\214", 0));
-        pushButton->setText(QApplication::translate("MainWindow", "\320\236\320\277\320\273\320\260\321\202\320\270\321\202\321\214", 0));
         menu->setTitle(QApplication::translate("MainWindow", "&\320\236 \320\277\321\200\320\276\320\264\321\203\320\272\321\202\320\265", 0));
         menu_5->setTitle(QApplication::translate("MainWindow", "\320\242\320\265\320\260\321\202\321\200", 0));
     } // retranslateUi

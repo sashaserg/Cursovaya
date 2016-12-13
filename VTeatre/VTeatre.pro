@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     optionsforhall.cpp \
     addscene.cpp \
     qcustomplot.cpp \
-    scene.cpp
+    scene.cpp \
+    finalywindow.cpp
 
 HEADERS  += mainwindow.h \
     about.h \
@@ -30,14 +31,16 @@ HEADERS  += mainwindow.h \
     optionsforhall.h \
     addscene.h \
     qcustomplot.h \
-    scene.h
+    scene.h \
+    finalywindow.h
 
 FORMS    += mainwindow.ui \
     about.ui \
     windowbuyer.ui \
     statistic.ui \
     optionsforhall.ui \
-    addscene.ui
+    addscene.ui \
+    finalywindow.ui
 
 RESOURCES += \
     Resurs1.qrc

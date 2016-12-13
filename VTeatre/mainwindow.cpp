@@ -527,5 +527,5 @@ void MainWindow::CustomizePrice(){
     }
 
     ui->LabelCountSel->setText("Выбрано: " + QString::number(CountChecked));
-    ui->label_3->setText("К оплате: " + QString::number(CountChecked * CurScene->Cost[ui->comboBox->currentIndex()]));
+    ui->label_3->setText("К оплате: " + QString::number(CountChecked * CurScene->Cost[ui->comboBox->currentIndex()]) + " грн");
 }

@@ -8,6 +8,7 @@ INPUT(
 ./debug\addscene.o
 ./debug\qcustomplot.o
 ./debug\scene.o
+./debug\finalywindow.o
 ./debug\qrc_Resurs1.o
 ./debug\moc_mainwindow.o
 ./debug\moc_about.o
@@ -16,4 +17,5 @@ INPUT(
 ./debug\moc_optionsforhall.o
 ./debug\moc_addscene.o
 ./debug\moc_qcustomplot.o
+./debug\moc_finalywindow.o
 );

@@ -14,29 +14,68 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QDialog>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QGroupBox>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QVBoxLayout>
 
 QT_BEGIN_NAMESPACE
 
 class Ui_About
 {
 public:
-    QPushButton *pushButton;
+    QGridLayout *gridLayout;
+    QVBoxLayout *verticalLayout;
     QGroupBox *groupBox;
+    QHBoxLayout *horizontalLayout;
+    QSpacerItem *horizontalSpacer;
+    QPushButton *pushButton;
 
     void setupUi(QDialog *About)
     {
         if (About->objectName().isEmpty())
             About->setObjectName(QStringLiteral("About"));
-        About->resize(497, 323);
-        pushButton = new QPushButton(About);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(390, 270, 91, 41));
+        About->resize(468, 322);
+        gridLayout = new QGridLayout(About);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        verticalLayout = new QVBoxLayout();
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         groupBox = new QGroupBox(About);
         groupBox->setObjectName(QStringLiteral("groupBox"));
-        groupBox->setGeometry(QRect(10, 10, 471, 251));
+        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(groupBox->sizePolicy().hasHeightForWidth());
+        groupBox->setSizePolicy(sizePolicy);
+
+        verticalLayout->addWidget(groupBox);
+
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout->addItem(horizontalSpacer);
+
+        pushButton = new QPushButton(About);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+        QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(pushButton->sizePolicy().hasHeightForWidth());
+        pushButton->setSizePolicy(sizePolicy1);
+        pushButton->setMinimumSize(QSize(0, 0));
+
+        horizontalLayout->addWidget(pushButton);
+
+
+        verticalLayout->addLayout(horizontalLayout);
+
+
+        gridLayout->addLayout(verticalLayout, 0, 0, 1, 1);
+
 
         retranslateUi(About);
 
@@ -46,8 +85,8 @@ public:
     void retranslateUi(QDialog *About)
     {
         About->setWindowTitle(QApplication::translate("About", "Dialog", 0));
-        pushButton->setText(QApplication::translate("About", "\320\227\320\260\320\272\321\200\321\213\321\202\321\214", 0));
         groupBox->setTitle(QApplication::translate("About", "\320\230\320\275\321\204\320\276\321\200\320\274\320\260\321\206\320\270\321\217", 0));
+        pushButton->setText(QApplication::translate("About", "\320\227\320\260\320\272\321\200\321\213\321\202\321\214", 0));
     } // retranslateUi
 
 };

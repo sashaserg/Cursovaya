@@ -15,6 +15,7 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QDateEdit>
+#include <QtWidgets/QFrame>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
@@ -58,11 +59,13 @@ public:
     QHBoxLayout *horizontalLayout_2;
     QLabel *LabelCountSel;
     QLabel *label_3;
+    QFrame *line_2;
     QVBoxLayout *verticalLayout_4;
-    QLabel *label;
-    QLineEdit *lineEdit;
-    QPushButton *pushButton_4;
+    QLabel *labelCode;
+    QLineEdit *lineEditCode;
+    QPushButton *pushButtonCode;
     QHBoxLayout *horizontalLayout;
+    QFrame *line;
     QVBoxLayout *verticalLayout;
     QPushButton *pushButton_2;
     QPushButton *pushButton_3;
@@ -78,7 +81,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(925, 591);
+        MainWindow->resize(927, 592);
         MainWindow->setAcceptDrops(false);
         QIcon icon;
         icon.addFile(QStringLiteral(":/image/theater.ico"), QSize(), QIcon::Normal, QIcon::Off);
@@ -274,36 +277,43 @@ public:
 
         horizontalLayout_5->addLayout(verticalLayout_2);
 
+        line_2 = new QFrame(centralWidget);
+        line_2->setObjectName(QStringLiteral("line_2"));
+        line_2->setFrameShape(QFrame::VLine);
+        line_2->setFrameShadow(QFrame::Sunken);
+
+        horizontalLayout_5->addWidget(line_2);
+
         verticalLayout_4 = new QVBoxLayout();
         verticalLayout_4->setSpacing(6);
         verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
-        label = new QLabel(centralWidget);
-        label->setObjectName(QStringLiteral("label"));
-        label->setMinimumSize(QSize(60, 15));
+        labelCode = new QLabel(centralWidget);
+        labelCode->setObjectName(QStringLiteral("labelCode"));
+        labelCode->setMinimumSize(QSize(60, 15));
 
-        verticalLayout_4->addWidget(label);
+        verticalLayout_4->addWidget(labelCode);
 
-        lineEdit = new QLineEdit(centralWidget);
-        lineEdit->setObjectName(QStringLiteral("lineEdit"));
-        lineEdit->setMinimumSize(QSize(150, 30));
+        lineEditCode = new QLineEdit(centralWidget);
+        lineEditCode->setObjectName(QStringLiteral("lineEditCode"));
+        lineEditCode->setMinimumSize(QSize(150, 30));
         QFont font4;
         font4.setPointSize(10);
-        lineEdit->setFont(font4);
+        lineEditCode->setFont(font4);
 
-        verticalLayout_4->addWidget(lineEdit);
+        verticalLayout_4->addWidget(lineEditCode);
 
 
         horizontalLayout_5->addLayout(verticalLayout_4);
 
-        pushButton_4 = new QPushButton(centralWidget);
-        pushButton_4->setObjectName(QStringLiteral("pushButton_4"));
+        pushButtonCode = new QPushButton(centralWidget);
+        pushButtonCode->setObjectName(QStringLiteral("pushButtonCode"));
         QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Minimum);
         sizePolicy2.setHorizontalStretch(0);
         sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(pushButton_4->sizePolicy().hasHeightForWidth());
-        pushButton_4->setSizePolicy(sizePolicy2);
-        pushButton_4->setMinimumSize(QSize(60, 45));
-        pushButton_4->setStyleSheet(QLatin1String("QPushButton{\n"
+        sizePolicy2.setHeightForWidth(pushButtonCode->sizePolicy().hasHeightForWidth());
+        pushButtonCode->setSizePolicy(sizePolicy2);
+        pushButtonCode->setMinimumSize(QSize(60, 45));
+        pushButtonCode->setStyleSheet(QLatin1String("QPushButton{\n"
 "background-color: rgb(176, 181, 255);\n"
 "border-style: outset;\n"
 "border-radius: 10px;	\n"
@@ -313,11 +323,18 @@ public:
 "}\n"
 ""));
 
-        horizontalLayout_5->addWidget(pushButton_4);
+        horizontalLayout_5->addWidget(pushButtonCode);
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(6);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        line = new QFrame(centralWidget);
+        line->setObjectName(QStringLiteral("line"));
+        line->setFrameShape(QFrame::VLine);
+        line->setFrameShadow(QFrame::Sunken);
+
+        horizontalLayout->addWidget(line);
+
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(6);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
@@ -426,7 +443,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 925, 21));
+        menuBar->setGeometry(QRect(0, 0, 927, 21));
         menuBar->setStyleSheet(QLatin1String("QMenu::item:selected{ \n"
 "background-color: #d3bb9c;\n"
 "}"));
@@ -490,8 +507,8 @@ public:
         label_2->setText(QApplication::translate("MainWindow", "\320\241\321\206\320\265\320\275\320\260", 0));
         LabelCountSel->setText(QApplication::translate("MainWindow", "\320\222\321\213\320\261\321\200\320\260\320\275\320\276: 0", 0));
         label_3->setText(QApplication::translate("MainWindow", "\320\232 \320\276\320\277\320\273\320\260\321\202\320\265: 0", 0));
-        label->setText(QApplication::translate("MainWindow", "\320\232\320\276\320\264 \320\261\321\200\320\276\320\275\320\270:", 0));
-        pushButton_4->setText(QApplication::translate("MainWindow", "\320\235\320\260\320\271\321\202\320\270", 0));
+        labelCode->setText(QApplication::translate("MainWindow", "\320\232\320\276\320\264 \320\261\321\200\320\276\320\275\320\270:", 0));
+        pushButtonCode->setText(QApplication::translate("MainWindow", "\320\235\320\260\320\271\321\202\320\270", 0));
         pushButton_2->setText(QApplication::translate("MainWindow", "\320\221\321\200\320\276\320\275\321\214", 0));
         pushButton_3->setText(QApplication::translate("MainWindow", "\320\222\320\265\321\200\320\275\321\203\321\202\321\214", 0));
         pushButton->setText(QApplication::translate("MainWindow", "\320\236\320\277\320\273\320\260\321\202\320\270\321\202\321\214", 0));

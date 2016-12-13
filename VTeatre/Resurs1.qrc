@@ -10,7 +10,4 @@
         <file>theater.ico</file>
         <file>trends.ico</file>
     </qresource>
-    <qresource prefix="/database">
-        <file>VTeatre.sqlite</file>
-    </qresource>
 </RCC>

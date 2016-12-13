@@ -8,9 +8,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
+    //QString path = qApp->applicationDirPath() + "/VTeatre.sqlite";
     mydb = QSqlDatabase::addDatabase("QSQLITE");
-    mydb.setDatabaseName("D:/Cursovaya/VTeatre.sqlite");
+    mydb.setDatabaseName("VTeatre.sqlite");
 
     CurScene = new Scene(3);
 

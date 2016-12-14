@@ -43,7 +43,7 @@ background-color: #dde2e3;
             </property>
             <property name="maximumSize">
              <size>
-              <width>101</width>
+              <width>120</width>
               <height>41</height>
              </size>
             </property>
@@ -237,8 +237,14 @@ border-style: outset;
               <height>31</height>
              </size>
             </property>
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
+            </property>
             <property name="text">
              <string>Сцена</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
             </property>
            </widget>
           </item>

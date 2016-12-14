@@ -439,6 +439,9 @@ void MainWindow::create_a_MainTable()
                                    "border-color: green;"
                                    "border-radius: 0px;"
                                    "}");
+    ui->tableWidget->verticalHeader()->setVisible(true);
+    ui->tableWidget->verticalHeader()->setMaximumSectionSize(ui->tableWidget->verticalHeader()->defaultSectionSize());
+    ui->tableWidget->verticalHeader()->setMinimumSectionSize(ui->tableWidget->verticalHeader()->defaultSectionSize());
 }
 
 
@@ -580,10 +583,14 @@ void MainWindow::on_pushButtonCode_clicked()
 }
 void MainWindow::resizeEvent(QResizeEvent* e)
 {
-    //emit MyWindowReSize(e);
+    emit MyWindowReSize(e);
     QWidget::resizeEvent(e);
 }
 
-void MainWindow::main_window_resize(QResizeEvent *event){
-    qDebug()<<1;
+void MainWindow::main_window_resize(QResizeEvent *event)
+{
+    QPixmap  pix;
+    pix.load(":/image/scena.png");
+    pix = pix.scaled(ui->label_2->size());
+    ui->label_2->setPixmap(pix);
 }

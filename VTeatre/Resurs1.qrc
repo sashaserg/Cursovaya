@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/image">
         <file>image_checking.png</file>
-        <file>scena.png</file>
         <file>image.png</file>
         <file>image_close.png</file>
         <file>image_reserv.png</file>
@@ -9,5 +8,6 @@
         <file>tools.ico</file>
         <file>theater.ico</file>
         <file>trends.ico</file>
+        <file>scena.png</file>
     </qresource>
 </RCC>

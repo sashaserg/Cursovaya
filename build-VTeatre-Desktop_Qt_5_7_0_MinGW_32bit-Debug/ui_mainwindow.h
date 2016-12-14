@@ -122,7 +122,7 @@ public:
         comboBox = new QComboBox(centralWidget);
         comboBox->setObjectName(QStringLiteral("comboBox"));
         comboBox->setMinimumSize(QSize(101, 41));
-        comboBox->setMaximumSize(QSize(101, 41));
+        comboBox->setMaximumSize(QSize(120, 41));
         QFont font;
         font.setFamily(QStringLiteral("Palatino Linotype"));
         font.setPointSize(10);
@@ -210,6 +210,8 @@ public:
         sizePolicy.setHeightForWidth(label_2->sizePolicy().hasHeightForWidth());
         label_2->setSizePolicy(sizePolicy);
         label_2->setMinimumSize(QSize(639, 31));
+        label_2->setLayoutDirection(Qt::LeftToRight);
+        label_2->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
 
         horizontalLayout_4->addWidget(label_2);
 

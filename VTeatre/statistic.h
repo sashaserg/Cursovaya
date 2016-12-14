@@ -1,4 +1,4 @@
-#ifndef STATISTIC_H
+﻿#ifndef STATISTIC_H
 #define STATISTIC_H
 
 #include <QDialog>
@@ -16,6 +16,8 @@ public:
     ~Statistic();
     
 private slots:
+
+    void on_pushButton_clicked();
 
 private:
     Ui::Statistic *ui;

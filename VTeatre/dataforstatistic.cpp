@@ -4,3 +4,4 @@ DataforStatistic::DataforStatistic()
 {
 
 }
+

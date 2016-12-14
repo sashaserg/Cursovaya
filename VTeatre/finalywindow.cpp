@@ -1,4 +1,4 @@
-#include "finalywindow.h"
+﻿#include "finalywindow.h"
 #include "ui_finalywindow.h"
 
 FinalyWindow::FinalyWindow(std::vector <short> SelectedPlacesRow, std::vector <short> SelectedPlacesCol, Scene *CurScene, QString CurHoll, int CurIndex, bool *verification, QWidget *parent) :         // конструктор с 2 параметрами
@@ -41,8 +41,6 @@ void FinalyWindow::CreateTable(std::vector <short> SelectedPlacesRow, std::vecto
 
 void FinalyWindow::on_pushButtonOk_clicked()
 {
-    qDebug()<<verific;
     *verific = true;
     this->close();
-    qDebug()<<verific;
 }

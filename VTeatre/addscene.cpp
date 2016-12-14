@@ -58,5 +58,21 @@ void AddScene::on_ButtonAdd_clicked()                               // Нажа�
                              "', "+QString::number(ui->ParterPrice->value())+
                              ", "+QString::number(ui->BenuarPrice->value())+
                              ", "+QString::number(ui->BeletazPrice->value())+")");
-    }
+        QSqlQuery qry_insert1;
+        QSqlQuery qry_select;
+        if(!qry_select.exec("select distinct date from DataforStatistic where date='" +ui->dateEdit->text()+ "'"))
+        {
+                qDebug()<<qry_select.lastError().databaseText();
+        }
+        qry_select.first();
+        if(qry_select.value("date")!=ui->dateEdit->text())
+        {
+            if(!qry_insert1.exec("insert into DataforStatistic(type_place, date, count_income, count_place) values ('Партер', '" +ui->dateEdit->text()+ "', 0, 0)"))
+                qDebug()<<qry_insert1.lastError().databaseText();
+            if(!qry_insert1.exec("insert into DataforStatistic(type_place, date, count_income, count_place) values ('Бенуар', '" +ui->dateEdit->text()+ "', 0, 0)"))
+                qDebug()<<qry_insert1.lastError().databaseText();
+            if(!qry_insert1.exec("insert into DataforStatistic(type_place, date, count_income, count_place) values ('Бельэтаж', '" +ui->dateEdit->text()+ "', 0, 0)"))
+                qDebug()<<qry_insert1.lastError().databaseText();
+        }
+        }
 }

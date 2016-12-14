@@ -58,7 +58,6 @@ public:
     QVBoxLayout *verticalLayout_2;
     QHBoxLayout *horizontalLayout_2;
     QLabel *LabelCountSel;
-    QLabel *label_3;
     QFrame *line_2;
     QVBoxLayout *verticalLayout_4;
     QLabel *labelCode;
@@ -261,19 +260,6 @@ public:
 
         verticalLayout_2->addLayout(horizontalLayout_2);
 
-        label_3 = new QLabel(centralWidget);
-        label_3->setObjectName(QStringLiteral("label_3"));
-        label_3->setMinimumSize(QSize(160, 22));
-        QFont font3;
-        font3.setFamily(QStringLiteral("Arial"));
-        font3.setPointSize(10);
-        font3.setBold(true);
-        font3.setUnderline(false);
-        font3.setWeight(75);
-        label_3->setFont(font3);
-
-        verticalLayout_2->addWidget(label_3);
-
 
         horizontalLayout_5->addLayout(verticalLayout_2);
 
@@ -296,9 +282,9 @@ public:
         lineEditCode = new QLineEdit(centralWidget);
         lineEditCode->setObjectName(QStringLiteral("lineEditCode"));
         lineEditCode->setMinimumSize(QSize(150, 30));
-        QFont font4;
-        font4.setPointSize(10);
-        lineEditCode->setFont(font4);
+        QFont font3;
+        font3.setPointSize(10);
+        lineEditCode->setFont(font3);
 
         verticalLayout_4->addWidget(lineEditCode);
 
@@ -403,9 +389,9 @@ public:
         dateEdit = new QDateEdit(centralWidget);
         dateEdit->setObjectName(QStringLiteral("dateEdit"));
         dateEdit->setMinimumSize(QSize(256, 30));
-        QFont font5;
-        font5.setPointSize(12);
-        dateEdit->setFont(font5);
+        QFont font4;
+        font4.setPointSize(12);
+        dateEdit->setFont(font4);
         dateEdit->setFocusPolicy(Qt::WheelFocus);
         dateEdit->setDateTime(QDateTime(QDate(2016, 1, 1), QTime(0, 0, 0)));
         dateEdit->setCalendarPopup(true);
@@ -506,7 +492,6 @@ public:
 
         label_2->setText(QApplication::translate("MainWindow", "\320\241\321\206\320\265\320\275\320\260", 0));
         LabelCountSel->setText(QApplication::translate("MainWindow", "\320\222\321\213\320\261\321\200\320\260\320\275\320\276: 0", 0));
-        label_3->setText(QApplication::translate("MainWindow", "\320\232 \320\276\320\277\320\273\320\260\321\202\320\265: 0", 0));
         labelCode->setText(QApplication::translate("MainWindow", "\320\232\320\276\320\264 \320\261\321\200\320\276\320\275\320\270:", 0));
         pushButtonCode->setText(QApplication::translate("MainWindow", "\320\235\320\260\320\271\321\202\320\270", 0));
         pushButton_2->setText(QApplication::translate("MainWindow", "\320\221\321\200\320\276\320\275\321\214", 0));

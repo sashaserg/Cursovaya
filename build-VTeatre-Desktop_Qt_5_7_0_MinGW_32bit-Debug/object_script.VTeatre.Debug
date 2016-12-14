@@ -9,6 +9,7 @@ INPUT(
 ./debug\qcustomplot.o
 ./debug\scene.o
 ./debug\finalywindow.o
+./debug\dataforstatistic.o
 ./debug\qrc_Resurs1.o
 ./debug\moc_mainwindow.o
 ./debug\moc_about.o

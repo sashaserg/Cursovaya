@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     addscene.cpp \
     qcustomplot.cpp \
     scene.cpp \
-    finalywindow.cpp
+    finalywindow.cpp \
+    dataforstatistic.cpp
 
 HEADERS  += mainwindow.h \
     about.h \
@@ -32,7 +33,8 @@ HEADERS  += mainwindow.h \
     addscene.h \
     qcustomplot.h \
     scene.h \
-    finalywindow.h
+    finalywindow.h \
+    dataforstatistic.h
 
 FORMS    += mainwindow.ui \
     about.ui \

@@ -9,6 +9,7 @@ INPUT(
 ./release\qcustomplot.o
 ./release\scene.o
 ./release\finalywindow.o
+./release\dataforstatistic.o
 ./release\qrc_Resurs1.o
 ./release\moc_mainwindow.o
 ./release\moc_about.o

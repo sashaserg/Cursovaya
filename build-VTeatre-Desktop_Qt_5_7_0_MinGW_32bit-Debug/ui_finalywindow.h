@@ -32,7 +32,6 @@ public:
     QVBoxLayout *verticalLayout_2;
     QTableWidget *tableWidget;
     QVBoxLayout *verticalLayout;
-    QLabel *labelCode;
     QHBoxLayout *horizontalLayout;
     QLabel *labelCost;
     QSpacerItem *horizontalSpacer;
@@ -42,7 +41,7 @@ public:
     {
         if (FinalyWindow->objectName().isEmpty())
             FinalyWindow->setObjectName(QStringLiteral("FinalyWindow"));
-        FinalyWindow->resize(531, 300);
+        FinalyWindow->resize(533, 300);
         gridLayout = new QGridLayout(FinalyWindow);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         verticalLayout_2 = new QVBoxLayout();
@@ -71,27 +70,18 @@ public:
 
         verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        labelCode = new QLabel(FinalyWindow);
-        labelCode->setObjectName(QStringLiteral("labelCode"));
-        labelCode->setMinimumSize(QSize(511, 31));
-        QFont font;
-        font.setPointSize(14);
-        labelCode->setFont(font);
-
-        verticalLayout->addWidget(labelCode);
-
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         labelCost = new QLabel(FinalyWindow);
         labelCost->setObjectName(QStringLiteral("labelCost"));
         labelCost->setMinimumSize(QSize(160, 22));
-        QFont font1;
-        font1.setFamily(QStringLiteral("Arial"));
-        font1.setPointSize(10);
-        font1.setBold(true);
-        font1.setUnderline(false);
-        font1.setWeight(75);
-        labelCost->setFont(font1);
+        QFont font;
+        font.setFamily(QStringLiteral("Arial"));
+        font.setPointSize(10);
+        font.setBold(true);
+        font.setUnderline(false);
+        font.setWeight(75);
+        labelCost->setFont(font);
 
         horizontalLayout->addWidget(labelCost);
 
@@ -126,18 +116,17 @@ public:
         QTableWidgetItem *___qtablewidgetitem = tableWidget->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QApplication::translate("FinalyWindow", "\320\235\320\260\320\267\320\262\320\260\320\275\320\270\320\265", 0));
         QTableWidgetItem *___qtablewidgetitem1 = tableWidget->horizontalHeaderItem(1);
-        ___qtablewidgetitem1->setText(QApplication::translate("FinalyWindow", "\320\235\320\276\320\262\321\213\320\271 \321\201\321\202\320\276\320\273\320\261\320\265\321\206", 0));
+        ___qtablewidgetitem1->setText(QApplication::translate("FinalyWindow", "\320\242\320\270\320\277 \320\274\320\265\321\201\321\202\320\260", 0));
         QTableWidgetItem *___qtablewidgetitem2 = tableWidget->horizontalHeaderItem(2);
-        ___qtablewidgetitem2->setText(QApplication::translate("FinalyWindow", "\320\242\320\270\320\277 \320\274\320\265\321\201\321\202\320\260", 0));
+        ___qtablewidgetitem2->setText(QApplication::translate("FinalyWindow", "\320\224\320\260\321\202\320\260", 0));
         QTableWidgetItem *___qtablewidgetitem3 = tableWidget->horizontalHeaderItem(3);
-        ___qtablewidgetitem3->setText(QApplication::translate("FinalyWindow", "\320\224\320\260\321\202\320\260", 0));
+        ___qtablewidgetitem3->setText(QApplication::translate("FinalyWindow", "\320\222\321\200\320\265\320\274\321\217", 0));
         QTableWidgetItem *___qtablewidgetitem4 = tableWidget->horizontalHeaderItem(4);
-        ___qtablewidgetitem4->setText(QApplication::translate("FinalyWindow", "\320\222\321\200\320\265\320\274\321\217", 0));
+        ___qtablewidgetitem4->setText(QApplication::translate("FinalyWindow", "\320\240\321\217\320\264", 0));
         QTableWidgetItem *___qtablewidgetitem5 = tableWidget->horizontalHeaderItem(5);
-        ___qtablewidgetitem5->setText(QApplication::translate("FinalyWindow", "\320\240\321\217\320\264", 0));
+        ___qtablewidgetitem5->setText(QApplication::translate("FinalyWindow", "\320\234\320\265\321\201\321\202\320\276", 0));
         QTableWidgetItem *___qtablewidgetitem6 = tableWidget->horizontalHeaderItem(6);
         ___qtablewidgetitem6->setText(QApplication::translate("FinalyWindow", "\320\246\320\265\320\275\320\260", 0));
-        labelCode->setText(QApplication::translate("FinalyWindow", "\320\232\320\276\320\264 \320\264\320\273\321\217 \320\261\321\200\320\276\320\275\320\270, \321\201\320\272\321\200\321\213\321\202 \320\264\320\273\321\217 \320\277\320\276\320\272\321\203\320\277\320\272\320\270", 0));
         labelCost->setText(QApplication::translate("FinalyWindow", "\320\232 \320\276\320\277\320\273\320\260\321\202\320\265: 0", 0));
         pushButtonOk->setText(QApplication::translate("FinalyWindow", "\320\237\320\276\320\264\321\202\320\262\320\265\321\200\320\264\320\270\321\202\321\214", 0));
     } // retranslateUi

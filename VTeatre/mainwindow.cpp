@@ -580,7 +580,7 @@ void MainWindow::on_pushButtonCode_clicked()
 }
 void MainWindow::resizeEvent(QResizeEvent* e)
 {
-    emit MyWindowReSize(e);
+    //emit MyWindowReSize(e);
     QWidget::resizeEvent(e);
 }
 

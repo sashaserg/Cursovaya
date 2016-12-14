@@ -2,7 +2,7 @@
 #include "ui_statistic.h"
 #include "dataforstatistic.h"
 
-Statistic::Statistic(QDateTime datenow, QWidget *parent) :
+Statistic::Statistic(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Statistic)
 {
@@ -74,19 +74,6 @@ Statistic::~Statistic()
 
 void Statistic::on_pushButton_clicked()
 {
-    DataforStatistic obj;
-    obj.set_count_place(7);
-    obj.set_date(7);
-    obj.set_type_place(7);
-    std::vector<QString> date = obj.get_date();
-    std::vector<int> count_place = obj.get_count_place();
-    std::vector<QString> type_place = obj.get_type_place();
-    for(int i = 0; i<7 ; i++)
-    {
-        qDebug()<<date[i];
-    }
-    for(int i = 0; i<7; i++)
-    {
-        qDebug()<<type_place[i];
-    }
+    DataforStatistic *data = new DataforStatistic(7);
+    data->InsertData();
 }

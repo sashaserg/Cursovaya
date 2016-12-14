@@ -8,11 +8,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    //QString path = qApp->applicationDirPath() + "/VTeatre.sqlite";
+
     mydb = QSqlDatabase::addDatabase("QSQLITE");
     mydb.setDatabaseName("D:/Cursovaya/VTeatre.sqlite");
 
-    CurScene = new Scene(3);
+    CurScene = new Scene();
 
     if(!mydb.open())
         qDebug()<<mydb.lastError().text();
@@ -20,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
         qDebug()<<"Connected Compled";
 
     CurScene->SetArrayCountPlaces();
+    CurScene->SetDataToTables();
 
     PreviousIndex = 0;
     CountPurchased = 0;
@@ -29,10 +30,6 @@ MainWindow::MainWindow(QWidget *parent) :
     pix.load(":/image/scena.png");
     pix = pix.scaled(ui->label_2->size());
     ui->label_2->setPixmap(pix);
-
-   /* QPixmap pix_Legend(":/image/Legend.png");
-    pix_Legend = pix_Legend.scaled(ui->label_4->size(), Qt::KeepAspectRatio);
-    ui->label_4->setPixmap(pix_Legend);*/
 
     dt = QDateTime::currentDateTime();
     ui->dateEdit->setDateTime(dt);
@@ -54,6 +51,11 @@ MainWindow::MainWindow(QWidget *parent) :
         }
 
     ui->comboBox->setEnabled(false);
+    ui->pushButton->setEnabled(false);
+    ui->pushButton_2->setEnabled(false);
+    ui->pushButton_3->setEnabled(false);
+    ui->pushButtonCode->setEnabled(false);
+    ui->lineEditCode->setEnabled(false);
 
     QString date = ui->dateEdit->text();
     QSqlQuery qry_delete("delete from Postanovka where date_seansa<'" +date+ "'");
@@ -105,10 +107,10 @@ void MainWindow::cleasing_places()//очистка мест
 void MainWindow::coordinates_of_places_cleaning(int temp)
 {
     int current_temp = ui->comboBox->currentIndex();
-    /*for(int i = 0; i < CurScene->ArrayCountPlaces[temp][0]; i++){
+    for(int i = 0; i < CurScene->ArrayCountPlaces[temp][0]; i++){
         delete [] coordinates_of_places[i];
     }
-    delete []coordinates_of_places;*/
+    delete []coordinates_of_places;
 
     coordinates_of_places = new bool*[CurScene->ArrayCountPlaces[current_temp][0]];
     for(int i = 0; i < CurScene->ArrayCountPlaces[current_temp][0]; i++)
@@ -215,10 +217,15 @@ void MainWindow::on_tableSeans_cellClicked(int row, int column) // по нажа
     if(column == 1)
     {
         ui->comboBox->setEnabled(true);
+        ui->pushButton->setEnabled(true);
+        ui->pushButton_2->setEnabled(true);
+        ui->pushButton_3->setEnabled(true);
+        ui->pushButtonCode->setEnabled(true);
+        ui->lineEditCode->setEnabled(true);
 
         delete CurScene;
 
-        CurScene = new Scene(3);
+        CurScene = new Scene();
 
         //1 - найти имя, время, дата
         CurScene->set_name(ui->tableSeans->item(row, 1)->text());
@@ -248,33 +255,25 @@ void MainWindow::on_tableSeans_cellClicked(int row, int column) // по нажа
 void MainWindow::on_dateEdit_dateChanged(const QDate &date)//Выводит сеансы по дате
 {
         QString date_seansa=ui->dateEdit->text();
-        QSqlQuery qry1("select * from Postanovka where date_seansa='"+date_seansa+"'");
+        QSqlQuery qry1("select * from Postanovka where date_seansa='" + date_seansa + "'");
 
-        int i = 0;
-        QString Postanovka[255][2];
+        std::vector<QString>Name;
+        std::vector<QString>Time;
+
         while(qry1.next())
         {
-            for(int j=0; j < 2 ;++j)
-            {
-                Postanovka[i][j]=qry1.value(1-j).toString();//записывает данные спектакля в массив
-            }
-            i++;
+            Time.push_back(qry1.value(1).toString());
+            Name.push_back(qry1.value(0).toString());//записывает данные спектакля в массив
         }
-        ui->tableSeans->setRowCount(i); // указываем количество строк, вместо 10 нужно подставлять количество спектаклей на какое-то число
+        ui->tableSeans->setRowCount(Name.size()); // указываем количество строк, вместо 10 нужно подставлять количество спектаклей на какое-то число
 
-        for(int row = 0; row < i; row++)
+        for(int i = 0; i < Name.size(); i++)
         {
-            for(int column = 0; column < 2; column++)
-            {
-                ui->tableSeans->setItem(row, column, new QTableWidgetItem); // вставляем ячейку
-            }
-        }
-        for(int k = 0; k < i; k++)
-        {
-            for(int j = 0; j < 2; j++)
-            {
-                ui->tableSeans->item(k, j)->setText(Postanovka[k][j]);
-            }
+            ui->tableSeans->setItem(i, 0, new QTableWidgetItem); // вставляем ячейку
+            ui->tableSeans->setItem(i, 1, new QTableWidgetItem); // вставляем ячейку
+
+            ui->tableSeans->item(i, 0)->setText(Time[i]);
+            ui->tableSeans->item(i, 1)->setText(Name[i]);
         }
 }
 
@@ -296,8 +295,6 @@ void MainWindow::on_pushButton_clicked() // купить
             SelectedPlacesCol.erase(SelectedPlacesCol.begin() + i);
             i--;
         }
-        /*else
-            CurScene->TablesPlaces[temp][SelectedPlacesRow[i]][SelectedPlacesCol[i]] = 1;*/
     }
     if(SelectedPlacesRow.size()){
         FinalyWindow *wnd = new FinalyWindow(SelectedPlacesRow, SelectedPlacesCol, CurScene, ui->comboBox->currentText(), ui->comboBox->currentIndex(), verification);
@@ -317,7 +314,6 @@ void MainWindow::on_pushButton_clicked() // купить
         SelectedPlacesRow.clear();
         SelectedPlacesCol.clear();
         CustomizePrice();
-
     }
 }
 
@@ -336,13 +332,10 @@ void MainWindow::on_pushButton_2_clicked() // забронировать
             CurScene->TablesPlaces[temp][SelectedPlacesRow[i]][SelectedPlacesCol[i]] = 2;
     }
     if(SelectedPlacesCol.size()){
-        //генерир код
-
         srand(time(NULL));
         for(int i = 0; i < 10; i++){
             Code += QString::number(std::rand() % 10);
         }
-        //вівожу мес бокс
         QMessageBox::information(NULL,QObject::tr("Бронирование"),tr("Ваш код: ") + Code);
     }
     CurScene->InsertTablesToDataBase(SelectedPlacesRow, SelectedPlacesCol, ui->comboBox->currentIndex(), 2, Code);
@@ -356,11 +349,12 @@ void MainWindow::on_pushButton_2_clicked() // забронировать
 
 void MainWindow::on_action_exit_triggered() // пункт Выход
 {
+
 }
 
 void MainWindow::on_action_statistic_sale_triggered() // окно статистики
 {
-    Statistic *wind = new Statistic(dt, this);
+    Statistic *wind = new Statistic();
     wind->show();
 }
 
@@ -369,10 +363,10 @@ void MainWindow::on_pushButton_3_clicked()//вернуть
     int temp = ui->comboBox->currentIndex();
 
     for(int i = 0; i < SelectedPlacesRow.size(); i++){
-        qDebug()<<SelectedPlacesCol[i];
         if(CurScene->TablesPlaces[temp][SelectedPlacesRow[i]][SelectedPlacesCol[i]] == 0){
             SelectedPlacesRow.erase(SelectedPlacesRow.begin() + i);
             SelectedPlacesCol.erase(SelectedPlacesCol.begin() + i);
+            i--;
         }
         else
             CurScene->TablesPlaces[temp][SelectedPlacesRow[i]][SelectedPlacesCol[i]] = 0;
@@ -450,26 +444,41 @@ void MainWindow::on_options_room_triggered()
 {
     int temp = ui->comboBox->currentIndex();
 
+    for(int i = 0; i < CurScene->ArrayCountPlaces[temp][0]; i++){
+        delete [] coordinates_of_places[i];
+    }
+    delete []coordinates_of_places;
+
     OptionsForHall *wind = new OptionsForHall(this);
     wind->exec();
 
+    CurScene->DeleteTables();
+
     CurScene->SetArrayCountPlaces();
     CurScene->SetDataToTables();
-
 
     SelectedPlacesRow.clear();
     SelectedPlacesCol.clear();
 
     create_a_MainTable();
-    coordinates_of_places_cleaning(ui->comboBox->currentIndex());
     places_fill();
     customizeTableInf();
+
+    coordinates_of_places = new bool*[CurScene->ArrayCountPlaces[temp][0]];
+    for(int i = 0; i < CurScene->ArrayCountPlaces[temp][0]; i++)
+        coordinates_of_places[i] = new bool [CurScene->ArrayCountPlaces[temp][1]];
+    for(int i=0; i < CurScene->ArrayCountPlaces[temp][0]; i++)
+        for(int j = 0; j < CurScene->ArrayCountPlaces[temp][1]; j++)
+        {
+            coordinates_of_places[i][j]=false;
+        }
 }
 
 void MainWindow::on_action_addScene_triggered()                 // нажатие на "Добавить постановку"
 {
     AddScene *window = new AddScene(this);
-    window->show();
+    window->exec();
+    on_dateEdit_dateChanged(QDate::fromString(ui->dateEdit->text(), "dd.MM.yyyy"));
 }
 
 void MainWindow::customizeTableInf()
@@ -509,33 +518,66 @@ void MainWindow::on_tableSeans_customContextMenuRequested(const QPoint &pos)
     QMenu * menu = new QMenu(this);
     /* Создаём действия для контекстного меню */
     QAction * editDevice = new QAction(trUtf8("Редактировать"), this);
+    QAction * delDevice = new QAction(trUtf8("Удалить"), this);
+
     /* Подключаем СЛОТы обработчики для действий контекстного меню */
     connect(editDevice, SIGNAL(triggered()), this, SLOT(slotEditRecord()));     // Обработчик вызова диалога редактирования
+    connect(delDevice, SIGNAL(triggered()), this, SLOT(slotDelRecord()));     // Обработчик вызова диалога редактирования
     /* Устанавливаем действия в меню */
     menu->addAction(editDevice);
+    menu->addAction(delDevice);
     /* Вызываем контекстное меню */
     menu->popup(ui->tableSeans->viewport()->mapToGlobal(pos));
 }
 void MainWindow::slotEditRecord()
 {
     int row = ui->tableSeans->currentRow();
-    //Проверяем, что строка была действительно выбрана
-    if(row >= 0){
-        /* Задаём вопрос, стоит ли действительно редактировать запись.
-         * При положительном ответе редактируем запись
-         * */
+
         if (QMessageBox::warning(this, trUtf8("Редактирование записи"), trUtf8("Вы уверены, что хотите редактировать эту запись?"), QMessageBox::Yes | QMessageBox::No) == QMessageBox::No)
             return;
         else {
-            // В противном случае производим редактирование записи
-            // Твой выход, кодер.
-
-            AddScene *temp = new AddScene(true, CurScene, this);
+            Scene *tempScene = new Scene();
+            QSqlQuery qry("select * from Postanovka where name='" + ui->tableSeans->item(row, 1)->text() + "' and time_seansa='" + ui->tableSeans->item(row, 0)->text() + "' and date_seansa='" + ui->dateEdit->text() + "'");
+            qry.first();
+            tempScene->set_time(ui->tableSeans->item(row, 0)->text());
+            tempScene->set_name(ui->tableSeans->item(row, 1)->text());
+            tempScene->set_date(ui->dateEdit->text());
+            tempScene->set_cost(qry.value("cost_parter").toInt(), qry.value("cost_benuar").toInt(), qry.value("cost_beletaj").toInt());
+            AddScene *temp = new AddScene(true, tempScene, this);
             temp->exec();
             on_dateEdit_dateChanged(QDate::fromString(ui->dateEdit->text(), "dd.MM.yyyy"));
         }
+
+}
+
+void MainWindow::slotDelRecord(){
+    int row = ui->tableSeans->currentRow();
+
+    QSqlQuery qry1("delete from Postanovka where name='" + ui->tableSeans->item(row, 1)->text() + "' and time_seansa='" + ui->tableSeans->item(row, 0)->text() + "' and date_seansa='" + ui->dateEdit->text() + "'");
+    QSqlQuery qry2("delete from Employed_place where name_seansa='" + ui->tableSeans->item(row, 1)->text() + "' and time_seansa='" + ui->tableSeans->item(row, 0)->text() + "' and date_seansa='" + ui->dateEdit->text() + "'");
+    if(ui->tableSeans->item(row, 1)->text() == CurScene->name && ui->tableSeans->item(row, 0)->text() == CurScene->time && ui->dateEdit->text() == CurScene->date){
+        delete CurScene;
+        CurScene = new Scene();
+
+        ui->comboBox->setEnabled(false);
+        ui->pushButton->setEnabled(false);
+        ui->pushButton_2->setEnabled(false);
+        ui->pushButton_3->setEnabled(false);
+        ui->pushButtonCode->setEnabled(false);
+        ui->lineEditCode->setEnabled(false);
+        ui->tableWidget->setVerticalHeader(false);
+        ui->tableWidget->verticalHeader()->setStyleSheet("border-width: 0px;");
+        ui->label_4->setText("");
+        ui->tableWidget->setRowCount(0);
+        ui->tableWidget->setColumnCount(0);
+
+        customizeTableInf();
+        CustomizePrice();
+
+        SelectedPlacesRow.clear();
+        SelectedPlacesCol.clear();
     }
-    on_tableSeans_cellClicked(row, 1);
+    on_dateEdit_dateChanged(QDate::fromString(ui->dateEdit->text(), "dd.MM.yyyy"));
 }
 
 void MainWindow::DeleteBooked(std::vector <short> PurRow, std::vector<short>PurCol)

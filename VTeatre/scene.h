@@ -10,13 +10,13 @@ class Scene
 
 
 public:
-    Scene(int temp);
     Scene();
 
     void set_name(QString arg);
     void set_date(QString arg);
     void set_time(QString arg);
     void set_cost();
+    void set_cost(int par, int ben, int bel);
     void SetArrayCountPlaces();
     void SetDataToTables();
     void DeleteTables();

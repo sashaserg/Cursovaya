@@ -83,6 +83,8 @@ private slots:
 
     void slotEditRecord();
 
+    void slotDelRecord();
+
     void on_pushButtonCode_clicked();
 
     void main_window_resize(QResizeEvent *event);

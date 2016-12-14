@@ -1,18 +1,13 @@
 ﻿#include "scene.h"
 
-Scene::Scene(int temp)
-{
-    name = date = time = "";
-    CountOfTypesPlaces = temp;
-    nameofplace[0] = "Партер";
-    nameofplace[1] = "Бенуар";
-    nameofplace[2] = "Бельэтаж";
-}
-
 Scene::Scene()
 {
     name = date = time = "";
     cost_parter = cost_benuar = cost_beletaj = 0;
+    CountOfTypesPlaces = 3;
+    nameofplace[0] = "Партер";
+    nameofplace[1] = "Бенуар";
+    nameofplace[2] = "Бельэтаж";
 }
 
 void Scene::set_name(QString arg){
@@ -29,6 +24,12 @@ void Scene::set_cost(){
     Cost.push_back(qry.value(0).toDouble());
     Cost.push_back(qry.value(1).toDouble());
     Cost.push_back(qry.value(2).toDouble());
+}
+
+void Scene::set_cost(int par, int ben, int bel){
+    Cost.push_back(par);
+    Cost.push_back(ben);
+    Cost.push_back(bel);
 }
 
 void Scene::set_date(QString arg){
@@ -52,10 +53,6 @@ void Scene::SetDataToTables(){
         for(int j = 0; j < ArrayCountPlaces[i][0]; j++)
             TablesPlaces[i][j] = new int [ArrayCountPlaces[i][1]];
     }
-    QString nameofplace[3];
-    nameofplace[0] = "Партер";
-    nameofplace[1] = "Бенуар";
-    nameofplace[2] = "Бельэтаж";
     for(int k = 0; k < CountOfTypesPlaces; k++){
         QSqlQuery qry("select * from Employed_place where type_place='" + nameofplace[k] + "' and time_seansa='" + time +"' and date_seansa='" + date + "' and name_seansa='" + name +"'" );
         for(int i = 0; i < ArrayCountPlaces[k][0]; i++){
@@ -102,8 +99,4 @@ void Scene::InsertTablesToDataBase(std::vector<short> SelectedPlacesRow, std::ve
             QSqlQuery qry("insert into Employed_place (code, type_place, date_seansa, time_seansa, name_seansa, row, column, state) values ('" + Code + "', '" + nameofplace[Index] + "', '" + date + "', '" + time + "', '" + name + "', " + QString::number(row) + ", " + QString::number(column) + ", 'Забронировано')");
         }
     }
-    /*QSqlQuery qry("select * from Employed_place");
-    while(qry.next()){
-        qDebug()<<qry.value(0);
-    }*/
 }

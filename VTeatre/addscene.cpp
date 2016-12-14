@@ -20,6 +20,7 @@ AddScene::AddScene(bool Edit,Scene *temp, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AddScene)
 {
+    qDebug()<<"Zashlo V constr0";
     ui->setupUi(this);
     Editing = Edit;
     PriviosName= temp->name;
@@ -48,7 +49,9 @@ void AddScene::on_ButtonAdd_clicked()                               // Нажа�
         double cost_parter = ui->ParterPrice->value(),
                cost_benuar = ui->BenuarPrice->value(),
                cost_beletaj = ui->BeletazPrice->value();
-        QSqlQuery qry_update("update Postanovka set name='" +name+ "', time_seansa='" + time + "', date_seansa='" +date+ "', cost_parter = "+QString::number(cost_parter)+", cost_benuar = "+QString::number(cost_benuar)+ ", cost_beletaj = " +QString::number(cost_beletaj)+ " where name='" +PriviosName+ "' and time_seansa='" +PriviosTime+ "' and date_seansa='" +PriviosDate+ "'");
+        QSqlQuery qry_update1("update Postanovka set name='" +name+ "', time_seansa='" + time + "', date_seansa='" +date+ "', cost_parter = "+QString::number(cost_parter)+", cost_benuar = "+QString::number(cost_benuar)+ ", cost_beletaj = " +QString::number(cost_beletaj)+ " where name='" +PriviosName+ "' and time_seansa='" +PriviosTime+ "' and date_seansa='" +PriviosDate+ "'");
+        QSqlQuery qry_update2("update Employed_place set name_seansa='" +name+ "', time_seansa='" + time + "', date_seansa='" +date+ "' where name_seansa='" +PriviosName+ "' and time_seansa='" +PriviosTime+ "' and date_seansa='" +PriviosDate+ "'");
+
         Editing = false;
     }
     else {

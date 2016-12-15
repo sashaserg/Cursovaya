@@ -16,7 +16,6 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     about.cpp \
-    windowbuyer.cpp \
     statistic.cpp \
     optionsforhall.cpp \
     addscene.cpp \
@@ -27,7 +26,6 @@ SOURCES += main.cpp\
 
 HEADERS  += mainwindow.h \
     about.h \
-    windowbuyer.h \
     statistic.h \
     optionsforhall.h \
     addscene.h \
@@ -38,7 +36,6 @@ HEADERS  += mainwindow.h \
 
 FORMS    += mainwindow.ui \
     about.ui \
-    windowbuyer.ui \
     statistic.ui \
     optionsforhall.ui \
     addscene.ui \

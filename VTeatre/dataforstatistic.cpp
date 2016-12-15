@@ -2,29 +2,24 @@
 
 DataforStatistic::DataforStatistic(int Days)
 {
-    CountDays = Days;
+    CountDays = Days;                               //Устанавливаем количество дней
 
-    DataOfPlaces = new QString **[Days];
-    for(int i = 0; i < CountDays; i++){
-        DataOfPlaces[i] = new QString * [3];
+    DataOfPlaces = new QString **[Days];            //Выделяем память для хранения даты и
+    for(int i = 0; i < CountDays; i++){             //количества купленных мест за определенный
+        DataOfPlaces[i] = new QString * [3];        //промежуток времени
         for(int j = 0; j < 3; j++)
             DataOfPlaces[i][j] = new QString [2];
     }
 }
 
 void DataforStatistic::InsertData(){
-    QSqlQuery qry;
-    if(!qry.exec("select * from DataforStatistic order by date desc"))
-    {
-        qDebug()<<qry.lastError().databaseText();
-    }
-    //
-    for(int i = 0; i < CountDays; i++){
+    QSqlQuery qry("select * from DataforStatistic order by date desc"); //Подключаю БД
+
+    for(int i = 0; i < CountDays; i++){                                 //Заполняю массив значениями из БД
         for(int j = 0 ; j < 3 && qry.next(); j++){
 
-            DataOfPlaces[i][j][0] = qry.value(1).toString();//Здесь количество мест в этот день
-            DataOfPlaces[i][j][1] = qry.value("date").toString();//Здесь дата
-            qDebug()<<DataOfPlaces[i][j][0]<<" "<<DataOfPlaces[i][j][1];
+            DataOfPlaces[i][j][0] = qry.value(1).toString();            //Здесь количество мест в этот день
+            DataOfPlaces[i][j][1] = qry.value("date").toString();       //Здесь дата
         }
     }
 }

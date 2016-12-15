@@ -6,11 +6,10 @@ FinalyWindow::FinalyWindow(std::vector <short> SelectedPlacesRow, std::vector <s
     ui(new Ui::FinalyWindow)
 {
     ui->setupUi(this);
-    verific = verification;
+    verific = verification;                 //Флаг, указывающий на то, подтвердилли ли мы покупку
     Cost = 0;
-    CreateTable(SelectedPlacesRow, SelectedPlacesCol, CurScene, CurHoll, CurIndex);
+    CreateTable(SelectedPlacesRow, SelectedPlacesCol, CurScene, CurHoll, CurIndex); //Создаем таблицу
     ui->labelCost->setText("К оплате: " + QString::number(Cost) + "грн.");
-    qDebug()<<verific;
 }
 
 FinalyWindow::~FinalyWindow()
@@ -19,15 +18,15 @@ FinalyWindow::~FinalyWindow()
 }
 
 void FinalyWindow::CreateTable(std::vector <short> SelectedPlacesRow, std::vector <short> SelectedPlacesCol, Scene *CurScene, QString CurHoll, int CurIndex){
-    ui->tableWidget->setRowCount(SelectedPlacesRow.size());
+    ui->tableWidget->setRowCount(SelectedPlacesRow.size()); //Устанавливаем необходимое количество строк
 
-    for(int i = 0; i < SelectedPlacesRow.size(); i++){
-        for(int j = 0; j < ui->tableWidget->columnCount(); j++){
+    for(int i = 0; i < SelectedPlacesRow.size(); i++){              //Выделяю место
+        for(int j = 0; j < ui->tableWidget->columnCount(); j++){    //для каждой ячейки
             ui->tableWidget->setItem(i, j, new QTableWidgetItem);
         }
     }
 
-    for(int i = 0; i < SelectedPlacesRow.size(); i++){
+    for(int i = 0; i < SelectedPlacesRow.size(); i++){              //Заполняю таблицу данными
         ui->tableWidget->item(i, 0)->setText(CurScene->name);
         ui->tableWidget->item(i, 1)->setText(CurHoll);
         ui->tableWidget->item(i, 2)->setText(CurScene->date);
@@ -39,8 +38,8 @@ void FinalyWindow::CreateTable(std::vector <short> SelectedPlacesRow, std::vecto
     }
 }
 
-void FinalyWindow::on_pushButtonOk_clicked()
+void FinalyWindow::on_pushButtonOk_clicked()    //При подтверждении покупки
 {
-    *verific = true;
-    this->close();
+    *verific = true;                            //флаг, указывающий на то, подтверждили ли мы покупку
+    this->close();                              //закрываю форму
 }

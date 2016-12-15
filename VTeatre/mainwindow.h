@@ -7,7 +7,6 @@
 #include <QPixmap>
 #include <QGraphicsScene>
 #include "about.h"
-#include "windowbuyer.h"
 #include "vector"
 #include "string"
 #include <QtDebug>
@@ -54,8 +53,6 @@ public:
 private slots:
     void on_informationAbout_triggered();
 
-    void on_action_triggered();
-
     void on_tableWidget_cellClicked(int row, int column);
 
     void on_comboBox_currentIndexChanged(int index);
@@ -94,7 +91,6 @@ private:
     Ui::MainWindow *ui;
     QSqlDatabase mydb;
     void places_fill();//заполняет места
-    void cleasing_places();//очищает места
     void create_a_MainTable();
     void places_overwrite(int row, int column);//удаляет дубликаты в базе
     void pix_close(int row, int column);//красит в красный

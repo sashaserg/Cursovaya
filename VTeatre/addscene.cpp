@@ -6,28 +6,23 @@ AddScene::AddScene(QWidget *parent) :
     ui(new Ui::AddScene)
 {
     ui->setupUi(this);
-    mydb= QSqlDatabase::addDatabase("QSQLITE");                     // Подключение базы данных
-    mydb.setDatabaseName("C:/Cursovaya/VTeatre.sqlite");
-    Editing = false;
-
-    if(!mydb.open())
-        qDebug()<<mydb.lastError().text();
-    else
-        qDebug()<<"Connected Compled";
+    mydb = QSqlDatabase::addDatabase("QSQLITE");            // Подключение базы данных
+    mydb.setDatabaseName("D:/Cursovaya/VTeatre.sqlite");
+    Editing = false;                                        //Флаг редактирования
 }
 
 AddScene::AddScene(bool Edit,Scene *temp, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AddScene)
 {
-    qDebug()<<"Zashlo V constr0";
     ui->setupUi(this);
-    Editing = Edit;
-    PriviosName= temp->name;
-    PriviosDate = temp->date;
-    PriviosTime = temp->time;
-    ui->NameLineEdit->setText(temp->name);
-    ui->timeEdit->setTime(QTime::fromString(temp->time));
+
+    Editing = Edit;                                         //Флаг редактирования
+    PriviosName= temp->name;                                //Предыдущее имя
+    PriviosDate = temp->date;                               //Предыдущая дата
+    PriviosTime = temp->time;                               //Предыдущее время
+    ui->NameLineEdit->setText(temp->name);                  //Устанавливаем необходимое название постановки в поле
+    ui->timeEdit->setTime(QTime::fromString(temp->time));   //а так же дату и время и цены
     ui->dateEdit->setDate(QDate::fromString(temp->date, "dd.MM.yyyy"));
     ui->ParterPrice->setValue(temp->Cost[0]);
     ui->BenuarPrice->setValue(temp->Cost[1]);
@@ -63,10 +58,7 @@ void AddScene::on_ButtonAdd_clicked()                               // Нажа�
                              ", "+QString::number(ui->BeletazPrice->value())+")");
         QSqlQuery qry_insert1;
         QSqlQuery qry_select;
-        if(!qry_select.exec("select distinct date from DataforStatistic where date='" +ui->dateEdit->text()+ "'"))
-        {
-                qDebug()<<qry_select.lastError().databaseText();
-        }
+
         qry_select.first();
         if(qry_select.value("date")!=ui->dateEdit->text())
         {

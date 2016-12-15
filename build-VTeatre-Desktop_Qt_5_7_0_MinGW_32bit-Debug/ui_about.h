@@ -84,7 +84,7 @@ public:
 
     void retranslateUi(QDialog *About)
     {
-        About->setWindowTitle(QApplication::translate("About", "Dialog", 0));
+        About->setWindowTitle(QApplication::translate("About", "\320\236 \320\277\321\200\320\276\320\264\321\203\320\272\321\202\320\265", 0));
         groupBox->setTitle(QApplication::translate("About", "\320\230\320\275\321\204\320\276\321\200\320\274\320\260\321\206\320\270\321\217", 0));
         pushButton->setText(QApplication::translate("About", "\320\227\320\260\320\272\321\200\321\213\321\202\321\214", 0));
     } // retranslateUi

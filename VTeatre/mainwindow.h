@@ -21,6 +21,7 @@
 #include <vector>
 #include <QMessageBox>
 #include <ctime>
+#include <QtSvg>
 namespace Ui {
 class MainWindow;
 }

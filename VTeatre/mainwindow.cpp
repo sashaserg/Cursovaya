@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     mydb = QSqlDatabase::addDatabase("QSQLITE");
-    mydb.setDatabaseName("D:/Cursovaya/VTeatre.sqlite");
+    mydb.setDatabaseName("C:/Cursovaya/VTeatre.sqlite");
 
     CurScene = new Scene();
 
@@ -26,11 +26,11 @@ MainWindow::MainWindow(QWidget *parent) :
     CountPurchased = 0;
     CountBooked = 0;
 
-    QPixmap  pix;
+  /*  QPixmap  pix;
     pix.load(":/image/scena.png");
     pix = pix.scaled(ui->label_2->size());
     ui->label_2->setPixmap(pix);
-
+*/
     dt = QDateTime::currentDateTime();
     ui->dateEdit->setDateTime(dt);
     //ui->dateEdit->setMinimumDateTime(dt); // минимальная дата выставляется по текущей дате
@@ -58,12 +58,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->lineEditCode->setEnabled(false);
 
     QString date = ui->dateEdit->text();
-    QSqlQuery qry_delete("delete from Postanovka where date_seansa<'" +date+ "'");
-    QSqlQuery qry_delete1("delete from Employed_place where date_seansa<'" +date+ "'");
+    //QSqlQuery qry_delete("delete from Postanovka where date_seansa<'" +date+ "'");
+    //QSqlQuery qry_delete1("delete from Employed_place where date_seansa<'" +date+ "'");
 
-    /*qry_insert.prepare("insert into Date(date_seansa) values(':date');");
-    qry_insert.bindValue(":date", "14.12.2016");*/
-    //QDateTime dt1= QDateTime::fromString("12.12.2016", "dd.MM.yyyy");
+
 
     connect(this, SIGNAL(MyWindowReSize(QResizeEvent*)), this, SLOT(main_window_resize(QResizeEvent*)));
 }
@@ -304,6 +302,7 @@ void MainWindow::on_pushButton_clicked() // купить
             DeleteBooked(PurRow, PurCol);
             for(int i = 0; i < SelectedPlacesRow.size(); i++){
                 CurScene->TablesPlaces[temp][SelectedPlacesRow[i]][SelectedPlacesCol[i]] = 1;
+                QSqlQuery qry("update DataforStatistic set count_place="+ QString::number(i) +" where date='" +ui->dateEdit->text()+ "' and type_place='" +ui->comboBox->currentText()+ "'");
             }
             CurScene->InsertTablesToDataBase(SelectedPlacesRow, SelectedPlacesCol, ui->comboBox->currentIndex(), 1);
             customizeTableInf();
@@ -354,8 +353,8 @@ void MainWindow::on_action_exit_triggered() // пункт Выход
 
 void MainWindow::on_action_statistic_sale_triggered() // окно статистики
 {
-    Statistic *wind = new Statistic();
-    wind->show();
+    Statistic *wnd = new Statistic;
+    wnd->exec();
 }
 
 void MainWindow::on_pushButton_3_clicked()//вернуть
@@ -412,9 +411,8 @@ void MainWindow::create_a_MainTable()
             ui->tableWidget->setItem( i, j, item );
         }
     }
-    ui->tableWidget->setAutoScroll(false);                        // отключаю авто скролл к выбраной ячейке
+    //ui->tableWidget->setAutoScroll(false);                        // отключаю авто скролл к выбраной ячейке
 
-    ui->tableWidget->verticalHeader()->setFixedWidth(25);         // размер хидера
     ui->tableWidget->verticalHeader()->setStyleSheet("border-style: solid;"             // стиль для хидера
                                                      "border-width: 1px;"
                                                      "border-color: black;"
@@ -436,6 +434,7 @@ void MainWindow::create_a_MainTable()
     ui->tableWidget->verticalHeader()->setVisible(true);
     ui->tableWidget->verticalHeader()->setMaximumSectionSize(ui->tableWidget->verticalHeader()->defaultSectionSize());
     ui->tableWidget->verticalHeader()->setMinimumSectionSize(ui->tableWidget->verticalHeader()->defaultSectionSize());
+   // ui->tableWidget->verticalHeader()->setFixedWidth(30);         // размер хидера
 }
 
 
@@ -631,8 +630,8 @@ void MainWindow::resizeEvent(QResizeEvent* e)
 
 void MainWindow::main_window_resize(QResizeEvent *event)
 {
-    QPixmap  pix;
+   /* QPixmap  pix;
     pix.load(":/image/scena.png");
     pix = pix.scaled(ui->label_2->size());
-    ui->label_2->setPixmap(pix);
+    ui->label_2->setPixmap(pix);*/
 }

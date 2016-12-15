@@ -172,13 +172,19 @@ public:
         tableInfo->setVerticalHeaderItem(0, __qtablewidgetitem2);
         QTableWidgetItem *__qtablewidgetitem3 = new QTableWidgetItem();
         tableInfo->setVerticalHeaderItem(1, __qtablewidgetitem3);
+        QBrush brush(QColor(218, 215, 255, 255));
+        brush.setStyle(Qt::SolidPattern);
         QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem();
+        __qtablewidgetitem4->setBackground(brush);
         tableInfo->setItem(0, 0, __qtablewidgetitem4);
         QTableWidgetItem *__qtablewidgetitem5 = new QTableWidgetItem();
+        __qtablewidgetitem5->setBackground(brush);
         tableInfo->setItem(0, 1, __qtablewidgetitem5);
         QTableWidgetItem *__qtablewidgetitem6 = new QTableWidgetItem();
+        __qtablewidgetitem6->setBackground(brush);
         tableInfo->setItem(1, 0, __qtablewidgetitem6);
         QTableWidgetItem *__qtablewidgetitem7 = new QTableWidgetItem();
+        __qtablewidgetitem7->setBackground(brush);
         tableInfo->setItem(1, 1, __qtablewidgetitem7);
         tableInfo->setObjectName(QStringLiteral("tableInfo"));
         tableInfo->setMinimumSize(QSize(191, 41));
@@ -210,8 +216,14 @@ public:
         sizePolicy.setHeightForWidth(label_2->sizePolicy().hasHeightForWidth());
         label_2->setSizePolicy(sizePolicy);
         label_2->setMinimumSize(QSize(639, 31));
+        QFont font3;
+        font3.setFamily(QStringLiteral("Times New Roman"));
+        font3.setPointSize(18);
+        label_2->setFont(font3);
         label_2->setLayoutDirection(Qt::LeftToRight);
-        label_2->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+        label_2->setAutoFillBackground(false);
+        label_2->setStyleSheet(QStringLiteral("background-color: rgb(238, 227, 175);"));
+        label_2->setAlignment(Qt::AlignCenter);
 
         horizontalLayout_4->addWidget(label_2);
 
@@ -284,9 +296,9 @@ public:
         lineEditCode = new QLineEdit(centralWidget);
         lineEditCode->setObjectName(QStringLiteral("lineEditCode"));
         lineEditCode->setMinimumSize(QSize(150, 30));
-        QFont font3;
-        font3.setPointSize(10);
-        lineEditCode->setFont(font3);
+        QFont font4;
+        font4.setPointSize(10);
+        lineEditCode->setFont(font4);
 
         verticalLayout_4->addWidget(lineEditCode);
 
@@ -391,9 +403,9 @@ public:
         dateEdit = new QDateEdit(centralWidget);
         dateEdit->setObjectName(QStringLiteral("dateEdit"));
         dateEdit->setMinimumSize(QSize(256, 30));
-        QFont font4;
-        font4.setPointSize(12);
-        dateEdit->setFont(font4);
+        QFont font5;
+        font5.setPointSize(12);
+        dateEdit->setFont(font5);
         dateEdit->setFocusPolicy(Qt::WheelFocus);
         dateEdit->setDateTime(QDateTime(QDate(2016, 1, 1), QTime(0, 0, 0)));
         dateEdit->setCalendarPopup(true);

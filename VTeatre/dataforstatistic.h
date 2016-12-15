@@ -8,11 +8,11 @@
 
 class DataforStatistic
 {
-    QString **DataOfPlaces;
-
+    int CountDays;
 public:
-    DataforStatistic(int CountDays);
+    DataforStatistic(int Days);
     void InsertData();
+    QString ***DataOfPlaces;
 };
 
 #endif // DATAFORSTATISTIC_H

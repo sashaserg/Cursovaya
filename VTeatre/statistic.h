@@ -2,7 +2,7 @@
 #define STATISTIC_H
 
 #include <QDialog>
-
+#include "dataforstatistic.h"
 namespace Ui {
 class Statistic;
 }
@@ -21,6 +21,7 @@ private slots:
 
 private:
     Ui::Statistic *ui;
+    void CreateGraph(DataforStatistic *data, int CountDays);
 };
 
 #endif // STATISTIC_H

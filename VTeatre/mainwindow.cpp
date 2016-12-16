@@ -8,10 +8,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    QString path = qApp->applicationDirPath() + "/VTeatre.sqlite";
 
     mydb = QSqlDatabase::addDatabase("QSQLITE");            //Подключаю БД
-    mydb.setDatabaseName("D:/Cursovaya/VTeatre.sqlite");
-
+    mydb.setDatabaseName("./VTeatre.sqlite");
+    mydb.open();
     CurScene = new Scene();                                 //Создаю объект сцены (пока пустой)
 
     CurScene->SetArrayCountPlaces();                        //Заполняю массив количества мест для каждого из типа мест
@@ -332,7 +333,9 @@ void MainWindow::on_action_statistic_sale_triggered() // окно статист
 void MainWindow::on_pushButton_3_clicked()//вернуть
 {
     int temp = ui->comboBox->currentIndex();
-
+    QSqlQuery qry0("select count_place from DataforStatistic where date='" + ui->dateEdit->text()+ "' and type_place='" +ui->comboBox->currentText()+ "'"); //Обновляю БД
+    qry0.first();
+    QSqlQuery qry("update DataforStatistic set count_place="+ QString::number(qry0.value("count_place").toInt() - SelectedPlacesRow.size()) +" where date='" +ui->dateEdit->text()+ "' and type_place='" +ui->comboBox->currentText()+ "'");
     for(int i = 0; i < SelectedPlacesRow.size(); i++){
         if(CurScene->TablesPlaces[temp][SelectedPlacesRow[i]][SelectedPlacesCol[i]] == 0){  //проверяю на то, занято ли место
             SelectedPlacesRow.erase(SelectedPlacesRow.begin() + i);                         //если да, то удаляю его из вектора
@@ -400,6 +403,9 @@ void MainWindow::create_a_MainTable()                               //созда
                                    "border-width: 1px;"
                                    "border-color: green;"
                                    "border-radius: 0px;"
+                                   "}"
+                                   "QHeaderView{"
+                                   "background-color: transparent;"
                                    "}");
     ui->tableWidget->verticalHeader()->setVisible(true);
     ui->tableWidget->verticalHeader()->setMaximumSectionSize(ui->tableWidget->verticalHeader()->defaultSectionSize());//Устанавливаю размеры вертикального хедера

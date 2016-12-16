@@ -170,6 +170,9 @@
             <pointsize>10</pointsize>
            </font>
           </property>
+          <property name="maximum">
+           <double>1000.990000000000009</double>
+          </property>
          </widget>
          <widget class="QDoubleSpinBox" name="BenuarPrice">
           <property name="geometry">
@@ -185,6 +188,9 @@
             <pointsize>10</pointsize>
            </font>
           </property>
+          <property name="maximum">
+           <double>1000.990000000000009</double>
+          </property>
          </widget>
          <widget class="QDoubleSpinBox" name="BeletazPrice">
           <property name="geometry">
@@ -199,6 +205,9 @@
            <font>
             <pointsize>10</pointsize>
            </font>
+          </property>
+          <property name="maximum">
+           <double>1000.990000000000009</double>
           </property>
          </widget>
          <widget class="QLabel" name="label">

@@ -2,6 +2,7 @@
 #include "ui_optionsforhall.h"
 #include <QtXml>
 #include <QFileDialog>
+#include <QDir>
 #include <QMessageBox>
 
 OptionsForHall::OptionsForHall(QWidget *parent) :
@@ -11,8 +12,8 @@ OptionsForHall::OptionsForHall(QWidget *parent) :
     ui->setupUi(this);
 
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers); //запрет редактирования всех ячеек в таблице tableWidget
-
-    QString jsonFileName = "D:/Cursovaya/Data.json";                    // у меня не отрывает файл.
+    QString path = qApp->applicationDirPath() + "/Data.json";
+    QString jsonFileName = "./Data.json";                    // у меня не отрывает файл.
 
     if(jsonFileName != NULL)
     {
@@ -141,7 +142,8 @@ void OptionsForHall::on_ComboBoxType_currentIndexChanged(int index)
 
 void OptionsForHall::on_pushButtonOK_clicked()          //при нажатии на "ОК" изменяю БД
 {
-    QString jsonFileName = "D:/Cursovaya/Data.json";
+    QString path = qApp->applicationDirPath() + "./Data.json";
+    QString jsonFileName = path;
     if(jsonFileName != NULL)
     {
             QFile jsonFile(jsonFileName);

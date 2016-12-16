@@ -7,7 +7,9 @@ AddScene::AddScene(QWidget *parent) :
 {
     ui->setupUi(this);
     mydb = QSqlDatabase::addDatabase("QSQLITE");            // Подключение базы данных
-    mydb.setDatabaseName("D:/Cursovaya/VTeatre.sqlite");
+    QString path = qApp->applicationDirPath() + "/VTeatre.sqlite";
+    mydb.setDatabaseName("./VTeatre.sqlite");
+    mydb.open();
     Editing = false;                                        //Флаг редактирования
 }
 
@@ -50,24 +52,38 @@ void AddScene::on_ButtonAdd_clicked()                               // Нажа�
         Editing = false;
     }
     else {
-        QSqlQuery qry_insert("insert into Postanovka(name, time_seansa, date_seansa, cost_parter, cost_benuar, cost_beletaj) values('" + ui->NameLineEdit->text()+
-                             "', '" + ui->timeEdit->text()+
-                             "', '"+ui->dateEdit->text()+
-                             "', "+QString::number(ui->ParterPrice->value())+
-                             ", "+QString::number(ui->BenuarPrice->value())+
-                             ", "+QString::number(ui->BeletazPrice->value())+")");
-        QSqlQuery qry_insert1;
         QSqlQuery qry_select;
-
-        qry_select.first();
-        if(qry_select.value("date")!=ui->dateEdit->text())
+        if(!qry_select.exec("select * from Postanovka where date_seansa='" +ui->dateEdit->text()+ "' and time_seansa='"+ui->timeEdit->text()+"'"))
         {
-            if(!qry_insert1.exec("insert into DataforStatistic(type_place, date, count_income, count_place) values ('Партер', '" +ui->dateEdit->text()+ "', 0, 0)"))
-                qDebug()<<qry_insert1.lastError().databaseText();
-            if(!qry_insert1.exec("insert into DataforStatistic(type_place, date, count_income, count_place) values ('Бенуар', '" +ui->dateEdit->text()+ "', 0, 0)"))
-                qDebug()<<qry_insert1.lastError().databaseText();
-            if(!qry_insert1.exec("insert into DataforStatistic(type_place, date, count_income, count_place) values ('Бельэтаж', '" +ui->dateEdit->text()+ "', 0, 0)"))
-                qDebug()<<qry_insert1.lastError().databaseText();
+            qDebug()<<qry_select.lastError().databaseText();
+        }
+        qry_select.first();
+        QSqlQuery qry_insert;
+        if(qry_select.value(2).toString()!=ui->dateEdit->text() && qry_select.value(1).toString()!=ui->timeEdit->text())
+        {
+            qry_insert.exec("insert into Postanovka(name, time_seansa, date_seansa, cost_parter, cost_benuar, cost_beletaj) values('" + ui->NameLineEdit->text()+
+                         "', '" + ui->timeEdit->text()+
+                         "', '"+ui->dateEdit->text()+
+                         "', "+QString::number(ui->ParterPrice->value())+
+                         ", "+QString::number(ui->BenuarPrice->value())+
+                         ", "+QString::number(ui->BeletazPrice->value())+")");
+        }
+        else {qDebug()<<"1";}
+        //QSqlQuery qry_insert1;
+        QSqlQuery qry_select1;
+        if(!qry_select1.exec("select * from DataforStatistic where date='" +ui->dateEdit->text()+ "'"))
+        {
+            qDebug()<<qry_select1.lastError().databaseText();
+        }
+        qry_select1.first();
+        if(qry_select1.value(3).toString()!=ui->dateEdit->text())
+        {
+            if(!qry_insert.exec("insert into DataforStatistic(type_place, date, count_income, count_place) values ('Партер', '" +ui->dateEdit->text()+ "', 0, 0)"))
+                qDebug()<<qry_insert.lastError().databaseText();
+            if(!qry_insert.exec("insert into DataforStatistic(type_place, date, count_income, count_place) values ('Бенуар', '" +ui->dateEdit->text()+ "', 0, 0)"))
+                qDebug()<<qry_insert.lastError().databaseText();
+            if(!qry_insert.exec("insert into DataforStatistic(type_place, date, count_income, count_place) values ('Бельэтаж', '" +ui->dateEdit->text()+ "', 0, 0)"))
+                qDebug()<<qry_insert.lastError().databaseText();
         }
         }
 }

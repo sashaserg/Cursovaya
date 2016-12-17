@@ -261,6 +261,8 @@ void MainWindow::on_pushButton_clicked() // купить
             PurCol.push_back(SelectedPlacesCol[i]);
         }
         if(CurScene->TablesPlaces[temp][SelectedPlacesRow[i]][SelectedPlacesCol[i]] == 1){//Если поукупаю уже купленные
+            QMessageBox::warning(this, "Предупреждение", "Место: " + QString::number(SelectedPlacesCol[i] + 1) + " Ряд: "+ QString::number(SelectedPlacesRow[i] + 1) +" уже куплено.");
+
             SelectedPlacesRow.erase(SelectedPlacesRow.begin() + i);                       //То удаляю из вектора и ничего не делаю с ними
             SelectedPlacesCol.erase(SelectedPlacesCol.begin() + i);
             i--;
@@ -308,7 +310,8 @@ void MainWindow::on_pushButton_2_clicked() // забронировать
         for(int i = 0; i < 10; i++){    //генерирую случайный код
             Code += QString::number(std::rand() % 10);
         }
-        QMessageBox::information(NULL,QObject::tr("Бронирование"),tr("Ваш код: ") + Code);//и вывожу его
+        //QMessageBox::information(QMessageBox::NoIcon,QObject::tr("Бронирование"),tr("Ваш код: ") + Code);//и вывожу его
+        QMessageBox::information(this, QObject::tr("Бронирование"),tr("Ваш код: ") + Code );
     }
     CurScene->InsertTablesToDataBase(SelectedPlacesRow, SelectedPlacesCol, ui->comboBox->currentIndex(), 2, Code);  //обновляю БД
     places_fill();                                                  //Обновляю таблицу мест
@@ -588,7 +591,7 @@ void MainWindow::on_pushButtonCode_clicked()    //Поиск мест по вв�
         Enabled = false;
     }
     if(Enabled){//если не найдено, то вывести сообщение пользователю
-        QMessageBox::critical(NULL,QObject::tr("Ошибка"),tr("Для данной постановки код не найден."));
+        QMessageBox::critical(this,QObject::tr("Ошибка"),tr("Для данной постановки код не найден."));
     }
 }
 void MainWindow::resizeEvent(QResizeEvent* e)   //изменение размера. Из класса QObject

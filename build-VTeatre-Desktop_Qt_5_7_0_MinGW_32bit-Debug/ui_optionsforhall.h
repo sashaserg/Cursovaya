@@ -41,14 +41,13 @@ public:
     QComboBox *ComboBoxType;
     QVBoxLayout *verticalLayout;
     QPushButton *pushButtonOK;
-    QPushButton *pushButtonCancel;
     QTableWidget *tableWidget;
 
     void setupUi(QDialog *OptionsForHall)
     {
         if (OptionsForHall->objectName().isEmpty())
             OptionsForHall->setObjectName(QStringLiteral("OptionsForHall"));
-        OptionsForHall->resize(633, 529);
+        OptionsForHall->resize(633, 530);
         QIcon icon;
         icon.addFile(QStringLiteral(":/image/tools.ico"), QSize(), QIcon::Normal, QIcon::Off);
         OptionsForHall->setWindowIcon(icon);
@@ -104,12 +103,6 @@ public:
 
         verticalLayout->addWidget(pushButtonOK);
 
-        pushButtonCancel = new QPushButton(OptionsForHall);
-        pushButtonCancel->setObjectName(QStringLiteral("pushButtonCancel"));
-        pushButtonCancel->setMinimumSize(QSize(81, 31));
-
-        verticalLayout->addWidget(pushButtonCancel);
-
 
         horizontalLayout->addLayout(verticalLayout);
 
@@ -127,7 +120,7 @@ public:
         tableWidget->setColumnCount(0);
         tableWidget->horizontalHeader()->setVisible(false);
         tableWidget->horizontalHeader()->setDefaultSectionSize(61);
-        tableWidget->verticalHeader()->setVisible(true);
+        tableWidget->verticalHeader()->setVisible(false);
         tableWidget->verticalHeader()->setCascadingSectionResizes(false);
         tableWidget->verticalHeader()->setDefaultSectionSize(27);
         tableWidget->verticalHeader()->setMinimumSectionSize(21);
@@ -157,7 +150,6 @@ public:
          << QApplication::translate("OptionsForHall", "\320\221\320\265\320\273\321\214\321\215\321\202\320\260\320\266", 0)
         );
         pushButtonOK->setText(QApplication::translate("OptionsForHall", "\320\237\321\200\320\270\320\275\321\217\321\202\321\214", 0));
-        pushButtonCancel->setText(QApplication::translate("OptionsForHall", "\320\236\321\202\320\274\320\265\320\275\320\260", 0));
     } // retranslateUi
 
 };

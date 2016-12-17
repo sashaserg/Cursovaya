@@ -45,6 +45,7 @@ public:
         QIcon icon;
         icon.addFile(QStringLiteral(":/image/theater.ico"), QSize(), QIcon::Normal, QIcon::Off);
         FinalyWindow->setWindowIcon(icon);
+        FinalyWindow->setStyleSheet(QStringLiteral("background-color: #dde2e3;"));
         gridLayout = new QGridLayout(FinalyWindow);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         verticalLayout_2 = new QVBoxLayout();
@@ -95,6 +96,21 @@ public:
         pushButtonOk = new QPushButton(FinalyWindow);
         pushButtonOk->setObjectName(QStringLiteral("pushButtonOk"));
         pushButtonOk->setMinimumSize(QSize(131, 41));
+        QFont font1;
+        font1.setFamily(QStringLiteral("Palatino Linotype"));
+        font1.setPointSize(10);
+        font1.setBold(true);
+        font1.setWeight(75);
+        pushButtonOk->setFont(font1);
+        pushButtonOk->setStyleSheet(QLatin1String("QPushButton{\n"
+"background-color: #b31e2c;\n"
+"border-style: outset;\n"
+"border-radius: 10px;	\n"
+"}\n"
+"QPushButton::pressed{\n"
+"background-color: #376bbf\n"
+"}\n"
+""));
 
         horizontalLayout->addWidget(pushButtonOk);
 
@@ -129,9 +145,9 @@ public:
         QTableWidgetItem *___qtablewidgetitem5 = tableWidget->horizontalHeaderItem(5);
         ___qtablewidgetitem5->setText(QApplication::translate("FinalyWindow", "\320\234\320\265\321\201\321\202\320\276", 0));
         QTableWidgetItem *___qtablewidgetitem6 = tableWidget->horizontalHeaderItem(6);
-        ___qtablewidgetitem6->setText(QApplication::translate("FinalyWindow", "\320\246\320\265\320\275\320\260", 0));
+        ___qtablewidgetitem6->setText(QApplication::translate("FinalyWindow", "\320\246\320\265\320\275\320\260, \320\263\321\200\320\275", 0));
         labelCost->setText(QApplication::translate("FinalyWindow", "\320\232 \320\276\320\277\320\273\320\260\321\202\320\265: 0", 0));
-        pushButtonOk->setText(QApplication::translate("FinalyWindow", "\320\237\320\276\320\264\321\202\320\262\320\265\321\200\320\264\320\270\321\202\321\214", 0));
+        pushButtonOk->setText(QApplication::translate("FinalyWindow", "\320\232\321\203\320\277\320\270\321\202\321\214", 0));
     } // retranslateUi
 
 };

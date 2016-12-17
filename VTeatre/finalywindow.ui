@@ -17,6 +17,9 @@
    <iconset resource="Resurs1.qrc">
     <normaloff>:/image/theater.ico</normaloff>:/image/theater.ico</iconset>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: #dde2e3;</string>
+  </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
     <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -60,7 +63,7 @@
        </column>
        <column>
         <property name="text">
-         <string>Цена</string>
+         <string>Цена, грн</string>
         </property>
        </column>
       </widget>
@@ -112,8 +115,27 @@
              <height>41</height>
             </size>
            </property>
+           <property name="font">
+            <font>
+             <family>Palatino Linotype</family>
+             <pointsize>10</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton{
+background-color: #b31e2c;
+border-style: outset;
+border-radius: 10px;	
+}
+QPushButton::pressed{
+background-color: #376bbf
+}
+</string>
+           </property>
            <property name="text">
-            <string>Подтвердить</string>
+            <string>Купить</string>
            </property>
           </widget>
          </item>

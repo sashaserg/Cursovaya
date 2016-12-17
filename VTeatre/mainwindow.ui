@@ -555,7 +555,7 @@ background-color: #376bbf
 </string>
               </property>
               <property name="text">
-               <string>Оплатить</string>
+               <string>Купить</string>
               </property>
              </widget>
             </item>

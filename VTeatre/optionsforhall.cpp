@@ -143,7 +143,7 @@ void OptionsForHall::on_ComboBoxType_currentIndexChanged(int index)
 void OptionsForHall::on_pushButtonOK_clicked()          //при нажатии на "ОК" изменяю БД
 {
     QString path = qApp->applicationDirPath() + "./Data.json";
-    QString jsonFileName = path;
+    QString jsonFileName = "./Data.json";
     if(jsonFileName != NULL)
     {
             QFile jsonFile(jsonFileName);
@@ -173,4 +173,9 @@ void OptionsForHall::on_pushButtonOK_clicked()          //при нажатии 
                 msgBox.exec();
             }
     }
+}
+
+void OptionsForHall::on_pushButtonCancel_clicked()
+{
+
 }

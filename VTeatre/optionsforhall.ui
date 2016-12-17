@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>633</width>
-    <height>529</height>
+    <height>530</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -175,19 +175,6 @@ border-style: outset;
            </property>
           </widget>
          </item>
-         <item>
-          <widget class="QPushButton" name="pushButtonCancel">
-           <property name="minimumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Отмена</string>
-           </property>
-          </widget>
-         </item>
         </layout>
        </item>
       </layout>
@@ -201,8 +188,7 @@ border-style: outset;
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">
-					</string>
+        <string notr="true"/>
        </property>
        <property name="verticalScrollBarPolicy">
         <enum>Qt::ScrollBarAlwaysOff</enum>
@@ -226,7 +212,7 @@ border-style: outset;
         <number>61</number>
        </attribute>
        <attribute name="verticalHeaderVisible">
-        <bool>true</bool>
+        <bool>false</bool>
        </attribute>
        <attribute name="verticalHeaderCascadingSectionResizes">
         <bool>false</bool>

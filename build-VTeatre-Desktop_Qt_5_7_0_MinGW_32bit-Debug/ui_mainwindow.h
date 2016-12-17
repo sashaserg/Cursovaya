@@ -505,7 +505,7 @@ public:
         pushButtonCode->setText(QApplication::translate("MainWindow", "\320\235\320\260\320\271\321\202\320\270", 0));
         pushButton_2->setText(QApplication::translate("MainWindow", "\320\221\321\200\320\276\320\275\321\214", 0));
         pushButton_3->setText(QApplication::translate("MainWindow", "\320\222\320\265\321\200\320\275\321\203\321\202\321\214", 0));
-        pushButton->setText(QApplication::translate("MainWindow", "\320\236\320\277\320\273\320\260\321\202\320\270\321\202\321\214", 0));
+        pushButton->setText(QApplication::translate("MainWindow", "\320\232\321\203\320\277\320\270\321\202\321\214", 0));
         QTableWidgetItem *___qtablewidgetitem8 = tableSeans->horizontalHeaderItem(0);
         ___qtablewidgetitem8->setText(QApplication::translate("MainWindow", "\320\241\320\265\320\260\320\275\321\201", 0));
         QTableWidgetItem *___qtablewidgetitem9 = tableSeans->horizontalHeaderItem(1);

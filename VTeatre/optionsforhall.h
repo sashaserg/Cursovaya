@@ -34,6 +34,8 @@ private slots:
 
     void on_pushButtonOK_clicked();
 
+    void on_pushButtonCancel_clicked();
+
 private:
     void parseJSON(QJsonDocument& jsonDoc);
     Ui::OptionsForHall *ui;

@@ -13,30 +13,24 @@ OptionsForHall::OptionsForHall(QWidget *parent) :
 
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers); //запрет редактирования всех ячеек в таблице tableWidget
     QString path = qApp->applicationDirPath() + "/Data.json";
-    QString jsonFileName = "./Data.json";                    // у меня не отрывает файл.
+    QString jsonFileName = "./Data.json";
 
-    if(jsonFileName != NULL)
-    {
-        QString jsonText;
-        QFile jsonFile(jsonFileName);
+    QString jsonText;
+    QFile jsonFile(jsonFileName);
 
-        if(jsonFile.open(QIODevice::ReadOnly | QIODevice::Text))
-        {
+    try{
+        if(jsonFile.open(QIODevice::ReadOnly | QIODevice::Text)){
             jsonText = jsonFile.readAll();
             QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonText.toUtf8());
             parseJSON(jsonDoc);
             jsonFile.close();
         }
-        else
-        {
-
-            QMessageBox::critical(this, "Ошибка", "Error opening JSON file.");
-           /* QMessageBox msgBox;
-            msgBox.setWindowTitle("Error");
-            msgBox.setText("Error opening JSON file.");
-            msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
-            msgBox.exec();*/
+        else{
+            throw "Error opening JSON file.";
         }
+    }
+    catch(const char*msg){
+        QMessageBox::critical(this, "Ошибка", msg);
     }
 }
 

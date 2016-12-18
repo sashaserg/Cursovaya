@@ -29,11 +29,13 @@ OptionsForHall::OptionsForHall(QWidget *parent) :
         }
         else
         {
-            QMessageBox msgBox;
+
+            QMessageBox::critical(this, "Ошибка", "Error opening JSON file.");
+           /* QMessageBox msgBox;
             msgBox.setWindowTitle("Error");
             msgBox.setText("Error opening JSON file.");
             msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
-            msgBox.exec();
+            msgBox.exec();*/
         }
     }
 }

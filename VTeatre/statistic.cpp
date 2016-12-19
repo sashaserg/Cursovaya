@@ -159,7 +159,7 @@ void Statistic::CreateGraphMon(DataforStatistic *data, int CountDays){
     QVector<double> ticks;
 
     qDebug()<<"qweqweqweqweqweqweqweqwe";
-    for(int i = 0; i < MaxValueY + 10; i += 100){
+    for(int i = 0; i < MaxValueY + 10; i += MaxValueY/10){
         ticks.push_back(i);
         qDebug()<<i;
     }

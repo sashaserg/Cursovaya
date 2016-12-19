@@ -19,7 +19,8 @@ OptionsForHall::OptionsForHall(QWidget *parent) :
     QFile jsonFile(jsonFileName);
 
     try{
-        if(jsonFile.open(QIODevice::ReadOnly | QIODevice::Text)){
+        if(jsonFile.open(QIODevice::ReadOnly | QIODevice::Text))
+        {
             jsonText = jsonFile.readAll();
             QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonText.toUtf8());
             parseJSON(jsonDoc);

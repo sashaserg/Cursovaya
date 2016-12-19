@@ -24,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     dt = QDateTime::currentDateTime();                      //устанавливаю необходимую дату
     ui->dateEdit->setDateTime(dt);
-    //ui->dateEdit->setMinimumDateTime(dt); // минимальная дата выставляется по текущей дате
+    ui->dateEdit->setMinimumDateTime(dt); // минимальная дата выставляется по текущей дате
 
     ui->tableSeans->setEditTriggers(QAbstractItemView::NoEditTriggers); //запрет редактирования всех ячеек в таблице tableSeans
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers); //запрет редактирования всех ячеек в таблице tableWidget
@@ -277,9 +277,14 @@ void MainWindow::on_pushButton_clicked() // купить
             for(int i = 0; i < SelectedPlacesRow.size(); i++){  //И обновляю объект текущей сцены
                 CurScene->TablesPlaces[temp][SelectedPlacesRow[i]][SelectedPlacesCol[i]] = 1;
             }
-            QSqlQuery qry0("select count_place from DataforStatistic where date='" + ui->dateEdit->text()+ "' and type_place='" +ui->comboBox->currentText()+ "'"); //Обновляю БД
-            qry0.first();
-            QSqlQuery qry("update DataforStatistic set count_place="+ QString::number(SelectedPlacesRow.size() + qry0.value("count_place").toInt()) +" where date='" +ui->dateEdit->text()+ "' and type_place='" +ui->comboBox->currentText()+ "'");
+            QSqlQuery qry1("select count_place from DataforStatistic where date='" + ui->dateEdit->text()+ "' and type_place='" +ui->comboBox->currentText()+ "'"); //Обновляю БД
+            qry1.first();
+            QSqlQuery qry2("update DataforStatistic set count_place="+ QString::number(SelectedPlacesRow.size() + qry1.value("count_place").toInt()) +" where date='" +ui->dateEdit->text()+ "' and type_place='" +ui->comboBox->currentText()+ "'");
+
+            QSqlQuery qry3("select count_income from DataforStatistic where date='" + ui->dateEdit->text()+ "' and type_place='" +ui->comboBox->currentText()+ "'"); //Обновляю БД
+            qry3.first();
+            QSqlQuery qry4("update DataforStatistic set count_income="+ QString::number(qry3.value("count_income").toInt() + (SelectedPlacesRow.size() * CurScene->Cost[ui->comboBox->currentIndex()])) +" where date='" +ui->dateEdit->text()+ "' and type_place='" +ui->comboBox->currentText()+ "'");
+
             CurScene->InsertTablesToDataBase(SelectedPlacesRow, SelectedPlacesCol, ui->comboBox->currentIndex(), 1);
             customizeTableInf();
         }
@@ -336,9 +341,15 @@ void MainWindow::on_action_statistic_sale_triggered() // окно статист
 void MainWindow::on_pushButton_3_clicked()//вернуть
 {
     int temp = ui->comboBox->currentIndex();
-    QSqlQuery qry0("select count_place from DataforStatistic where date='" + ui->dateEdit->text()+ "' and type_place='" +ui->comboBox->currentText()+ "'"); //Обновляю БД
-    qry0.first();
-    QSqlQuery qry("update DataforStatistic set count_place="+ QString::number(qry0.value("count_place").toInt() - SelectedPlacesRow.size()) +" where date='" +ui->dateEdit->text()+ "' and type_place='" +ui->comboBox->currentText()+ "'");
+
+    QSqlQuery qry1("select count_place from DataforStatistic where date='" + ui->dateEdit->text()+ "' and type_place='" +ui->comboBox->currentText()+ "'"); //Обновляю БД
+    qry1.first();
+    QSqlQuery qry2("update DataforStatistic set count_place="+ QString::number(qry1.value("count_place").toInt() - SelectedPlacesRow.size()) +" where date='" +ui->dateEdit->text()+ "' and type_place='" +ui->comboBox->currentText()+ "'");
+
+    QSqlQuery qry3("select count_income from DataforStatistic where date='" + ui->dateEdit->text()+ "' and type_place='" +ui->comboBox->currentText()+ "'"); //Обновляю БД
+    qry3.first();
+    QSqlQuery qry4("update DataforStatistic set count_income="+ QString::number(qry3.value("count_income").toInt() - (SelectedPlacesRow.size() * CurScene->Cost[ui->comboBox->currentIndex()])) +" where date='" +ui->dateEdit->text()+ "' and type_place='" +ui->comboBox->currentText()+ "'");
+
     for(int i = 0; i < SelectedPlacesRow.size(); i++){
         if(CurScene->TablesPlaces[temp][SelectedPlacesRow[i]][SelectedPlacesCol[i]] == 0){  //проверяю на то, занято ли место
             SelectedPlacesRow.erase(SelectedPlacesRow.begin() + i);                         //если да, то удаляю его из вектора

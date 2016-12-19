@@ -36,7 +36,6 @@ public:
     QLabel *label;
     QPushButton *pushButton;
     QPushButton *pushButton_2;
-    QPushButton *pushButton_3;
     QSpacerItem *verticalSpacer;
     QGroupBox *groupBox;
     QCustomPlot *widget;
@@ -74,12 +73,6 @@ public:
         pushButton_2->setMinimumSize(QSize(201, 31));
 
         verticalLayout->addWidget(pushButton_2);
-
-        pushButton_3 = new QPushButton(Statistic);
-        pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
-        pushButton_3->setMinimumSize(QSize(201, 31));
-
-        verticalLayout->addWidget(pushButton_3);
 
 
         verticalLayout_2->addLayout(verticalLayout);
@@ -120,9 +113,8 @@ public:
     {
         Statistic->setWindowTitle(QApplication::translate("Statistic", "\320\241\321\202\320\260\321\202\320\270\321\201\321\202\320\270\320\272\320\260", 0));
         label->setText(QApplication::translate("Statistic", "\320\241\321\202\320\260\321\202\320\270\321\201\321\202\320\270\320\272\320\260:", 0));
-        pushButton->setText(QApplication::translate("Statistic", "\320\227\320\260 \320\275\320\265\320\264\320\265\320\273\321\216", 0));
-        pushButton_2->setText(QApplication::translate("Statistic", "\320\227\320\260 \320\274\320\265\321\201\321\217\321\206", 0));
-        pushButton_3->setText(QApplication::translate("Statistic", "\320\227\320\260 \320\262\321\201\321\221 \320\262\321\200\320\265\320\274\321\217", 0));
+        pushButton->setText(QApplication::translate("Statistic", "\320\221\320\270\320\273\320\265\321\202\321\213", 0));
+        pushButton_2->setText(QApplication::translate("Statistic", "\320\222\321\213\321\200\321\203\321\207\320\272\320\260", 0));
         groupBox->setTitle(QApplication::translate("Statistic", "\320\223\321\200\320\260\321\204\320\270\320\272", 0));
     } // retranslateUi
 

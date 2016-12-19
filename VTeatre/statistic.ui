@@ -46,7 +46,7 @@
             </size>
            </property>
            <property name="text">
-            <string>За неделю</string>
+            <string>Билеты</string>
            </property>
           </widget>
          </item>
@@ -59,20 +59,7 @@
             </size>
            </property>
            <property name="text">
-            <string>За месяц</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_3">
-           <property name="minimumSize">
-            <size>
-             <width>201</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>За всё время</string>
+            <string>Выручка</string>
            </property>
           </widget>
          </item>

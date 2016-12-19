@@ -23,7 +23,8 @@ private slots:
 
 private:
     Ui::Statistic *ui;
-    void CreateGraph(DataforStatistic *data, int CountDays);
+    void CreateGraphPlaces(DataforStatistic *data, int CountDays);
+    void CreateGraphMon(DataforStatistic *data, int CountDays);
 };
 
 #endif // STATISTIC_H

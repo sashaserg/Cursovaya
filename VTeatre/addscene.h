@@ -3,7 +3,6 @@
 
 #include <QDialog>
 #include <QtSql>
-#include <QList>
 #include <scene.h>
 namespace Ui {
 class AddScene;

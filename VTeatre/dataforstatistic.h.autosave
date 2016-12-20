@@ -1,0 +1,16 @@
+﻿#ifndef DATAFORSTATISTIC_H
+#define DATAFORSTATISTIC_H
+#include <QDate>
+#include <QtSql>
+#include <vector>
+
+class DataforStatistic
+{
+    int CountDays;
+public:
+    DataforStatistic(int Days);
+    void InsertData();
+    QString ***DataOfPlaces;
+};
+
+#endif // DATAFORSTATISTIC_H

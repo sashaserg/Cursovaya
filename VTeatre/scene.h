@@ -7,7 +7,11 @@
 
 class Scene
 {
-
+    int CountOfTypesPlaces;
+    QString name,
+            date,
+            time;
+    std::vector<double>Cost;
 
 public:
     Scene();
@@ -22,22 +26,14 @@ public:
     void DeleteTables();
     void InsertTablesToDataBase(std::vector<short> SelectedPlacesRow, std::vector<short> SelectedPlacesCol, int Index, int operation, QString Code = ""); // Обновляем базу данных
 
-    int get_name();
-    int get_date();
-    int get_time();
-    double get_cost();
+    QString get_name();
+    QString get_date();
+    QString get_time();
+    std::vector<double>get_Cost();
 
     int ArrayCountPlaces[3][2]; // Хранит количество мест для каждого типа зала
     int ***TablesPlaces;
-    int CountOfTypesPlaces;
-    QString name,
-            date,
-            time;
-    double  cost_parter,
-            cost_benuar,
-            cost_beletaj;
     QString nameofplace[3];
-    std::vector<double>Cost;
 };
 
 #endif // SCENE_H

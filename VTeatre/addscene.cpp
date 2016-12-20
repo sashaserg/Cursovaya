@@ -18,17 +18,17 @@ AddScene::AddScene(bool Edit,Scene *temp, QWidget *parent) :
     ui(new Ui::AddScene)
 {
     ui->setupUi(this);
-
+std::vector<double>TempCost = temp->get_Cost();
     Editing = Edit;                                         //Флаг редактирования
-    PriviosName= temp->name;                                //Предыдущее имя
-    PriviosDate = temp->date;                               //Предыдущая дата
-    PriviosTime = temp->time;                               //Предыдущее время
-    ui->NameLineEdit->setText(temp->name);                  //Устанавливаем необходимое название постановки в поле
-    ui->timeEdit->setTime(QTime::fromString(temp->time));   //а так же дату и время и цены
-    ui->dateEdit->setDate(QDate::fromString(temp->date, "dd.MM.yyyy"));
-    ui->ParterPrice->setValue(temp->Cost[0]);
-    ui->BenuarPrice->setValue(temp->Cost[1]);
-    ui->BeletazPrice->setValue(temp->Cost[2]);
+    PriviosName= temp->get_name();                                //Предыдущее имя
+    PriviosDate = temp->get_date();                               //Предыдущая дата
+    PriviosTime = temp->get_time();                               //Предыдущее время
+    ui->NameLineEdit->setText(temp->get_name());                  //Устанавливаем необходимое название постановки в поле
+    ui->timeEdit->setTime(QTime::fromString(temp->get_time()));   //а так же дату и время и цены
+    ui->dateEdit->setDate(QDate::fromString(temp->get_date(), "dd.MM.yyyy"));
+    ui->ParterPrice->setValue(TempCost[0]);
+    ui->BenuarPrice->setValue(TempCost[1]);
+    ui->BeletazPrice->setValue(TempCost[2]);
     ui->ButtonAdd->setText("Редактировать");
 }
 AddScene::~AddScene()

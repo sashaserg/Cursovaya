@@ -283,7 +283,9 @@ void MainWindow::on_pushButton_clicked() // купить
 
             QSqlQuery qry3("select count_income from DataforStatistic where date='" + ui->dateEdit->text()+ "' and type_place='" +ui->comboBox->currentText()+ "'"); //Обновляю БД
             qry3.first();
-            QSqlQuery qry4("update DataforStatistic set count_income="+ QString::number(qry3.value("count_income").toInt() + (SelectedPlacesRow.size() * CurScene->Cost[ui->comboBox->currentIndex()])) +" where date='" +ui->dateEdit->text()+ "' and type_place='" +ui->comboBox->currentText()+ "'");
+            //QSqlQuery qry4("update DataforStatistic set count_income="+ QString::number(qry3.value("count_income").toInt() + (SelectedPlacesRow.size() * CurScene->Cost[ui->comboBox->currentIndex()])) +" where date='" +ui->dateEdit->text()+ "' and type_place='" +ui->comboBox->currentText()+ "'");
+            std::vector<double>TempCost = CurScene->get_Cost();
+            QSqlQuery qry4("update DataforStatistic set count_income="+ QString::number(qry3.value("count_income").toInt() + (SelectedPlacesRow.size() * TempCost[ui->comboBox->currentIndex()])) +" where date='" +ui->dateEdit->text()+ "' and type_place='" +ui->comboBox->currentText()+ "'");
 
             CurScene->InsertTablesToDataBase(SelectedPlacesRow, SelectedPlacesCol, ui->comboBox->currentIndex(), 1);
             customizeTableInf();
@@ -342,13 +344,16 @@ void MainWindow::on_pushButton_3_clicked()//вернуть
 {
     int temp = ui->comboBox->currentIndex();
 
+    std::vector<double>TempCost = CurScene->get_Cost();
     QSqlQuery qry1("select count_place from DataforStatistic where date='" + ui->dateEdit->text()+ "' and type_place='" +ui->comboBox->currentText()+ "'"); //Обновляю БД
     qry1.first();
     QSqlQuery qry2("update DataforStatistic set count_place="+ QString::number(qry1.value("count_place").toInt() - SelectedPlacesRow.size()) +" where date='" +ui->dateEdit->text()+ "' and type_place='" +ui->comboBox->currentText()+ "'");
 
     QSqlQuery qry3("select count_income from DataforStatistic where date='" + ui->dateEdit->text()+ "' and type_place='" +ui->comboBox->currentText()+ "'"); //Обновляю БД
     qry3.first();
-    QSqlQuery qry4("update DataforStatistic set count_income="+ QString::number(qry3.value("count_income").toInt() - (SelectedPlacesRow.size() * CurScene->Cost[ui->comboBox->currentIndex()])) +" where date='" +ui->dateEdit->text()+ "' and type_place='" +ui->comboBox->currentText()+ "'");
+
+    //QSqlQuery qry4("update DataforStatistic set count_income="+ QString::number(qry3.value("count_income").toInt() - (SelectedPlacesRow.size() * CurScene->Cost[ui->comboBox->currentIndex()])) +" where date='" +ui->dateEdit->text()+ "' and type_place='" +ui->comboBox->currentText()+ "'");
+    QSqlQuery qry4("update DataforStatistic set count_income="+ QString::number(qry3.value("count_income").toInt() - (SelectedPlacesRow.size() * TempCost[ui->comboBox->currentIndex()])) +" where date='" +ui->dateEdit->text()+ "' and type_place='" +ui->comboBox->currentText()+ "'");
 
     for(int i = 0; i < SelectedPlacesRow.size(); i++){
         if(CurScene->TablesPlaces[temp][SelectedPlacesRow[i]][SelectedPlacesCol[i]] == 0){  //проверяю на то, занято ли место
@@ -537,7 +542,7 @@ void MainWindow::slotDelRecord(){   //Удалить постановку
 
     QSqlQuery qry1("delete from Postanovka where name='" + ui->tableSeans->item(row, 1)->text() + "' and time_seansa='" + ui->tableSeans->item(row, 0)->text() + "' and date_seansa='" + ui->dateEdit->text() + "'");
     QSqlQuery qry2("delete from Employed_place where name_seansa='" + ui->tableSeans->item(row, 1)->text() + "' and time_seansa='" + ui->tableSeans->item(row, 0)->text() + "' and date_seansa='" + ui->dateEdit->text() + "'");
-    if(ui->tableSeans->item(row, 1)->text() == CurScene->name && ui->tableSeans->item(row, 0)->text() == CurScene->time && ui->dateEdit->text() == CurScene->date){
+    if(ui->tableSeans->item(row, 1)->text() == CurScene->get_name() && ui->tableSeans->item(row, 0)->text() == CurScene->get_time() && ui->dateEdit->text() == CurScene->get_date()){
         delete CurScene;                        //если удалил ту постановку, тоторая сейчас открыта
         CurScene = new Scene();
 
@@ -565,7 +570,7 @@ void MainWindow::slotDelRecord(){   //Удалить постановку
 void MainWindow::DeleteBooked(std::vector <short> PurRow, std::vector<short>PurCol) //удаляю забронированные места
 {
     for(int i = 0; i < PurRow.size(); i++){
-        QSqlQuery qry("delete from Employed_place where type_place = '" + QString::number(ui->comboBox->currentIndex()) +"' and date_seansa = '" + CurScene->date + "' and time_seansa='" + CurScene->time + "' and name_seansa='" + CurScene->name + "' and row=" + QString::number(PurRow[i]) + " and column=" + QString::number(PurCol[i]));
+        QSqlQuery qry("delete from Employed_place where type_place = '" + QString::number(ui->comboBox->currentIndex()) +"' and date_seansa = '" + CurScene->get_date() + "' and time_seansa='" + CurScene->get_time() + "' and name_seansa='" + CurScene->get_name() + "' and row=" + QString::number(PurRow[i]) + " and column=" + QString::number(PurCol[i]));
     }
 }
 
@@ -590,7 +595,7 @@ void MainWindow::on_pushButtonCode_clicked()    //Поиск мест по вв�
     SelectedPlacesRow.clear();                  //очищаю вектор с выбранными местами
     SelectedPlacesCol.clear();
 
-    QSqlQuery qry("select * from Employed_place where code='" + ui->lineEditCode->text() + "' and name_seansa='" + CurScene->name + "' and date_seansa='" + CurScene->date + "' and time_seansa='" + CurScene->time + "' and type_place='" + ui->comboBox->currentText() + "'");
+    QSqlQuery qry("select * from Employed_place where code='" + ui->lineEditCode->text() + "' and name_seansa='" + CurScene->get_name() + "' and date_seansa='" + CurScene->get_date() + "' and time_seansa='" + CurScene->get_time() + "' and type_place='" + ui->comboBox->currentText() + "'");
     bool Enabled = true;
     while(qry.next()){  //поиск в БД необходимых мест
         coordinates_of_places[qry.value(5).toInt()][qry.value(6).toInt()] = true;

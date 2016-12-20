@@ -27,14 +27,17 @@ void FinalyWindow::CreateTable(std::vector <short> SelectedPlacesRow, std::vecto
     }
 
     for(int i = 0; i < SelectedPlacesRow.size(); i++){              //Заполняю таблицу данными
-        ui->tableWidget->item(i, 0)->setText(CurScene->name);
+        std::vector<double> Temp = CurScene->get_Cost();
+        ui->tableWidget->item(i, 0)->setText(CurScene->get_name());
         ui->tableWidget->item(i, 1)->setText(CurHoll);
-        ui->tableWidget->item(i, 2)->setText(CurScene->date);
-        ui->tableWidget->item(i, 3)->setText(CurScene->time);
+        ui->tableWidget->item(i, 2)->setText(CurScene->get_date());
+        ui->tableWidget->item(i, 3)->setText(CurScene->get_time());
         ui->tableWidget->item(i, 4)->setText(QString::number(SelectedPlacesRow[i] + 1));
         ui->tableWidget->item(i, 5)->setText(QString::number(SelectedPlacesCol[i] + 1));
-        ui->tableWidget->item(i, 6)->setText(QString::number(CurScene->Cost[CurIndex]));
-        Cost += CurScene->Cost[CurIndex];
+        //ui->tableWidget->item(i, 6)->setText(QString::number(CurScene->Cost[CurIndex]));
+        ui->tableWidget->item(i, 6)->setText(QString::number(Temp[CurIndex]));
+        //Cost += CurScene->Cost[CurIndex];
+        Cost +=Temp[CurIndex];
     }
 }
 

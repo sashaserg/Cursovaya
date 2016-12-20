@@ -3,7 +3,6 @@
 Scene::Scene()
 {
     name = date = time = "";
-    cost_parter = cost_benuar = cost_beletaj = 0;
     CountOfTypesPlaces = 3;
     nameofplace[0] = "Партер";
     nameofplace[1] = "Бенуар";
@@ -99,4 +98,20 @@ void Scene::InsertTablesToDataBase(std::vector<short> SelectedPlacesRow, std::ve
             QSqlQuery qry("insert into Employed_place (code, type_place, date_seansa, time_seansa, name_seansa, row, column, state) values ('" + Code + "', '" + nameofplace[Index] + "', '" + date + "', '" + time + "', '" + name + "', " + QString::number(row) + ", " + QString::number(column) + ", 'Забронировано')");
         }
     }
+}
+
+QString Scene::get_name(){
+    return name;
+}
+
+QString Scene::get_time(){
+    return time;
+}
+
+QString Scene::get_date(){
+    return date;
+}
+
+std::vector<double> Scene::get_Cost(){
+    return Cost;
 }
